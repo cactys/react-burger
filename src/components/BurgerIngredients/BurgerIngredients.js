@@ -26,7 +26,7 @@ export const BurgerIngredients = () => {
           Начинки
         </Tab>
       </nav>
-      <dl className={`${burgerIngredientsStyle.burgerIngredients} mt-10`}>
+      <ol className={`${burgerIngredientsStyle.burgerIngredients} mt-10`}>
         <IngredientsGroup
           data={bun}
           title={'Булки'}
@@ -39,7 +39,7 @@ export const BurgerIngredients = () => {
           data={main}
           title={'Начинка'}
         />
-      </dl>
+      </ol>
     </section>
   );
 };

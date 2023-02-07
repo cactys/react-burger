@@ -5,15 +5,15 @@ import ingredientsGroupStyle from './IngredientsGroup.module.css';
 export const IngredientsGroup = ({ data, title }) => {
   console.log(data);
   return (
-    <>
+    <li>
       <h2 className='text text_type_main-medium mb-6'>{title}</h2>
-      <dt className={`${ingredientsGroupStyle.container} mb-10`}>
+      <ol className={`${ingredientsGroupStyle.container} mb-10`}>
         {data.map((ingredient) => (
-          <dd className={ingredientsGroupStyle.card}>
+          <li className={ingredientsGroupStyle.card}>
             <IngredientCard key={ingredient._id} property={ingredient} />
-          </dd>
+          </li>
         ))}
-      </dt>
-    </>
+      </ol>
+    </li>
   );
 };
