@@ -15,6 +15,9 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #8585ad #2f2f37;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .burgerIngredients::-webkit-scrollbar {

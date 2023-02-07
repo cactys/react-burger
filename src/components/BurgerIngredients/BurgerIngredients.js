@@ -1,11 +1,15 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
-import { data } from '../../utils/data'
+import { data } from '../../utils/data';
 import { IngredientsGroup } from '../IngredientsGroup/IngredientsGroup';
 
 export const BurgerIngredients = () => {
   const [current, setCurrent] = useState('one');
+
+  const bun = data.filter((i) => i.type === 'bun');
+  const sauce = data.filter((i) => i.type === 'sauce');
+  const main = data.filter((i) => i.type === 'main');
 
   // console.log(...data.filter(i => i.type === 'bun'));
   return (
@@ -22,11 +26,20 @@ export const BurgerIngredients = () => {
           Начинки
         </Tab>
       </nav>
-      <div className={`${burgerIngredientsStyle.burgerIngredients} mt-10`}>
-        <IngredientsGroup data={{...data.filter(i => i.type === 'bun')}} title={'Булки'} />
-        <IngredientsGroup data={{...data.filter(i => i.type === 'sauce')}} title={'Соусы'} />
-        <IngredientsGroup data={{...data.filter(i => i.type === 'main')}} title={'Начинка'} />
-      </div>
+      <dl className={`${burgerIngredientsStyle.burgerIngredients} mt-10`}>
+        <IngredientsGroup
+          data={bun}
+          title={'Булки'}
+        />
+        <IngredientsGroup
+          data={sauce}
+          title={'Соусы'}
+        />
+        <IngredientsGroup
+          data={main}
+          title={'Начинка'}
+        />
+      </dl>
     </section>
   );
 };
