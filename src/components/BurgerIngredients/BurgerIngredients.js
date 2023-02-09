@@ -5,7 +5,7 @@ import { data } from '../../utils/data';
 import { IngredientsGroup } from '../IngredientsGroup/IngredientsGroup';
 
 export const BurgerIngredients = () => {
-  const [current, setCurrent] = useState('one');
+  const [current, setCurrent] = useState('bun');
 
   const bun = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
@@ -16,17 +16,17 @@ export const BurgerIngredients = () => {
     <section className={burgerIngredientsStyle.container}>
       <h1 className='text text_type_main-large pt-10 pb-5'>Соберите бургер</h1>
       <nav className={burgerIngredientsStyle.navigation}>
-        <Tab value='one' active={current === 'one'} onClick={setCurrent}>
+        <Tab value='bun' active={current === 'bun'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value='two' active={current === 'two'} onClick={setCurrent}>
+        <Tab value='sauce' active={current === 'sauce'} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value='three' active={current === 'three'} onClick={setCurrent}>
+        <Tab value='main' active={current === 'main'} onClick={setCurrent}>
           Начинки
         </Tab>
       </nav>
-      <ol className={`${burgerIngredientsStyle.burgerIngredients} mt-10`}>
+      <ol className={`${burgerIngredientsStyle.ingredients} mt-10`}>
         <IngredientsGroup
           data={bun}
           title={'Булки'}

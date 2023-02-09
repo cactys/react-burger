@@ -10,7 +10,7 @@
   display: flex;
 }
 
-.burgerIngredients {
+.ingredients {
   height: 68vh;
   overflow-y: scroll;
   scrollbar-width: thin;
@@ -20,15 +20,15 @@
   padding: 0;
 }
 
-.burgerIngredients::-webkit-scrollbar {
+.ingredients::-webkit-scrollbar {
   width: 8px;
 }
 
-.burgerIngredients::-webkit-scrollbar-track {
+.ingredients::-webkit-scrollbar-track {
   background: #2F2F37;
 }
 
-.burgerIngredients::-webkit-scrollbar-thumb {
+.ingredients::-webkit-scrollbar-thumb {
   background-color: #8585AD;
   border: 3px solid #8585AD;
 }

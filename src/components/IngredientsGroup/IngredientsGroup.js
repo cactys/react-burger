@@ -3,14 +3,14 @@ import { IngredientCard } from '../IngredientCard/IngredientCard';
 import ingredientsGroupStyle from './IngredientsGroup.module.css';
 
 export const IngredientsGroup = ({ data, title }) => {
-  console.log(data);
+  // console.log(data);
   return (
-    <li>
+    <li className={`${ingredientsGroupStyle.container}  mb-10`}>
       <h2 className='text text_type_main-medium mb-6'>{title}</h2>
-      <ol className={`${ingredientsGroupStyle.container} mb-10`}>
+      <ol className={ingredientsGroupStyle.ingredientsType}>
         {data.map((ingredient) => (
-          <li className={ingredientsGroupStyle.card}>
-            <IngredientCard key={ingredient._id} property={ingredient} />
+          <li className={ingredientsGroupStyle.card} key={ingredient._id}>
+            <IngredientCard property={ingredient} />
           </li>
         ))}
       </ol>
