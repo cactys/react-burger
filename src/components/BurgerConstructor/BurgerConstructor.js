@@ -88,7 +88,9 @@ const BurgerConstructor = () => {
       <div className={burgerConstructorStyle.containerOrder}>
         <div className={burgerConstructorStyle.containerPrice}>
           <span className='mr-2 text text_type_digits-medium'>610</span>
-          <CurrencyIcon type='primary' />
+          <div className={burgerConstructorStyle.icon}>
+            <CurrencyIcon type='primary' />
+          </div>
         </div>
         <Button htmlType='button' type='primary' size='large'>
           Оформить заказ
