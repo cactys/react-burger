@@ -6,9 +6,9 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { data, dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/data';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ data }) => {
   const bun = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
   const main = data.filter((i) => i.type === 'main');
@@ -16,9 +16,9 @@ const BurgerConstructor = () => {
   return (
     <section className={burgerConstructorStyle.container}>
       <div className={burgerConstructorStyle.constructorContainer}>
-        <div className='pl-8'>
+        <div className="pl-8">
           <ConstructorElement
-            type='top'
+            type="top"
             isLocked={true}
             text={`${bun[0].name} (верх)`}
             price={bun[0].price}
@@ -27,7 +27,7 @@ const BurgerConstructor = () => {
         </div>
         <ul className={burgerConstructorStyle.constructorList}>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={sauce[1].name}
               price={sauce[1].price}
@@ -35,7 +35,7 @@ const BurgerConstructor = () => {
             />
           </li>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={main[2].name}
               price={main[2].price}
@@ -43,7 +43,7 @@ const BurgerConstructor = () => {
             />
           </li>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={main[3].name}
               price={main[3].price}
@@ -51,7 +51,7 @@ const BurgerConstructor = () => {
             />
           </li>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={main[4].name}
               price={main[4].price}
@@ -59,7 +59,7 @@ const BurgerConstructor = () => {
             />
           </li>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={main[4].name}
               price={main[4].price}
@@ -67,7 +67,7 @@ const BurgerConstructor = () => {
             />
           </li>
           <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type='primary' />
+            <DragIcon type="primary" />
             <ConstructorElement
               text={main[6].name}
               price={main[6].price}
@@ -75,9 +75,9 @@ const BurgerConstructor = () => {
             />
           </li>
         </ul>
-        <div className='pl-8'>
+        <div className="pl-8">
           <ConstructorElement
-            type='bottom'
+            type="bottom"
             isLocked={true}
             text={`${bun[0].name} (низ)`}
             price={bun[0].price}
@@ -87,12 +87,12 @@ const BurgerConstructor = () => {
       </div>
       <div className={burgerConstructorStyle.containerOrder}>
         <div className={burgerConstructorStyle.containerPrice}>
-          <span className='mr-2 text text_type_digits-medium'>610</span>
+          <span className="mr-2 text text_type_digits-medium">610</span>
           <div className={burgerConstructorStyle.icon}>
-            <CurrencyIcon type='primary' />
+            <CurrencyIcon type="primary" />
           </div>
         </div>
-        <Button htmlType='button' type='primary' size='large'>
+        <Button htmlType="button" type="primary" size="large">
           Оформить заказ
         </Button>
       </div>
@@ -103,7 +103,5 @@ const BurgerConstructor = () => {
 export default BurgerConstructor;
 
 BurgerConstructor.propType = {
-  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
 };
