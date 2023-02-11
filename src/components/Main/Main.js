@@ -1,9 +1,9 @@
 import React from 'react';
-import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
-import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import mainStyle from './Main.module.css';
 
-export const Main = () => {
+const Main = () => {
   return (
     <main className={mainStyle.container}>
       <BurgerIngredients />
@@ -11,3 +11,5 @@ export const Main = () => {
     </main>
   );
 };
+
+export default Main;

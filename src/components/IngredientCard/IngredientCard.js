@@ -2,11 +2,10 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
 import ingredientCardStyle from './IngredientCard.module.css';
+import { dataPropTypes } from '../../utils/data';
 
-export const IngredientCard = ({ property }) => {
-  // console.log(property);
+const IngredientCard = ({ property }) => {
   return (
     <div className={ingredientCardStyle.container}>
       <Counter count={1} size='default' extraClass='m-1' />
@@ -24,4 +23,10 @@ export const IngredientCard = ({ property }) => {
       </p>
     </div>
   );
+};
+
+export default IngredientCard;
+
+IngredientCard.propTypes = {
+  property: dataPropTypes.isRequired,
 };

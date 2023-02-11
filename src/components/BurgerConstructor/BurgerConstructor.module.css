@@ -1,5 +1,66 @@
 .container {
   width: 600px;
   max-width: 100%;
-  border: solid 1px white;
+  min-height: calc(100vh - 88px);
+  box-sizing: border-box;
+  text-align: start;
+  padding: 100px 16px 0;
+}
+
+.constructorContainer,
+.constructorList {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+.constructorList {
+  max-height: 464px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #8585ad #2f2f37;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.constructorList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.constructorList::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.constructorList::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border: 3px solid #8585ad;
+}
+
+.listElement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.listElement {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.containerOrder {
+  margin: 40px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+}
+
+.containerPrice {
+  display: flex;
+  align-items: center;
 }

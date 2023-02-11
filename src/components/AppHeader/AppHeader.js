@@ -1,13 +1,12 @@
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
+  Logo,
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
-import React from 'react';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './AppHeader.module.css';
 
-export const AppHeader = () => {
+const AppHeader = () => {
   return (
     <header className={headerStyle.header}>
       <nav className={headerStyle.container}>
@@ -40,3 +39,5 @@ export const AppHeader = () => {
     </header>
   );
 };
+
+export default AppHeader;

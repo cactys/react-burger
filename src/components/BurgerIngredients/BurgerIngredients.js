@@ -1,10 +1,11 @@
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import { data, dataPropTypes } from '../../utils/data';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
-import { data } from '../../utils/data';
-import { IngredientsGroup } from '../IngredientsGroup/IngredientsGroup';
+import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 
-export const BurgerIngredients = () => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
 
   const bun = data.filter((i) => i.type === 'bun');
@@ -27,19 +28,18 @@ export const BurgerIngredients = () => {
         </Tab>
       </nav>
       <ol className={`${burgerIngredientsStyle.ingredients} mt-10`}>
-        <IngredientsGroup
-          data={bun}
-          title={'Булки'}
-        />
-        <IngredientsGroup
-          data={sauce}
-          title={'Соусы'}
-        />
-        <IngredientsGroup
-          data={main}
-          title={'Начинка'}
-        />
+        <IngredientsGroup data={bun} title={'Булки'} />
+        <IngredientsGroup data={sauce} title={'Соусы'} />
+        <IngredientsGroup data={main} title={'Начинка'} />
       </ol>
     </section>
   );
+};
+
+export default BurgerIngredients;
+
+BurgerIngredients.propType = {
+  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
 };

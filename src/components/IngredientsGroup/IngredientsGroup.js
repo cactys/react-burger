@@ -1,9 +1,9 @@
-import React from 'react';
-import { IngredientCard } from '../IngredientCard/IngredientCard';
+import PropTypes from 'prop-types';
+import IngredientCard from '../IngredientCard/IngredientCard';
 import ingredientsGroupStyle from './IngredientsGroup.module.css';
+import { dataPropTypes } from '../../utils/data';
 
-export const IngredientsGroup = ({ data, title }) => {
-  console.log(data);
+const IngredientsGroup = ({ data, title }) => {
   return (
     <li className={`${ingredientsGroupStyle.container}  mb-10`}>
       <h2 className='text text_type_main-medium mb-6'>{title}</h2>
@@ -16,4 +16,11 @@ export const IngredientsGroup = ({ data, title }) => {
       </ol>
     </li>
   );
+};
+
+export default IngredientsGroup;
+
+IngredientsGroup.propType = {
+  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  title: PropTypes.string.isRequired,
 };

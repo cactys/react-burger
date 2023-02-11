@@ -11,7 +11,7 @@
 }
 
 .ingredients {
-  height: 68vh;
+  max-height: 68vh;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #8585ad #2f2f37;
