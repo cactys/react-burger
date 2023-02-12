@@ -17,10 +17,6 @@ class Api {
       method: 'GET',
     }).then(this._checkingResponse);
   }
-
-  getAllPromise() {
-    return Promise.all([this.getIngredient()]);
-  }
 }
 
 export const api = new Api({

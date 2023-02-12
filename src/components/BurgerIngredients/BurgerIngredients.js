@@ -5,7 +5,7 @@ import { dataPropTypes } from '../../utils/data';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = ({ data, onIngredientClick }) => {
   const [current, setCurrent] = useState('bun');
 
   const bun = data.filter((i) => i.type === 'bun');
@@ -27,9 +27,21 @@ const BurgerIngredients = ({ data }) => {
         </Tab>
       </nav>
       <ol className={`${burgerIngredientsStyle.ingredients} mt-10`}>
-        <IngredientsGroup data={bun} title={'Булки'} />
-        <IngredientsGroup data={sauce} title={'Соусы'} />
-        <IngredientsGroup data={main} title={'Начинка'} />
+        <IngredientsGroup
+          onIngredientClick={onIngredientClick}
+          data={bun}
+          title={'Булки'}
+        />
+        <IngredientsGroup
+          onIngredientClick={onIngredientClick}
+          data={sauce}
+          title={'Соусы'}
+        />
+        <IngredientsGroup
+          onIngredientClick={onIngredientClick}
+          data={main}
+          title={'Начинка'}
+        />
       </ol>
     </section>
   );
@@ -39,4 +51,5 @@ export default BurgerIngredients;
 
 BurgerIngredients.propType = {
   data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  onIngredientClick: PropTypes.func.isRequired,
 };

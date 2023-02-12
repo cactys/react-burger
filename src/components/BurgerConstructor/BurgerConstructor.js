@@ -8,7 +8,7 @@ import {
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 import { dataPropTypes } from '../../utils/data';
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, onOrderButtonClick }) => {
   const bun = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
   const main = data.filter((i) => i.type === 'main');
@@ -92,7 +92,12 @@ const BurgerConstructor = ({ data }) => {
             <CurrencyIcon type="primary" />
           </div>
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={onOrderButtonClick}
+        >
           Оформить заказ
         </Button>
       </div>
@@ -104,4 +109,5 @@ export default BurgerConstructor;
 
 BurgerConstructor.propType = {
   data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  onOrderButtonClick: PropTypes.func.isRequired,
 };
