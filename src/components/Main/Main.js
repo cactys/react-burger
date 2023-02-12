@@ -2,19 +2,14 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import mainStyle from './Main.module.css';
 import PropTypes from 'prop-types';
-import { data, dataPropTypes } from '../../utils/data';
+import { data } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constant';
 
-const Main = ({ ingredients, onIngredientClick, onOrderButtonClick }) => {
+const Main = ({ bun, sauce, main }) => {
   return (
     <main className={mainStyle.container}>
-      <BurgerIngredients
-        data={ingredients}
-        onIngredientClick={onIngredientClick}
-      />
-      <BurgerConstructor
-        data={data}
-        onOrderButtonClick={onOrderButtonClick}
-      />
+      <BurgerIngredients bun={bun} sauce={sauce} main={main} />
+      <BurgerConstructor data={data} />
     </main>
   );
 };
@@ -22,7 +17,7 @@ const Main = ({ ingredients, onIngredientClick, onOrderButtonClick }) => {
 export default Main;
 
 Main.propTypes = {
-  ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
-  onOrderButtonClick: PropTypes.func.isRequired,
+  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
 };

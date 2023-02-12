@@ -3,7 +3,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientCardStyle from './IngredientCard.module.css';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constant';
 import PropType from 'prop-types';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {

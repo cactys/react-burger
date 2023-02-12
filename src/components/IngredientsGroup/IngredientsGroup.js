@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import IngredientCard from '../IngredientCard/IngredientCard';
 import ingredientsGroupStyle from './IngredientsGroup.module.css';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes } from '../../utils/constant';
 
 const IngredientsGroup = ({ data, title, onIngredientClick }) => {
   return (
@@ -23,7 +23,7 @@ const IngredientsGroup = ({ data, title, onIngredientClick }) => {
 
 export default IngredientsGroup;
 
-IngredientsGroup.propType = {
+IngredientsGroup.propTypes = {
   data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
   title: PropTypes.string.isRequired,
   onIngredientClick: PropTypes.func.isRequired,

@@ -1,16 +1,25 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { dataPropTypes } from '../../utils/data';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { MODAL, dataPropTypes } from '../../utils/constant';
 
-const BurgerIngredients = ({ data, onIngredientClick }) => {
+const BurgerIngredients = ({ bun, sauce, main }) => {
   const [current, setCurrent] = useState('bun');
+  const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
+  const [selectIngredient, setSelectIngredient] = useState(null);
 
-  const bun = data.filter((i) => i.type === 'bun');
-  const sauce = data.filter((i) => i.type === 'sauce');
-  const main = data.filter((i) => i.type === 'main');
+  const handleIngredientClick = (selectIngredient) => {
+    setIsIngredientDetailsOpen(true);
+    setSelectIngredient(selectIngredient);
+  };
+
+  const closePopups = () => {
+    setIsIngredientDetailsOpen(false);
+  };
 
   return (
     <section className={burgerIngredientsStyle.container}>
@@ -28,28 +37,39 @@ const BurgerIngredients = ({ data, onIngredientClick }) => {
       </nav>
       <ol className={`${burgerIngredientsStyle.ingredients} mt-10`}>
         <IngredientsGroup
-          onIngredientClick={onIngredientClick}
+          onIngredientClick={handleIngredientClick}
           data={bun}
           title={'Булки'}
         />
         <IngredientsGroup
-          onIngredientClick={onIngredientClick}
+          onIngredientClick={handleIngredientClick}
           data={sauce}
           title={'Соусы'}
         />
         <IngredientsGroup
-          onIngredientClick={onIngredientClick}
+          onIngredientClick={handleIngredientClick}
           data={main}
           title={'Начинка'}
         />
       </ol>
+      <Modal
+        title={MODAL.INGREDIENT_TITLE}
+        isOpen={isIngredientDetailsOpen}
+        closePopup={closePopups}
+      >
+        <IngredientDetails
+          ingredient={selectIngredient}
+          ingredientDetails={MODAL.INGREDIENT_DETAILS}
+        />
+      </Modal>
     </section>
   );
 };
 
 export default BurgerIngredients;
 
-BurgerIngredients.propType = {
-  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
+BurgerIngredients.propTypes = {
+  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
+  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
 };

@@ -6,12 +6,24 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { dataPropTypes } from '../../utils/data';
+import { dataPropTypes, MODAL } from '../../utils/constant';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
-const BurgerConstructor = ({ data, onOrderButtonClick }) => {
+const BurgerConstructor = ({ data }) => {
   const bun = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
   const main = data.filter((i) => i.type === 'main');
+  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
+
+  const handleOrderButtonClick = () => {
+    setIsOrderDetailsOpen(true);
+  };
+
+  const closePopups = () => {
+    setIsOrderDetailsOpen(false);
+  };
 
   return (
     <section className={burgerConstructorStyle.container}>
@@ -96,18 +108,20 @@ const BurgerConstructor = ({ data, onOrderButtonClick }) => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={onOrderButtonClick}
+          onClick={handleOrderButtonClick}
         >
           Оформить заказ
         </Button>
       </div>
+      <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
+        <OrderDetails orderDetails={MODAL.ORDER_DETAILS} />
+      </Modal>
     </section>
   );
 };
 
 export default BurgerConstructor;
 
-BurgerConstructor.propType = {
+BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  onOrderButtonClick: PropTypes.func.isRequired,
 };
