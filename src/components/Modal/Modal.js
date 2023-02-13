@@ -18,9 +18,11 @@ const Modal = ({ title, children, isOpen, closePopup }) => {
   }, [closePopup, isOpen]);
 
   return createPortal(
-    <ModalOverlay isOpen={isOpen} onClose={closePopup}>
+    <>
       <div
-        className={`pt-10 pl-10 pb-15 pr-10 ${modalStyle.modal}`}
+        className={`pt-10 pl-10 pb-15 pr-10 ${modalStyle.modal} ${
+          isOpen && modalStyle.popup_opened
+        }`}
         onClick={(evt) => evt.stopPropagation()}
       >
         <h2 className={`text text_type_main-large ${modalStyle.title}`}>
@@ -31,7 +33,8 @@ const Modal = ({ title, children, isOpen, closePopup }) => {
         </div>
         {children}
       </div>
-    </ModalOverlay>,
+      <ModalOverlay isOpen={isOpen} onClose={closePopup} />
+    </>,
     modalRoot
   );
 };

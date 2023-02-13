@@ -57,5 +57,5 @@ export default IngredientDetails;
 
 IngredientDetails.propTypes = {
   ingredient: dataPropTypes,
-  ingredientDetails: PropTypes.object.isRequired,
+  ingredientDetails: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
 };
