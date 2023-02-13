@@ -113,9 +113,11 @@ const BurgerConstructor = ({ data }) => {
           Оформить заказ
         </Button>
       </div>
-      <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
-        <OrderDetails orderDetails={MODAL.ORDER_DETAILS} />
-      </Modal>
+      {isOrderDetailsOpen && (
+        <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
+          <OrderDetails orderDetails={MODAL.ORDER_DETAILS} />
+        </Modal>
+      )}
     </section>
   );
 };

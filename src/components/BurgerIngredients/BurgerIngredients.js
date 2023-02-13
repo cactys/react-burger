@@ -52,16 +52,18 @@ const BurgerIngredients = ({ bun, sauce, main }) => {
           title={'Начинка'}
         />
       </ol>
-      <Modal
-        title={MODAL.INGREDIENT_TITLE}
-        isOpen={isIngredientDetailsOpen}
-        closePopup={closePopups}
-      >
-        <IngredientDetails
-          ingredient={selectIngredient}
-          ingredientDetails={MODAL.INGREDIENT_DETAILS}
-        />
-      </Modal>
+      {isIngredientDetailsOpen && (
+        <Modal
+          title={MODAL.INGREDIENT_TITLE}
+          isOpen={isIngredientDetailsOpen}
+          closePopup={closePopups}
+        >
+          <IngredientDetails
+            ingredient={selectIngredient}
+            ingredientDetails={MODAL.INGREDIENT_DETAILS}
+          />
+        </Modal>
+      )}
     </section>
   );
 };

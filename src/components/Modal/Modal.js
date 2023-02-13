@@ -19,6 +19,7 @@ const Modal = ({ title, children, isOpen, closePopup }) => {
 
   return createPortal(
     <>
+      <ModalOverlay isOpen={isOpen} onClose={closePopup} />
       <div
         className={`pt-10 pl-10 pb-15 pr-10 ${modalStyle.modal} ${
           isOpen && modalStyle.popup_opened
@@ -33,7 +34,6 @@ const Modal = ({ title, children, isOpen, closePopup }) => {
         </div>
         {children}
       </div>
-      <ModalOverlay isOpen={isOpen} onClose={closePopup} />
     </>,
     modalRoot
   );

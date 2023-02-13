@@ -8,12 +8,12 @@
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  /* visibility: hidden; */
+  opacity: 1;
+  transition: all 0.5s linear;
 }
 
-.popup_opened {
+/* .popup_opened {
   visibility: visible;
   opacity: 1;
-}
+} */
