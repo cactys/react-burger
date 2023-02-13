@@ -8,12 +8,5 @@
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
-  /* visibility: hidden; */
-  opacity: 1;
-  transition: all 0.5s linear;
 }
 
-/* .popup_opened {
-  visibility: visible;
-  opacity: 1;
-} */
