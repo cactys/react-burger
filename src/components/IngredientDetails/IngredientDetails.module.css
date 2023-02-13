@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.img {
+  width: 480px;
+  height: 240px;
+}
+
+.table {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.tableItem {
+  display: flex;
+  flex-direction: column;
+  min-width: 112px;
+  text-align: center;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  color: rgba(133, 133, 173, 1);
+}
