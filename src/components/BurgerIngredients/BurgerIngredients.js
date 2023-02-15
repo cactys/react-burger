@@ -7,7 +7,8 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { MODAL, dataPropTypes } from '../../utils/constant';
 
-const BurgerIngredients = ({ bun, sauce, main }) => {
+const BurgerIngredients = () => {
+  
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
   const [selectIngredient, setSelectIngredient] = useState(null);
