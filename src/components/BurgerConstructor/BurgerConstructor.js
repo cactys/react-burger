@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import {
   Button,
   ConstructorElement,
@@ -6,15 +5,14 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { dataPropTypes, MODAL } from '../../utils/constant';
-import { useState } from 'react';
+import { MODAL } from '../../utils/constant';
+import { useContext, useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
-const BurgerConstructor = ({ data }) => {
-  const bun = data.filter((i) => i.type === 'bun');
-  const sauce = data.filter((i) => i.type === 'sauce');
-  const main = data.filter((i) => i.type === 'main');
+const BurgerConstructor = () => {
+  const { ingredients } = useContext(IngredientsContext);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
 
   const handleOrderButtonClick = () => {
@@ -25,6 +23,26 @@ const BurgerConstructor = ({ data }) => {
     setIsOrderDetailsOpen(false);
   };
 
+  const filterBun = () => {
+    return ingredients.find((bun) => bun.type === 'bun');
+  };
+
+  const filterIngredients = () => {
+    return ingredients
+      .filter((ingredient) => ingredient.type !== 'bun')
+      .slice(7, 15);
+  };
+
+  const totalPrice = () => {
+    const mainPrice = filterIngredients().reduce(
+      (state, action) => state + action.price,
+      0
+    );
+
+    const price = mainPrice + filterBun()?.price * 2;
+    return price;
+  };
+
   return (
     <section className={burgerConstructorStyle.container}>
       <div className={burgerConstructorStyle.constructorContainer}>
@@ -32,74 +50,41 @@ const BurgerConstructor = ({ data }) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun[0].name} (верх)`}
-            price={bun[0].price}
-            thumbnail={bun[0].image}
+            text={`${filterBun()?.name} (верх)`}
+            price={filterBun()?.price}
+            thumbnail={filterBun()?.image}
           />
         </div>
         <ul className={burgerConstructorStyle.constructorList}>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={sauce[1].name}
-              price={sauce[1].price}
-              thumbnail={sauce[1].image}
-            />
-          </li>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={main[2].name}
-              price={main[2].price}
-              thumbnail={main[2].image}
-            />
-          </li>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={main[3].name}
-              price={main[3].price}
-              thumbnail={main[3].image}
-            />
-          </li>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={main[4].name}
-              price={main[4].price}
-              thumbnail={main[4].image}
-            />
-          </li>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={main[4].name}
-              price={main[4].price}
-              thumbnail={main[4].image}
-            />
-          </li>
-          <li className={burgerConstructorStyle.listElement}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={main[6].name}
-              price={main[6].price}
-              thumbnail={main[6].image}
-            />
-          </li>
+          {filterIngredients()?.map((ingredient) => (
+            <li
+              className={burgerConstructorStyle.listElement}
+              key={ingredient._id}
+            >
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text={ingredient.name}
+                price={ingredient.price}
+                thumbnail={ingredient.image}
+              />
+            </li>
+          ))}
         </ul>
         <div className="pl-8">
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun[0].name} (низ)`}
-            price={bun[0].price}
-            thumbnail={bun[0].image}
+            text={`${filterBun()?.name} (низ)`}
+            price={filterBun()?.price}
+            thumbnail={filterBun()?.image}
           />
         </div>
       </div>
       <div className={burgerConstructorStyle.containerOrder}>
         <div className={burgerConstructorStyle.containerPrice}>
-          <span className="mr-2 text text_type_digits-medium">610</span>
+          <span className="mr-2 text text_type_digits-medium">
+            {totalPrice()}
+          </span>
           <div className={burgerConstructorStyle.icon}>
             <CurrencyIcon type="primary" />
           </div>
@@ -123,7 +108,3 @@ const BurgerConstructor = ({ data }) => {
 };
 
 export default BurgerConstructor;
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-};

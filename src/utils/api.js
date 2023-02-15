@@ -1,8 +1,9 @@
 import { BASE_URL } from './constant';
 
 class Api {
-  constructor({ baseUrl }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _checkingResponse(res) {
@@ -17,8 +18,19 @@ class Api {
       method: 'GET',
     }).then(this._checkingResponse);
   }
+
+  addOrder(ingredientId) {
+    return fetch(`${this._baseUrl}/orders`, {
+      method: 'GET',
+      headers: this._headers,
+      body: JSON.stringify({ ingredientId }),
+    }).then(this._checkingResponse);
+  }
 }
 
 export const api = new Api({
   baseUrl: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });

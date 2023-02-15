@@ -1,17 +1,21 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { MODAL, dataPropTypes } from '../../utils/constant';
+import { MODAL } from '../../utils/constant';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
 const BurgerIngredients = () => {
-  
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
   const [selectIngredient, setSelectIngredient] = useState(null);
+  const { ingredients } = useContext(IngredientsContext);
+
+  const bun = ingredients.filter((i) => i.type === 'bun');
+  const sauce = ingredients.filter((i) => i.type === 'sauce');
+  const main = ingredients.filter((i) => i.type === 'main');
 
   const handleIngredientClick = (selectIngredient) => {
     setIsIngredientDetailsOpen(true);
@@ -70,9 +74,3 @@ const BurgerIngredients = () => {
 };
 
 export default BurgerIngredients;
-
-BurgerIngredients.propTypes = {
-  bun: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  sauce: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  main: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-};
