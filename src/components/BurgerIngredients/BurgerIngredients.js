@@ -5,13 +5,13 @@ import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { MODAL } from '../../utils/constant';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { DataContext } from '../../services/ingredientsContext';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
   const [selectIngredient, setSelectIngredient] = useState(null);
-  const { ingredients } = useContext(IngredientsContext);
+  const { ingredients } = useContext(DataContext);
 
   const bun = ingredients.filter((i) => i.type === 'bun');
   const sauce = ingredients.filter((i) => i.type === 'sauce');

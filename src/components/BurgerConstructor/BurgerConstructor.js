@@ -5,17 +5,25 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { MODAL } from '../../utils/constant';
 import { useContext, useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { DataContext, OrderContext } from '../../services/ingredientsContext';
+import { api } from '../../utils/api';
 
 const BurgerConstructor = () => {
-  const { ingredients } = useContext(IngredientsContext);
+  const { ingredients } = useContext(DataContext);
+  const { setOrder } = useContext(OrderContext);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
 
   const handleOrderButtonClick = () => {
+    const ingredientId = [
+      ...filterIngredients().map((ingredient) => ingredient._id),
+      filterBun()._id,
+    ];
+    api.addOrder(ingredientId).then((order) => {
+      setOrder(order.order.number);
+    });
     setIsOrderDetailsOpen(true);
   };
 
@@ -24,18 +32,20 @@ const BurgerConstructor = () => {
   };
 
   const filterBun = () => {
-    return ingredients.find((bun) => bun.type === 'bun');
+    if (ingredients) {
+      return ingredients.find((bun) => bun.type === 'bun');
+    }
   };
 
   const filterIngredients = () => {
     return ingredients
       .filter((ingredient) => ingredient.type !== 'bun')
-      .slice(7, 15);
+      .slice(7, 11);
   };
 
   const totalPrice = () => {
     const mainPrice = filterIngredients().reduce(
-      (state, action) => state + action.price,
+      (sum, item) => sum + item.price,
       0
     );
 
@@ -56,7 +66,7 @@ const BurgerConstructor = () => {
           />
         </div>
         <ul className={burgerConstructorStyle.constructorList}>
-          {filterIngredients()?.map((ingredient) => (
+          {filterIngredients().map((ingredient) => (
             <li
               className={burgerConstructorStyle.listElement}
               key={ingredient._id}
@@ -100,7 +110,7 @@ const BurgerConstructor = () => {
       </div>
       {isOrderDetailsOpen && (
         <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
-          <OrderDetails orderDetails={MODAL.ORDER_DETAILS} />
+          <OrderDetails />
         </Modal>
       )}
     </section>

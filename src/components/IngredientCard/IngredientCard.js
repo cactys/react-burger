@@ -7,7 +7,6 @@ import { dataPropTypes } from '../../utils/constant';
 import PropType from 'prop-types';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {
-
   const handleClick = () => {
     onIngredientClick(ingredient);
   };

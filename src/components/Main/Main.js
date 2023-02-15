@@ -1,12 +1,13 @@
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import mainStyle from './Main.module.css';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { DataContext, OrderContext } from '../../services/ingredientsContext';
 import { useEffect, useState } from 'react';
 import { api } from '../../utils/api';
 
 const Main = () => {
   const [ingredients, setIngredients] = useState([]);
+  const [order, setOrder] = useState('');
 
   useEffect(() => {
     api
@@ -21,10 +22,12 @@ const Main = () => {
 
   return (
     <main className={mainStyle.container}>
-      <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </IngredientsContext.Provider>
+      <DataContext.Provider value={{ ingredients, setIngredients }}>
+        <OrderContext.Provider value={{ order, setOrder }}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </OrderContext.Provider>
+      </DataContext.Provider>
     </main>
   );
 };

@@ -21,9 +21,9 @@ class Api {
 
   addOrder(ingredientId) {
     return fetch(`${this._baseUrl}/orders`, {
-      method: 'GET',
+      method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({ ingredientId }),
+      body: JSON.stringify({ ingredients: ingredientId }),
     }).then(this._checkingResponse);
   }
 }
