@@ -24,8 +24,12 @@ const Main = () => {
     <main className={mainStyle.container}>
       <DataContext.Provider value={{ ingredients, setIngredients }}>
         <OrderContext.Provider value={{ order, setOrder }}>
-          <BurgerIngredients />
-          <BurgerConstructor />
+          {ingredients && (
+            <>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </>
+          )}
         </OrderContext.Provider>
       </DataContext.Provider>
     </main>
