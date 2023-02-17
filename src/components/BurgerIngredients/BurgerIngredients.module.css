@@ -10,6 +10,17 @@
   display: flex;
 }
 
+.ingredientsType {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 12px;
+  margin: 0;
+  gap: 32px 24px;
+}
+
 .ingredients {
   max-height: 68vh;
   overflow-y: scroll;
