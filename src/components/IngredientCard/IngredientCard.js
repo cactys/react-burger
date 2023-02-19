@@ -4,7 +4,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientCardStyle from './IngredientCard.module.css';
 import { dataPropTypes } from '../../utils/constant';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {
   const handleClick = () => {
@@ -34,5 +34,5 @@ export default IngredientCard;
 
 IngredientCard.propTypes = {
   ingredient: dataPropTypes.isRequired,
-  onIngredientClick: PropType.func.isRequired,
+  onIngredientClick: PropTypes.func.isRequired,
 };
