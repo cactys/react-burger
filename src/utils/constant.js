@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-export const BASE_URL = 'https://norma.nomoreparties.space/api';
+const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-export const dataPropTypes = PropTypes.shape({
+const dataPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -17,7 +17,7 @@ export const dataPropTypes = PropTypes.shape({
   __v: PropTypes.number.isRequired,
 });
 
-export const MODAL = {
+const MODAL = {
   INGREDIENT_TITLE: 'Детали ингредиента',
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
@@ -25,12 +25,29 @@ export const MODAL = {
     FAT: 'Жиры, г',
     CARBOHYDRATES: 'Углеводы, г',
   },
-  ORDER_DETAILS: {
-    ORDER: {
-      TITLE: 'идентификатор заказа',
-      NUMBER: '034536',
-    },
-    SUBTITLE: 'Ваш заказ начали готовить',
-    COMMENT: 'Дождитесь готовности на орбитальной станции',
-  },
+};
+
+const DROP_INGREDIENT = 'DROP_INGREDIENT';
+const DEL_INGREDIENT = 'DEL_INGREDIENT';
+const DROP_BUN = 'DROP_BUN';
+
+const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
+const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
+
+const GET_OPEN_MODAL = 'GET_OPEN_MODAL';
+const GET_CLOSE_MODAL = 'GET_CLOSE_MODAL';
+
+export {
+  dataPropTypes,
+  BASE_URL,
+  MODAL,
+  DROP_INGREDIENT,
+  DEL_INGREDIENT,
+  DROP_BUN,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  GET_OPEN_MODAL,
+  GET_CLOSE_MODAL,
 };
