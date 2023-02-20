@@ -1,17 +1,19 @@
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { MODAL } from '../../utils/constant';
-import { DataContext } from '../../services/ingredientsContext';
+import { useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
   const [selectIngredient, setSelectIngredient] = useState(null);
-  const { ingredients } = useContext(DataContext);
+
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+
   const scrollRef = useRef();
   const bunRef = useRef();
   const sauceRef = useRef();
@@ -32,18 +34,21 @@ const BurgerIngredients = () => {
 
   const handleClickTab = useCallback((value) => {
     switch (value) {
-      case 'bun':
+      case 'bun': {
         bunRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
-      case 'sauce':
+      }
+      case 'sauce': {
         sauceRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
-      case 'main':
+      }
+      case 'main': {
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
+      }
       default:
         break;
     }
