@@ -5,22 +5,27 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { DataContext, OrderContext } from '../../services/ingredientsContext';
 import { api } from '../../utils/api';
 import { useDispatch, useSelector } from 'react-redux';
+import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 
 const BurgerConstructor = () => {
   // const { ingredients } = useContext(DataContext);
   const { setOrder } = useContext(OrderContext);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
-  const { bun, ingredients } = useSelector()
   const dispatch = useDispatch();
+  const { bun, ingredients } = useSelector(
+    (store) => store.constructorIngredient
+  );
+
+  console.log(ingredients);
 
   const filterBun = useMemo(
-    () => ingredients.find((bun) => bun.type === 'bun'),
+    () => [...ingredients].find((bun) => bun.type === 'bun'),
     [ingredients]
   );
 
@@ -59,7 +64,7 @@ const BurgerConstructor = () => {
   const totalPrice = mainPrice + filterBun?.price * 2;
 
   return ingredients.length === 0 ? (
-    ''
+    <section className={burgerConstructorStyle.container} />
   ) : (
     <section className={burgerConstructorStyle.container}>
       <div className={burgerConstructorStyle.constructorContainer}>
@@ -74,17 +79,10 @@ const BurgerConstructor = () => {
         </div>
         <ul className={burgerConstructorStyle.constructorList}>
           {filterIngredients.map((ingredient) => (
-            <li
-              className={burgerConstructorStyle.listElement}
+            <ConstructorContainer
               key={ingredient._id}
-            >
-              <DragIcon type="primary" />
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
+              ingredient={ingredient}
+            />
           ))}
         </ul>
         <div className="pl-8">

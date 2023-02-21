@@ -13,6 +13,7 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
   };
 
   const { _id, name } = ingredient;
+
   const [{ isDrag }, dragRef] = useDrag({
     type: 'ingredient',
     item: { _id },
