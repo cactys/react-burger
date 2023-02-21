@@ -10,11 +10,14 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { DataContext, OrderContext } from '../../services/ingredientsContext';
 import { api } from '../../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
-  const { ingredients } = useContext(DataContext);
+  // const { ingredients } = useContext(DataContext);
   const { setOrder } = useContext(OrderContext);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
+  const { bun, ingredients } = useSelector()
+  const dispatch = useDispatch();
 
   const filterBun = useMemo(
     () => ingredients.find((bun) => bun.type === 'bun'),
