@@ -4,17 +4,17 @@ import {
   DELETE_BURGER_INGREDIENT,
 } from '../../utils/constant';
 
-export const addBurgerIngredient = (item, id) => ({
+export const addBurgerIngredient = (item, uuid) => ({
   type: ADD_BURGER_INGREDIENT,
-  payload: { ...item, id },
+  payload: { ...item, uuid },
 });
 
-export const addBurgerBun = (item, id) => ({
+export const addBurgerBun = (item, uuid) => ({
   type: ADD_BURGER_BUN,
-  payload: { ...item, id },
+  payload: { ...item, uuid },
 });
 
-export const deleteBurgerIngredient = (id) => ({
+export const deleteBurgerIngredient = (uuid) => ({
   type: DELETE_BURGER_INGREDIENT,
-  payload: id,
+  payload: uuid,
 });

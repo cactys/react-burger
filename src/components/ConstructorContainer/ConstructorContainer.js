@@ -16,10 +16,10 @@ const ConstructorContainer = ({ ingredient }) => {
 
   const sortBurger = (item) => {
     const ingredientIndex = [...ingredients].findIndex(
-      (element) => element._id === ingredient._id
+      (element) => element.uuid === ingredient.uuid
     );
     const newIngredientPosition = [...ingredients]
-      .filter((element) => element._id !== item._id)
+      .filter((element) => element.uuid !== item.uuid)
       .slice(ingredientIndex, 0, item);
 
     dispatch({
@@ -45,10 +45,10 @@ const ConstructorContainer = ({ ingredient }) => {
       if (!ingredientRef.current) return;
 
       const dragIndex = ingredients.findIndex(
-        (element) => element._id === item._id
+        (element) => element.uuid === item.uuid
       );
       const hoverIndex = ingredients.findIndex(
-        (element) => element._id === item._id
+        (element) => element.uuid === item.uuid
       );
 
       if (dragIndex === hoverIndex) return;
@@ -67,8 +67,8 @@ const ConstructorContainer = ({ ingredient }) => {
     },
   });
 
-  const deleteIngredient = (id) => {
-    dispatch(deleteBurgerIngredient(id));
+  const deleteIngredient = (uuid) => {
+    dispatch(deleteBurgerIngredient(uuid));
   };
 
   dragRef(dropRef(ingredientRef));

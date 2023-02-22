@@ -14,10 +14,10 @@ const BurgerIngredients = () => {
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  const scrollRef = useRef();
-  const bunRef = useRef();
-  const sauceRef = useRef();
-  const mainRef = useRef();
+  const scrollRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
 
   const bun = useMemo(
     () => ingredients.filter((i) => i.type === 'bun'),

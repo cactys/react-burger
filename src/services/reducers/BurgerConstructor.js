@@ -28,7 +28,7 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [...state.ingredients].filter(
-          (item) => item._id !== action.payload
+          (item) => item.uuid !== action.payload
         ),
       };
     }
