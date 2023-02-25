@@ -6,10 +6,9 @@ import ingredientCardStyle from './IngredientCard.module.css';
 import { dataPropTypes } from '../../utils/constant';
 import PropTypes from 'prop-types';
 import { useDrag } from '../../../node_modules/react-dnd/dist/index';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {
-  const dispatch = useDispatch();
   const { ingredients, bun } = useSelector(
     (store) => store.constructorIngredient
   );

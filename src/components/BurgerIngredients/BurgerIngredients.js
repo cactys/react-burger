@@ -4,13 +4,18 @@ import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { MODAL } from '../../utils/constant';
-import { useSelector } from 'react-redux';
+import {
+  ADD_INGREDIENT_INFO,
+  DELETE_INGREDIENT_INFO,
+  MODAL,
+} from '../../utils/constant';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
-  const [selectIngredient, setSelectIngredient] = useState(null);
+
+  const dispatch = useDispatch();
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
@@ -76,11 +81,17 @@ const BurgerIngredients = () => {
 
   const handleIngredientClick = (selectIngredient) => {
     setIsIngredientDetailsOpen(true);
-    setSelectIngredient(selectIngredient);
+    dispatch({
+      type: ADD_INGREDIENT_INFO,
+      payload: selectIngredient,
+    });
   };
 
   const closePopups = () => {
     setIsIngredientDetailsOpen(false);
+    dispatch({
+      type: DELETE_INGREDIENT_INFO,
+    });
   };
 
   return (
@@ -141,12 +152,10 @@ const BurgerIngredients = () => {
       {isIngredientDetailsOpen && (
         <Modal
           title={MODAL.INGREDIENT_TITLE}
-          isOpen={isIngredientDetailsOpen}
           closePopup={closePopups}
         >
           <IngredientDetails
-            ingredient={selectIngredient}
-            ingredientDetails={MODAL.INGREDIENT_DETAILS}
+          ingredientDetails={MODAL.INGREDIENT_DETAILS}
           />
         </Modal>
       )}
