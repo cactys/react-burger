@@ -14,14 +14,15 @@ const ConstructorContainer = ({ ingredient }) => {
   const { ingredients } = useSelector((store) => store.constructorIngredient);
   const ingredientRef = useRef(null);
 
-  const sortBurger = (item) => {
+  const moveIngredient = (item) => {
     const ingredientIndex = [...ingredients].findIndex(
       (element) => element.uuid === ingredient.uuid
     );
-    const newIngredientPosition = [...ingredients]
-      .filter((element) => element.uuid !== item.uuid)
-      .slice(ingredientIndex, 0, item);
+    const newIngredientPosition = [...ingredients].filter(
+      (element) => element.uuid !== item.uuid
+    );
 
+    newIngredientPosition.splice(ingredientIndex, 0, item);
     dispatch({
       type: SORT_BURGER_INGREDIENT,
       payload: newIngredientPosition,
@@ -29,15 +30,15 @@ const ConstructorContainer = ({ ingredient }) => {
   };
 
   const [{ isDrag }, dragRef] = useDrag({
-    type: 'ingredient',
-    item: { ...ingredients },
+    type: 'ingredients',
+    item: { ...ingredient },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),
   });
 
   const [{ handlerId }, dropRef] = useDrop({
-    accept: 'ingredient',
+    accept: 'ingredients',
     collect(monitor) {
       return { handlerId: monitor.getHandlerId() };
     },
@@ -48,7 +49,7 @@ const ConstructorContainer = ({ ingredient }) => {
         (element) => element.uuid === item.uuid
       );
       const hoverIndex = ingredients.findIndex(
-        (element) => element.uuid === item.uuid
+        (element) => element.uuid === ingredient.uuid
       );
 
       if (dragIndex === hoverIndex) return;
@@ -62,7 +63,7 @@ const ConstructorContainer = ({ ingredient }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      sortBurger(item);
+      moveIngredient(item);
       item.index = hoverIndex;
     },
   });
@@ -73,23 +74,20 @@ const ConstructorContainer = ({ ingredient }) => {
 
   dragRef(dropRef(ingredientRef));
 
+  const cn = isDrag
+    ? constructorContainerStyle.opacity
+    : constructorContainerStyle.listElement;
+
   return (
-    <>
-      {!isDrag && (
-        <li
-          className={constructorContainerStyle.listElement}
-          data-handler-id={handlerId}
-        >
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={ingredient.name}
-            price={ingredient.price}
-            thumbnail={ingredient.image}
-            handleClose={() => deleteIngredient(ingredient._id)}
-          />
-        </li>
-      )}
-    </>
+    <li className={cn} ref={ingredientRef} data-handler-id={handlerId}>
+      <DragIcon type="primary" />
+      <ConstructorElement
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
+        handleClose={() => deleteIngredient(ingredient.uuid)}
+      />
+    </li>
   );
 };
 

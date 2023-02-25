@@ -9,37 +9,29 @@ import { useDrag } from '../../../node_modules/react-dnd/dist/index';
 import { useDispatch, useSelector } from 'react-redux';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {
+  const dispatch = useDispatch();
+  const { ingredients, bun } = useSelector(
+    (store) => store.constructorIngredient
+  );
+  const { _id, type, name, image, price } = ingredient;
+
   const handleClick = () => {
     onIngredientClick(ingredient);
   };
 
-  const { ingredients, bun } = useSelector(
-    (store) => store.constructorIngredient
-  );
-
-  const [, dragRef] = useDrag({
+  const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...ingredient },
     collect: (monitor) => ({
-      isDrag: monitor.isDragging(),
+      opacity: monitor.isDragging() ? 0.5 : 1,
     }),
   });
 
-  // const { _id, name } = ingredient;
-
-  // const [{ isDrag }, dragRef] = useDrag({
-  //   type: 'ingredient',
-  //   item: { _id },
-  //   collect: (monitor) => ({
-  //     isDrag: monitor.isDragging(),
-  //   }),
-  // });
-
   const calcCounter = () => {
-    if (ingredient.type === 'bun') {
-      return bun.filter((item) => item._id === ingredient._id).length * 2;
+    if (type === 'bun') {
+      return bun.filter((item) => item._id === _id).length * 2;
     } else {
-      return ingredients.filter((item) => item._id === ingredient._id).length;
+      return ingredients.filter((item) => item._id === _id).length;
     }
   };
 
@@ -50,6 +42,7 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
       className={ingredientCardStyle.container}
       onClick={handleClick}
       ref={dragRef}
+      style={{ opacity }}
     >
       {count !== 0 ? (
         <Counter count={count} size="default" extraClass="m-1" />
@@ -58,15 +51,15 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
       )}
       <img
         className={ingredientCardStyle.image}
-        src={ingredient.image}
-        alt={ingredient.name}
+        src={image}
+        alt={name}
       />
       <div className={`mb-2 ${ingredientCardStyle.price}`}>
-        <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>
+        <p className="mr-2 text text_type_digits-default">{price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <p className={`text text_type_main-default ${ingredientCardStyle.title}`}>
-        {ingredient.name}
+        {name}
       </p>
     </div>
   );
