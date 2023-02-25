@@ -20,4 +20,6 @@ In the project directory, you can run:
     npm i
 ```
 6. Запустить проект:
-    #### `npm start`
+```sh
+    npm run start
+```
