@@ -16,6 +16,7 @@ import {
   addBurgerIngredient,
 } from '../../services/action/BurgerConstructor';
 import { RESET_ORDER_INFO } from '../../utils/constant';
+import EmptyContainer from '../EmptyContainer/EmptyContainer';
 
 const BurgerConstructor = () => {
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
@@ -65,38 +66,44 @@ const BurgerConstructor = () => {
         className={burgerConstructorStyle.constructorContainer}
         ref={dropRef}
       >
-        <div className="pl-8">
-          {bun !== null && bun.length !== 0 && (
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${bun[0].name} (верх)`}
-              price={bun[0].price}
-              thumbnail={bun[0].image}
-            />
-          )}
-        </div>
-        <ul className={burgerConstructorStyle.constructorList}>
-          {ingredients.length === 0
-            ? ''
-            : ingredients.map((ingredient) => (
-                <ConstructorContainer
-                  key={ingredient.uuid}
-                  ingredient={ingredient}
+        {bun === null && ingredients.length === 0 ? (
+          <EmptyContainer />
+        ) : (
+          <>
+            <div className="pl-8" style={{ height: 80 }}>
+              {bun !== null && bun.length !== 0 && (
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${bun[0].name} (верх)`}
+                  price={bun[0].price}
+                  thumbnail={bun[0].image}
                 />
-              ))}
-        </ul>
-        <div className="pl-8">
-          {bun !== null && bun.length !== 0 && (
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${bun[0].name} (низ)`}
-              price={bun[0].price}
-              thumbnail={bun[0].image}
-            />
-          )}
-        </div>
+              )}
+            </div>
+            <ul className={burgerConstructorStyle.constructorList}>
+              {ingredients.length === 0
+                ? ''
+                : ingredients.map((ingredient) => (
+                    <ConstructorContainer
+                      key={ingredient.uuid}
+                      ingredient={ingredient}
+                    />
+                  ))}
+            </ul>
+            <div className="pl-8" style={{ height: 80 }}>
+              {bun !== null && bun.length !== 0 && (
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${bun[0].name} (низ)`}
+                  price={bun[0].price}
+                  thumbnail={bun[0].image}
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
       <div className={burgerConstructorStyle.containerOrder}>
         <div className={burgerConstructorStyle.containerPrice}>
