@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-export const BASE_URL = 'https://norma.nomoreparties.space/api';
+const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-export const dataPropTypes = PropTypes.shape({
+const dataPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -17,7 +17,7 @@ export const dataPropTypes = PropTypes.shape({
   __v: PropTypes.number.isRequired,
 });
 
-export const MODAL = {
+const MODAL = {
   INGREDIENT_TITLE: 'Детали ингредиента',
   INGREDIENT_DETAILS: {
     CALORIES: 'Калории,ккал',
@@ -25,12 +25,43 @@ export const MODAL = {
     FAT: 'Жиры, г',
     CARBOHYDRATES: 'Углеводы, г',
   },
-  ORDER_DETAILS: {
-    ORDER: {
-      TITLE: 'идентификатор заказа',
-      NUMBER: '034536',
-    },
-    SUBTITLE: 'Ваш заказ начали готовить',
-    COMMENT: 'Дождитесь готовности на орбитальной станции',
-  },
+};
+
+const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
+const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
+const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
+
+const RESET_INGREDIENTS = 'RESET_INGREDIENTS';
+
+const ADD_BURGER_INGREDIENT = 'ADD_BURGER_INGREDIENT';
+const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
+const DELETE_BURGER_INGREDIENT = 'DELETE_BURGER_INGREDIENT';
+const SORT_BURGER_INGREDIENT = 'SORT_BURGER_INGREDIENT';
+
+const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
+const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
+const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
+const RESET_ORDER_INFO = 'DELETE_ORDER_INFO';
+
+const ADD_INGREDIENT_INFO = 'ADD_INGREDIENT_INFO';
+const DELETE_INGREDIENT_INFO = 'DELETE_INGREDIENT_INFO';
+
+export {
+  dataPropTypes,
+  BASE_URL,
+  MODAL,
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_FAILED,
+  RESET_INGREDIENTS,
+  ADD_BURGER_INGREDIENT,
+  ADD_BURGER_BUN,
+  DELETE_BURGER_INGREDIENT,
+  SORT_BURGER_INGREDIENT,
+  POST_ORDER_REQUEST,
+  POST_ORDER_SUCCESS,
+  POST_ORDER_FAILED,
+  RESET_ORDER_INFO,
+  ADD_INGREDIENT_INFO,
+  DELETE_INGREDIENT_INFO
 };

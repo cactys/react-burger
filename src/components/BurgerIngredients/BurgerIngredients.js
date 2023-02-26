@@ -1,21 +1,28 @@
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { MODAL } from '../../utils/constant';
-import { DataContext } from '../../services/ingredientsContext';
+import {
+  ADD_INGREDIENT_INFO,
+  DELETE_INGREDIENT_INFO,
+  MODAL,
+} from '../../utils/constant';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
-  const [selectIngredient, setSelectIngredient] = useState(null);
-  const { ingredients } = useContext(DataContext);
-  const scrollRef = useRef();
-  const bunRef = useRef();
-  const sauceRef = useRef();
-  const mainRef = useRef();
+
+  const dispatch = useDispatch();
+
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+
+  const scrollRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
 
   const bun = useMemo(
     () => ingredients.filter((i) => i.type === 'bun'),
@@ -32,18 +39,21 @@ const BurgerIngredients = () => {
 
   const handleClickTab = useCallback((value) => {
     switch (value) {
-      case 'bun':
+      case 'bun': {
         bunRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
-      case 'sauce':
+      }
+      case 'sauce': {
         sauceRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
-      case 'main':
+      }
+      case 'main': {
         mainRef.current.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
+      }
       default:
         break;
     }
@@ -71,11 +81,17 @@ const BurgerIngredients = () => {
 
   const handleIngredientClick = (selectIngredient) => {
     setIsIngredientDetailsOpen(true);
-    setSelectIngredient(selectIngredient);
+    dispatch({
+      type: ADD_INGREDIENT_INFO,
+      payload: selectIngredient,
+    });
   };
 
   const closePopups = () => {
     setIsIngredientDetailsOpen(false);
+    dispatch({
+      type: DELETE_INGREDIENT_INFO,
+    });
   };
 
   return (
@@ -117,7 +133,6 @@ const BurgerIngredients = () => {
             <IngredientsGroup
               onIngredientClick={handleIngredientClick}
               data={sauce}
-              id="sauce"
               title={'Соусы'}
             />
           </ol>
@@ -134,15 +149,8 @@ const BurgerIngredients = () => {
         </li>
       </ol>
       {isIngredientDetailsOpen && (
-        <Modal
-          title={MODAL.INGREDIENT_TITLE}
-          isOpen={isIngredientDetailsOpen}
-          closePopup={closePopups}
-        >
-          <IngredientDetails
-            ingredient={selectIngredient}
-            ingredientDetails={MODAL.INGREDIENT_DETAILS}
-          />
+        <Modal title={MODAL.INGREDIENT_TITLE} closePopup={closePopups}>
+          <IngredientDetails ingredientDetails={MODAL.INGREDIENT_DETAILS} />
         </Modal>
       )}
     </section>

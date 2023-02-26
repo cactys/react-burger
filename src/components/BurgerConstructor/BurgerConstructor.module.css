@@ -1,10 +1,14 @@
 .container {
   width: 600px;
   max-width: 100%;
-  min-height: calc(100vh - 88px);
+  max-height: calc(100vh - 88px);
   box-sizing: border-box;
   text-align: start;
   padding: 100px 0 0 16px;
+}
+
+.constructorContainer {
+  height: 656px;
 }
 
 .constructorContainer,
@@ -37,18 +41,6 @@
 .constructorList::-webkit-scrollbar-thumb {
   background-color: #8585ad;
   border: 3px solid #8585ad;
-}
-
-.listElement {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.listElement {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .containerOrder {

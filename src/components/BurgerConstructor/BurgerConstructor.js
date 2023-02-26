@@ -2,96 +2,100 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { useContext, useMemo, useState } from 'react';
+import { useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { DataContext, OrderContext } from '../../services/ingredientsContext';
-import { api } from '../../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
+import { useDrop } from '../../../node_modules/react-dnd/dist/index';
+import { v4 as uuid } from 'uuid';
+import {
+  addBurgerBun,
+  addBurgerIngredient,
+} from '../../services/action/BurgerConstructor';
+import { RESET_ORDER_INFO } from '../../utils/constant';
 
 const BurgerConstructor = () => {
-  const { ingredients } = useContext(DataContext);
-  const { setOrder } = useContext(OrderContext);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
-
-  const filterBun = useMemo(
-    () => ingredients.find((bun) => bun.type === 'bun'),
-    [ingredients]
-  );
-
-  const filterIngredients = useMemo(
-    () =>
-      ingredients
-        .filter((ingredient) => ingredient.type !== 'bun')
-        .slice(5, 11),
-    [ingredients]
+  const dispatch = useDispatch();
+  const { bun, ingredients } = useSelector(
+    (store) => store.constructorIngredient
   );
 
   const handleOrderButtonClick = () => {
-    const ingredientId = [
-      ...filterIngredients.map((ingredient) => ingredient._id),
-      filterBun._id,
-    ];
-
-    api
-      .addOrder(ingredientId)
-      .then((order) => {
-        setOrder(order.order.number);
-      })
-      .catch((err) => console.log(err));
     setIsOrderDetailsOpen(true);
   };
 
   const closePopups = () => {
     setIsOrderDetailsOpen(false);
+    dispatch({
+      type: RESET_ORDER_INFO,
+    });
   };
 
-  const mainPrice = useMemo(
-    () => filterIngredients.reduce((sum, item) => sum + item.price, 0),
-    [filterIngredients]
+  const onDropHandler = (item) => {
+    if (item.type !== 'bun') {
+      dispatch(addBurgerIngredient(item, uuid()));
+    } else {
+      dispatch(addBurgerBun(item, uuid()));
+    }
+  };
+
+  const [, dropRef] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  const ingredientPrice = ingredients.reduce(
+    (sum, item) => sum + item.price,
+    0
   );
+  const bunPrice =
+    bun !== null ? bun.reduce((sum, item) => sum + item.price, 0) * 2 : 0;
 
-  const totalPrice = mainPrice + filterBun?.price * 2;
+  const totalPrice = ingredientPrice + bunPrice;
 
-  return ingredients.length === 0 ? (
-    ''
-  ) : (
+  return (
     <section className={burgerConstructorStyle.container}>
-      <div className={burgerConstructorStyle.constructorContainer}>
+      <div
+        className={burgerConstructorStyle.constructorContainer}
+        ref={dropRef}
+      >
         <div className="pl-8">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${filterBun.name} (верх)`}
-            price={filterBun.price}
-            thumbnail={filterBun.image}
-          />
+          {bun !== null && bun.length !== 0 && (
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun[0].name} (верх)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
+            />
+          )}
         </div>
         <ul className={burgerConstructorStyle.constructorList}>
-          {filterIngredients.map((ingredient) => (
-            <li
-              className={burgerConstructorStyle.listElement}
-              key={ingredient._id}
-            >
-              <DragIcon type="primary" />
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
-          ))}
+          {ingredients.length === 0
+            ? ''
+            : ingredients.map((ingredient) => (
+                <ConstructorContainer
+                  key={ingredient.uuid}
+                  ingredient={ingredient}
+                />
+              ))}
         </ul>
         <div className="pl-8">
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${filterBun.name} (низ)`}
-            price={filterBun.price}
-            thumbnail={filterBun.image}
-          />
+          {bun !== null && bun.length !== 0 && (
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${bun[0].name} (низ)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
+            />
+          )}
         </div>
       </div>
       <div className={burgerConstructorStyle.containerOrder}>

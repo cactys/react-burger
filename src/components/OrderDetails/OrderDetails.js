@@ -1,17 +1,36 @@
 import orderDetailsStyle from './OrderDetails.module.css';
 import done from '../../images/done.svg';
-import { OrderContext } from '../../services/ingredientsContext';
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { orderDetail } from '../../services/action/OrderDetails';
 
 const OrderDetails = () => {
-  const { order } = useContext(OrderContext);
+  const dispatch = useDispatch();
+  const { bun, ingredients } = useSelector(
+    (store) => store.constructorIngredient
+  );
+  const { currentOrder, orderRequest, orderFailed } = useSelector(
+    (store) => store.orderDetails
+  );
+
+  useEffect(() => {
+    const ingredientId = [
+      bun?.map((item) => item._id),
+      ...ingredients.map((ingredient) => ingredient._id),
+      bun?.map((item) => item._id),
+    ];
+
+    dispatch(orderDetail(ingredientId));
+  }, [dispatch, bun, ingredients]);
+
+  if (orderFailed && orderRequest) return null;
 
   return (
     <div className={`pb-15 ${orderDetailsStyle.container}`}>
       <h3
         className={`mt-4 text text_type_digits-large ${orderDetailsStyle.numberOrder}`}
       >
-        {order}
+        {currentOrder?.number}
       </h3>
       <p className="mt-8 text text_type_main-medium">идентификатор заказа</p>
       <img className="mt-15 mb-15" src={done} alt="Заказ готовится" />
