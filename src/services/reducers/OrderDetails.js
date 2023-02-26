@@ -6,7 +6,7 @@ import {
 } from '../../utils/constant';
 
 const initialState = {
-  currentOrder: [],
+  currentOrder: null,
   orderRequest: false,
   orderFailed: false,
 };

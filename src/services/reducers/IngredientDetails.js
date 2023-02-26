@@ -12,7 +12,7 @@ export const ingredientDetailsReducer = (state = initialState, action) => {
     case ADD_INGREDIENT_INFO: {
       return {
         ...state,
-        info: { ...action.payload },
+        info: action.payload,
       };
     }
 

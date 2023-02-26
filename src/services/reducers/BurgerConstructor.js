@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   ingredients: [],
-  bun: [],
+  bun: null,
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ export const constructorReducer = (state = initialState, action) => {
     case ADD_BURGER_INGREDIENT: {
       return {
         ...state,
-        ingredients: [action.payload, ...state.ingredients],
+        ingredients: [...state.ingredients, action.payload],
       };
     }
     case ADD_BURGER_BUN: {
@@ -27,7 +27,7 @@ export const constructorReducer = (state = initialState, action) => {
     case DELETE_BURGER_INGREDIENT: {
       return {
         ...state,
-        ingredients: [...state.ingredients].filter(
+        ingredients: state.ingredients.filter(
           (item) => item.uuid !== action.payload
         ),
       };

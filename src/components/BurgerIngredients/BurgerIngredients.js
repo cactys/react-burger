@@ -133,7 +133,6 @@ const BurgerIngredients = () => {
             <IngredientsGroup
               onIngredientClick={handleIngredientClick}
               data={sauce}
-              id="sauce"
               title={'Соусы'}
             />
           </ol>
@@ -150,13 +149,8 @@ const BurgerIngredients = () => {
         </li>
       </ol>
       {isIngredientDetailsOpen && (
-        <Modal
-          title={MODAL.INGREDIENT_TITLE}
-          closePopup={closePopups}
-        >
-          <IngredientDetails
-          ingredientDetails={MODAL.INGREDIENT_DETAILS}
-          />
+        <Modal title={MODAL.INGREDIENT_TITLE} closePopup={closePopups}>
+          <IngredientDetails ingredientDetails={MODAL.INGREDIENT_DETAILS} />
         </Modal>
       )}
     </section>

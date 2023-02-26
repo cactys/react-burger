@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux';
 const IngredientDetails = ({ ingredientDetails }) => {
   const { info } = useSelector((store) => store.ingredientDetails);
 
-  console.log(info);
-
   return (
     <div className={ingredientDetailsStyle.container}>
       <img

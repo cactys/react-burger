@@ -15,10 +15,10 @@ const ConstructorContainer = ({ ingredient }) => {
   const ingredientRef = useRef(null);
 
   const moveIngredient = (item) => {
-    const ingredientIndex = [...ingredients].findIndex(
+    const ingredientIndex = ingredients.findIndex(
       (element) => element.uuid === ingredient.uuid
     );
-    const newIngredientPosition = [...ingredients].filter(
+    const newIngredientPosition = ingredients.filter(
       (element) => element.uuid !== item.uuid
     );
 

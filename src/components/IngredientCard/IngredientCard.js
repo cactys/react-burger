@@ -27,8 +27,8 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
   });
 
   const calcCounter = () => {
-    if (type === 'bun') {
-      return bun.filter((item) => item._id === _id).length * 2;
+    if (type === 'bun' && bun !== null) {
+      return bun?.filter((item) => item._id === _id).length * 2;
     } else {
       return ingredients.filter((item) => item._id === _id).length;
     }
@@ -48,11 +48,7 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
       ) : (
         ''
       )}
-      <img
-        className={ingredientCardStyle.image}
-        src={image}
-        alt={name}
-      />
+      <img className={ingredientCardStyle.image} src={image} alt={name} />
       <div className={`mb-2 ${ingredientCardStyle.price}`}>
         <p className="mr-2 text text_type_digits-default">{price}</p>
         <CurrencyIcon type="primary" />

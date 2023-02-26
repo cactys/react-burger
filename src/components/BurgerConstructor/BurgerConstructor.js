@@ -15,6 +15,7 @@ import {
   addBurgerBun,
   addBurgerIngredient,
 } from '../../services/action/BurgerConstructor';
+import { RESET_ORDER_INFO } from '../../utils/constant';
 
 const BurgerConstructor = () => {
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
@@ -29,6 +30,9 @@ const BurgerConstructor = () => {
 
   const closePopups = () => {
     setIsOrderDetailsOpen(false);
+    dispatch({
+      type: RESET_ORDER_INFO,
+    });
   };
 
   const onDropHandler = (item) => {
@@ -50,7 +54,8 @@ const BurgerConstructor = () => {
     (sum, item) => sum + item.price,
     0
   );
-  const bunPrice = bun.reduce((sum, item) => sum + item.price, 0) * 2;
+  const bunPrice =
+    bun !== null ? bun.reduce((sum, item) => sum + item.price, 0) * 2 : 0;
 
   const totalPrice = ingredientPrice + bunPrice;
 
@@ -61,9 +66,7 @@ const BurgerConstructor = () => {
         ref={dropRef}
       >
         <div className="pl-8">
-          {bun.length === 0 ? (
-            ''
-          ) : (
+          {bun !== null && bun.length !== 0 && (
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -77,21 +80,16 @@ const BurgerConstructor = () => {
           {ingredients.length === 0
             ? ''
             : ingredients.map((ingredient) => (
-                <>
-                  {console.log(ingredient.uuid)}
-                  <ConstructorContainer
-                    key={ingredient.uuid}
-                    ingredient={ingredient}
-                  />
-                </>
+                <ConstructorContainer
+                  key={ingredient.uuid}
+                  ingredient={ingredient}
+                />
               ))}
         </ul>
         <div className="pl-8">
-          {bun.length === 0 ? (
-            ''
-          ) : (
+          {bun !== null && bun.length !== 0 && (
             <ConstructorElement
-              type="top"
+              type="bottom"
               isLocked={true}
               text={`${bun[0].name} (низ)`}
               price={bun[0].price}
