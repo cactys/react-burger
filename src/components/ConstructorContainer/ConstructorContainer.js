@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { useDrag, useDrop } from '../../../node_modules/react-dnd/dist/index';
 import { deleteBurgerIngredient } from '../../services/action/BurgerConstructor';
+import { Reorder } from 'framer-motion';
 
 const ConstructorContainer = ({ ingredient }) => {
   const dispatch = useDispatch();
@@ -79,7 +80,14 @@ const ConstructorContainer = ({ ingredient }) => {
     : constructorContainerStyle.listElement;
 
   return (
-    <li className={cn} ref={ingredientRef} data-handler-id={handlerId}>
+    <Reorder.Item
+      value={ingredient}
+      id={ingredient}
+      transition={{ type: 'spring' }}
+      className={cn}
+      ref={ingredientRef}
+      data-handler-id={handlerId}
+    >
       <DragIcon type="primary" />
       <ConstructorElement
         text={ingredient.name}
@@ -87,7 +95,7 @@ const ConstructorContainer = ({ ingredient }) => {
         thumbnail={ingredient.image}
         handleClose={() => deleteIngredient(ingredient.uuid)}
       />
-    </li>
+    </Reorder.Item>
   );
 };
 
