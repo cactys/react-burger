@@ -1,11 +1,12 @@
 **[DEMO](https://cactys.github.io/react-burger/)**
-# Getting Started with Create React App
+## Stellar Burger
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Этот проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
+На данный момент, реализованно:
+  - просмотр состава ингридиента (модал)
+  - плавное прокрутка по табу
+  - перетаскивание ингредиентов 
 
 ### 🔧 Инструкция:
 
