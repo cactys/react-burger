@@ -17,6 +17,7 @@ import {
 } from '../../services/action/BurgerConstructor';
 import { RESET_ORDER_INFO } from '../../utils/constant';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
+import { Reorder, motion } from 'framer-motion';
 
 const BurgerConstructor = () => {
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
@@ -70,7 +71,12 @@ const BurgerConstructor = () => {
           <EmptyContainer />
         ) : (
           <>
-            <div className="pl-8" style={{ height: 80 }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="pl-8"
+              style={{ height: 80 }}
+            >
               {bun !== null && bun.length !== 0 && (
                 <ConstructorElement
                   type="top"
@@ -80,8 +86,12 @@ const BurgerConstructor = () => {
                   thumbnail={bun[0].image}
                 />
               )}
-            </div>
-            <ul className={burgerConstructorStyle.constructorList}>
+            </motion.div>
+            <Reorder.Group
+              axis="y"
+              values={ingredients}
+              className={burgerConstructorStyle.constructorList}
+            >
               {ingredients.length === 0
                 ? ''
                 : ingredients.map((ingredient) => (
@@ -90,8 +100,13 @@ const BurgerConstructor = () => {
                       ingredient={ingredient}
                     />
                   ))}
-            </ul>
-            <div className="pl-8" style={{ height: 80 }}>
+            </Reorder.Group>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="pl-8"
+              style={{ height: 80 }}
+            >
               {bun !== null && bun.length !== 0 && (
                 <ConstructorElement
                   type="bottom"
@@ -101,7 +116,7 @@ const BurgerConstructor = () => {
                   thumbnail={bun[0].image}
                 />
               )}
-            </div>
+            </motion.div>
           </>
         )}
       </div>
