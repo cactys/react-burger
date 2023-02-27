@@ -6,13 +6,30 @@
 На данный момент, реализованно:
   - просмотр состава ингридиента (модал)
   - плавное прокрутка по табу
-  - перетаскивание ингредиентов 
+  - перетаскивание ингредиентов в поле конструктора заказа (react-dnd)
+  - ручная сортировка ингредиентов в заказе
+  - анимация (framer-motion)
+  - отображение кол-ва ингредиентов добавленные в заказ
+  - удаление ингредиента из заказа
+  - суммарная стоимость заказа
+  - кнопка "Оформить заказ", генерирует номер заказа из переданных API серверу ID ингредиентов, отображает его в модальном окне
+
+### 🔨 Стэк:
++ ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
++ ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
++ ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
++ ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
++ ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+
+### Цель, изучить и закрепить на практике
++ ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
++ ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 
 ### 🔧 Инструкция:
 
 1. Установить [Node.js](https://nodejs.org/en/ 'ссылка на сайт Node.js')
 2. Установить [Git](https://git-scm.com/ 'ссылка на сайт Git')
-3. Скачайть или склонировать себе командой:
+3. Скачайте или клонируйте себе командой:
 ```sh
     git clone https://github.com/cactys/react-burger.git
 ```
