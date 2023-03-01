@@ -6,14 +6,9 @@ import ingredientCardStyle from './IngredientCard.module.css';
 import { dataPropTypes } from '../../utils/constant';
 import PropTypes from 'prop-types';
 import { useDrag } from '../../../node_modules/react-dnd/dist/index';
-import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
 
-const IngredientCard = ({ ingredient, onIngredientClick }) => {
-  const { ingredients, bun } = useSelector(
-    (store) => store.constructorIngredient
-  );
-  const { _id, type, name, image, price } = ingredient;
+const IngredientCard = ({ ingredient, onIngredientClick, count }) => {
+  const { name, image, price } = ingredient;
 
   const handleClick = () => {
     onIngredientClick(ingredient);
@@ -27,27 +22,6 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
     }),
   });
 
-  // const calcCounter = () => {
-  // if (type === 'bun' && bun !== null) {
-  //   return bun.filter((item) => item._id === _id).length * 2;
-  // } else {
-  // return ingredients.filter((item) => item._id === _id).length;
-  // }
-  // };
-
-  // const count = calcCounter();
-
-  const calcCounter = useMemo(() => {
-    const counters = {
-      ...ingredients.forEach((ingredient) => {
-        if (!ingredient._id) ingredient._id = 0;
-        ingredient._id++;
-      })
-    };
-    if (bun)
-    
-  });
-
   return (
     <div
       className={ingredientCardStyle.container}
@@ -55,11 +29,7 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
       ref={dragRef}
       style={{ opacity }}
     >
-      {count !== 0 ? (
-        <Counter count={count} size="default" extraClass="m-1" />
-      ) : (
-        ''
-      )}
+      {count ? <Counter count={count} size="default" extraClass="m-1" /> : ''}
       <img className={ingredientCardStyle.image} src={image} alt={name} />
       <div className={`mb-2 ${ingredientCardStyle.price}`}>
         <p className="mr-2 text text_type_digits-default">{price}</p>
@@ -77,4 +47,5 @@ export default IngredientCard;
 IngredientCard.propTypes = {
   ingredient: dataPropTypes.isRequired,
   onIngredientClick: PropTypes.func.isRequired,
+  count: PropTypes.number,
 };
