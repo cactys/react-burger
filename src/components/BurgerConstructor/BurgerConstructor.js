@@ -39,9 +39,9 @@ const BurgerConstructor = () => {
 
   const onDropHandler = (item) => {
     if (item.type !== 'bun') {
-      dispatch(addBurgerIngredient(item, uuid()));
+      dispatch(addBurgerIngredient(item));
     } else {
-      dispatch(addBurgerBun(item, uuid()));
+      dispatch(addBurgerBun(item));
     }
   };
 

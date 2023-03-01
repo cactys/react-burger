@@ -83,7 +83,7 @@ const ConstructorContainer = ({ ingredient }) => {
     <Reorder.Item
       value={ingredient}
       id={ingredient}
-      transition={{ type: 'spring' }}
+      transition={{ type: 'spring', duration: 0.8 }}
       className={cn}
       ref={ingredientRef}
       data-handler-id={handlerId}
