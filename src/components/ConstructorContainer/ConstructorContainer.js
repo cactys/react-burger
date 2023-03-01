@@ -70,6 +70,7 @@ const ConstructorContainer = ({ ingredient }) => {
   });
 
   const deleteIngredient = (uuid) => {
+    console.log(uuid);
     dispatch(deleteBurgerIngredient(uuid));
   };
 

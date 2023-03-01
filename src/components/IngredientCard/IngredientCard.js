@@ -7,6 +7,7 @@ import { dataPropTypes } from '../../utils/constant';
 import PropTypes from 'prop-types';
 import { useDrag } from '../../../node_modules/react-dnd/dist/index';
 import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 const IngredientCard = ({ ingredient, onIngredientClick }) => {
   const { ingredients, bun } = useSelector(
@@ -26,15 +27,26 @@ const IngredientCard = ({ ingredient, onIngredientClick }) => {
     }),
   });
 
-  const calcCounter = () => {
-    if (type === 'bun' && bun !== null) {
-      return bun?.filter((item) => item._id === _id).length * 2;
-    } else {
-      return ingredients.filter((item) => item._id === _id).length;
-    }
-  };
+  // const calcCounter = () => {
+  // if (type === 'bun' && bun !== null) {
+  //   return bun.filter((item) => item._id === _id).length * 2;
+  // } else {
+  // return ingredients.filter((item) => item._id === _id).length;
+  // }
+  // };
 
-  const count = calcCounter();
+  // const count = calcCounter();
+
+  const calcCounter = useMemo(() => {
+    const counters = {
+      ...ingredients.forEach((ingredient) => {
+        if (!ingredient._id) ingredient._id = 0;
+        ingredient._id++;
+      })
+    };
+    if (bun)
+    
+  });
 
   return (
     <div

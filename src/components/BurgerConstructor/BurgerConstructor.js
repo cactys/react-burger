@@ -4,17 +4,13 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 import { useDrop } from '../../../node_modules/react-dnd/dist/index';
-import { v4 as uuid } from 'uuid';
-import {
-  addBurgerBun,
-  addBurgerIngredient,
-} from '../../services/action/BurgerConstructor';
+import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
 import { RESET_ORDER_INFO } from '../../utils/constant';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
 import { Reorder, motion } from 'framer-motion';
@@ -38,11 +34,7 @@ const BurgerConstructor = () => {
   };
 
   const onDropHandler = (item) => {
-    if (item.type !== 'bun') {
-      dispatch(addBurgerIngredient(item));
-    } else {
-      dispatch(addBurgerBun(item));
-    }
+    dispatch(addBurgerIngredient(item));
   };
 
   const [, dropRef] = useDrop({
@@ -52,14 +44,22 @@ const BurgerConstructor = () => {
     },
   });
 
-  const ingredientPrice = ingredients.reduce(
-    (sum, item) => sum + item.price,
-    0
-  );
-  const bunPrice =
-    bun !== null ? bun.reduce((sum, item) => sum + item.price, 0) * 2 : 0;
+  // const ingredientPrice = ingredients.reduce(
+  //   (sum, item) => sum + item.price,
+  //   0
+  // );
 
-  const totalPrice = ingredientPrice + bunPrice;
+  // const bunPrice =
+  //   bun !== null ? bun.reduce((sum, item) => sum + item.price, 0) * 2 : 0;
+
+  // const totalPrice = ingredientPrice + bunPrice;
+
+  const totalPrice = useMemo(() => {
+    return (
+      (bun ? bun.price * 2 : 0) +
+      ingredients.reduce((sum, item) => sum + item.price, 0)
+    );
+  }, [bun, ingredients]);
 
   return (
     <section className={burgerConstructorStyle.container}>
@@ -81,9 +81,9 @@ const BurgerConstructor = () => {
                 <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={`${bun[0].name} (верх)`}
-                  price={bun[0].price}
-                  thumbnail={bun[0].image}
+                  text={`${bun.name} (верх)`}
+                  price={bun.price}
+                  thumbnail={bun.image}
                 />
               )}
             </motion.div>
@@ -111,9 +111,9 @@ const BurgerConstructor = () => {
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${bun[0].name} (низ)`}
-                  price={bun[0].price}
-                  thumbnail={bun[0].image}
+                  text={`${bun.name} (низ)`}
+                  price={bun.price}
+                  thumbnail={bun.image}
                 />
               )}
             </motion.div>

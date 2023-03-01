@@ -1,22 +1,21 @@
 import { v4 as uuid } from 'uuid';
 
 import {
-  ADD_BURGER_BUN,
-  ADD_BURGER_INGREDIENT,
-  DELETE_BURGER_INGREDIENT,
+  CONSTRUCTOR_ADD,
+  CONSTRUCTOR_DELETE,
 } from '../../utils/constant';
 
 export const addBurgerIngredient = (item) => ({
-  type: ADD_BURGER_INGREDIENT,
+  type: CONSTRUCTOR_ADD,
   payload: { ...item, uuid: uuid() },
 });
 
-export const addBurgerBun = (item) => ({
-  type: ADD_BURGER_BUN,
-  payload: { ...item },
-});
+// export const addBurgerBun = (item) => ({
+//   type: ADD_BURGER_BUN,
+//   payload: { ...item },
+// });
 
 export const deleteBurgerIngredient = (uuid) => ({
-  type: DELETE_BURGER_INGREDIENT,
+  type: CONSTRUCTOR_DELETE,
   payload: uuid,
 });
