@@ -1,6 +1,8 @@
 import { v4 as uuid } from 'uuid';
 
-import { CONSTRUCTOR_ADD, CONSTRUCTOR_DELETE } from '../../utils/constant';
+export const CONSTRUCTOR_ADD = 'CONSTRUCTOR_ADD';
+export const CONSTRUCTOR_DELETE = 'CONSTRUCTOR_DELETE';
+export const CONSTRUCTOR_REORDER = 'CONSTRUCTOR_REORDER';
 
 export const addBurgerIngredient = (item) => {
   return {
@@ -8,11 +10,6 @@ export const addBurgerIngredient = (item) => {
     payload: { ...item, uuid: uuid() },
   };
 };
-
-// export const addBurgerBun = (item) => ({
-//   type: ADD_BURGER_BUN,
-//   payload: { ...item },
-// });
 
 export const deleteBurgerIngredient = (uuid) => ({
   type: CONSTRUCTOR_DELETE,

@@ -15,9 +15,9 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const ingredientId = [
-      bun?.map((item) => item._id),
+      bun._id,
       ...ingredients.map((ingredient) => ingredient._id),
-      bun?.map((item) => item._id),
+      bun._id,
     ];
 
     dispatch(orderDetail(ingredientId));

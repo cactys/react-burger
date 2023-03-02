@@ -1,9 +1,4 @@
-import {
-  RESET_INGREDIENTS,
-  GET_INGREDIENTS_FAILED,
-  GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS,
-} from '../../utils/constant';
+import { GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, RESET_INGREDIENTS } from "../action/BurgerIngredients";
 
 const initialState = {
   ingredients: [],

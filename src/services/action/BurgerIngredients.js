@@ -1,10 +1,12 @@
 import { api } from '../../utils/api';
-import {
-  RESET_INGREDIENTS,
-  GET_INGREDIENTS_FAILED,
-  GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS,
-} from '../../utils/constant';
+
+export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
+export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
+export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
+export const RESET_INGREDIENTS = 'RESET_INGREDIENTS';
+
+export const ADD_INGREDIENT_INFO = 'ADD_INGREDIENT_INFO';
+export const DELETE_INGREDIENT_INFO = 'DELETE_INGREDIENT_INFO';
 
 export function getIngredients() {
   return function (dispatch) {

@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 import { useDrop } from '../../../node_modules/react-dnd/dist/index';
 import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
-import { RESET_ORDER_INFO } from '../../utils/constant';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
 import { Reorder, motion } from 'framer-motion';
+import { RESET_ORDER_INFO } from '../../services/action/OrderDetails';
 
 const BurgerConstructor = () => {
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
@@ -43,16 +43,6 @@ const BurgerConstructor = () => {
       onDropHandler(item);
     },
   });
-
-  // const ingredientPrice = ingredients.reduce(
-  //   (sum, item) => sum + item.price,
-  //   0
-  // );
-
-  // const bunPrice =
-  //   bun !== null ? bun.reduce((sum, item) => sum + item.price, 0) * 2 : 0;
-
-  // const totalPrice = ingredientPrice + bunPrice;
 
   const totalPrice = useMemo(() => {
     return (

@@ -4,21 +4,17 @@ import {
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import constructorContainerStyle from './ConstructorContainer.module.css';
 import {
-  CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_REORDER,
   dataPropTypes,
-  // SORT_BURGER_INGREDIENT,
 } from '../../utils/constant';
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { useDrag, useDrop } from '../../../node_modules/react-dnd/dist/index';
-// import { deleteBurgerIngredient } from '../../services/action/BurgerConstructor';
 import { Reorder } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER } from '../../services/action/BurgerConstructor';
 
 const ConstructorContainer = ({ ingredient, index }) => {
   const dispatch = useDispatch();
-  // const { ingredients } = useSelector((store) => store.constructorIngredient);
   const ingredientRef = useRef(null);
 
   const [{ isDrag }, dragRef] = useDrag({

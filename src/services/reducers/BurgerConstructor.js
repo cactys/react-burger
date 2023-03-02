@@ -1,8 +1,4 @@
-import {
-  CONSTRUCTOR_ADD,
-  CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_REORDER,
-} from '../../utils/constant';
+import { CONSTRUCTOR_ADD, CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER } from "../action/BurgerConstructor";
 
 const initialState = {
   ingredients: [],

@@ -1,10 +1,9 @@
 import { api } from '../../utils/api';
-import {
-  RESET_ORDER_INFO,
-  POST_ORDER_FAILED,
-  POST_ORDER_REQUEST,
-  POST_ORDER_SUCCESS,
-} from '../../utils/constant';
+
+export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
+export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
+export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
+export const RESET_ORDER_INFO = 'DELETE_ORDER_INFO';
 
 export function orderDetail(ingredientId) {
   return function (dispatch) {

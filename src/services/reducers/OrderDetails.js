@@ -1,9 +1,4 @@
-import {
-  POST_ORDER_FAILED,
-  POST_ORDER_REQUEST,
-  POST_ORDER_SUCCESS,
-  RESET_ORDER_INFO,
-} from '../../utils/constant';
+import { POST_ORDER_FAILED, POST_ORDER_REQUEST, POST_ORDER_SUCCESS, RESET_ORDER_INFO } from "../action/OrderDetails";
 
 const initialState = {
   currentOrder: null,

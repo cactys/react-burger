@@ -4,12 +4,9 @@ import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import {
-  ADD_INGREDIENT_INFO,
-  DELETE_INGREDIENT_INFO,
-  MODAL,
-} from '../../utils/constant';
+import { MODAL } from '../../utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
+import { ADD_INGREDIENT_INFO, DELETE_INGREDIENT_INFO } from '../../services/action/BurgerIngredients';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');

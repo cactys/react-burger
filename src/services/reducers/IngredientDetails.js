@@ -1,7 +1,4 @@
-import {
-  ADD_INGREDIENT_INFO,
-  DELETE_INGREDIENT_INFO,
-} from '../../utils/constant';
+import { ADD_INGREDIENT_INFO, DELETE_INGREDIENT_INFO } from "../action/BurgerIngredients";
 
 const initialState = {
   info: null,
