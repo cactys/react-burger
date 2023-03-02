@@ -3,7 +3,7 @@ import {
   DragIcon,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import constructorContainerStyle from './ConstructorContainer.module.css';
-import { dataPropTypes, SORT_BURGER_INGREDIENT } from '../../utils/constant';
+import { CONSTRUCTOR_REORDER, dataPropTypes, SORT_BURGER_INGREDIENT } from '../../utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { useDrag, useDrop } from '../../../node_modules/react-dnd/dist/index';
@@ -24,6 +24,7 @@ const ConstructorContainer = ({ ingredient }) => {
     );
 
     newIngredientPosition.splice(ingredientIndex, 0, item);
+
     dispatch({
       type: SORT_BURGER_INGREDIENT,
       payload: newIngredientPosition,
@@ -39,19 +40,22 @@ const ConstructorContainer = ({ ingredient }) => {
   });
 
   const [{ handlerId }, dropRef] = useDrop({
-    accept: 'ingredients',
+    accept: [SORT_BURGER_INGREDIENT],
     collect(monitor) {
       return { handlerId: monitor.getHandlerId() };
     },
     hover(item, monitor) {
-      if (!ingredientRef.current) return;
+      console.log(item);
+      // if (!ingredientRef.current) return;
 
-      const dragIndex = ingredients.findIndex(
-        (element) => element.uuid === item.uuid
-      );
-      const hoverIndex = ingredients.findIndex(
-        (element) => element.uuid === ingredient.uuid
-      );
+      // const dragIndex = ingredients.findIndex(
+      //   (element) => element.uuid === item.uuid
+      // );
+      // const hoverIndex = ingredients.findIndex(
+      //   (element) => element.uuid === ingredient.uuid
+      // );
+      const dragIndex = item.index;
+      const hoverIndex = index;
 
       if (dragIndex === hoverIndex) return;
 
@@ -64,14 +68,19 @@ const ConstructorContainer = ({ ingredient }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      moveIngredient(item);
+      // moveIngredient(item);
+
+      dispatch({
+        type: CONSTRUCTOR_REORDER,
+        payload:
+      });
+
       item.index = hoverIndex;
     },
   });
 
-  const deleteIngredient = (uuid) => {
-    console.log(uuid);
-    dispatch(deleteBurgerIngredient(uuid));
+  const deleteIngredient = (ingredient) => {
+    dispatch(deleteBurgerIngredient(ingredient.uuid));
   };
 
   dragRef(dropRef(ingredientRef));
@@ -94,7 +103,7 @@ const ConstructorContainer = ({ ingredient }) => {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        handleClose={() => deleteIngredient(ingredient.uuid)}
+        handleClose={() => deleteIngredient(ingredient)}
       />
     </Reorder.Item>
   );
