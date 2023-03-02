@@ -94,10 +94,11 @@ const BurgerConstructor = () => {
             >
               {ingredients.length === 0
                 ? ''
-                : ingredients.map((ingredient) => (
+                : ingredients.map((ingredient, index) => (
                     <ConstructorContainer
                       key={ingredient.uuid}
                       ingredient={ingredient}
+                      index={index}
                     />
                   ))}
             </Reorder.Group>

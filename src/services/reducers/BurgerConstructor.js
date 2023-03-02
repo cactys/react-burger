@@ -1,7 +1,7 @@
 import {
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
-  SORT_BURGER_INGREDIENT,
+  CONSTRUCTOR_REORDER,
 } from '../../utils/constant';
 
 const initialState = {
@@ -29,7 +29,7 @@ export const constructorReducer = (state = initialState, action) => {
         ],
       };
     }
-    case SORT_BURGER_INGREDIENT: {
+    case CONSTRUCTOR_REORDER: {
       const ingredients = [...state.ingredients];
       ingredients.splice(
         action.payload.to,
