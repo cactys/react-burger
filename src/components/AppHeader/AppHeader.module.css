@@ -1,5 +1,5 @@
 .header {
-  background-color: #1C1C21;
+  background-color: #1c1c21;
   width: 100%;
 }
 
@@ -10,7 +10,6 @@
   min-width: 320px;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
 }
 
 .logo {
@@ -41,4 +40,9 @@
   color: inherit;
   display: flex;
   column-gap: 8px;
+  transition: opacity 0.4s;
+}
+
+.link:hover {
+  opacity: 0.7;
 }

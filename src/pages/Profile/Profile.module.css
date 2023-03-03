@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+}
+
+.navigate {
+  border: 1px solid #3333ff;
+  height: 320px;
+  width: 320px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.inputForm {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
