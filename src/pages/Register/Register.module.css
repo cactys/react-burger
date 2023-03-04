@@ -1,0 +1,19 @@
+.container {
+  margin: 180px auto;
+  max-width: 1280px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerFooter {
+  display: flex;
+  gap: 8px;
+}
+
+.linkFooter {
+  text-decoration: none;
+  color: #3333ff;
+}

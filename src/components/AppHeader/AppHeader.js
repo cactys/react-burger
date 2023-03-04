@@ -29,15 +29,16 @@ const AppHeader = () => {
         </ul>
         <Logo />
         <div className={headerStyle.profile}>
-          <a className={`${headerStyle.link} pl-5 pr-5 pb-4 pt-4`} href="/">
+          <Link
+            to="/profile"
+            className={`${headerStyle.link} pl-5 pr-5 pb-4 pt-4`}
+            href="/"
+          >
             <ProfileIcon type="secondary" />
-            <Link
-              to="/profile"
-              className="text text_type_main-default text_color_inactive"
-            >
+            <p className="text text_type_main-default text_color_inactive">
               Личный кабинет
-            </Link>
-          </a>
+            </p>
+          </Link>
         </div>
       </nav>
     </header>

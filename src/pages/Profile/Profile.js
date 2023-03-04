@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   EmailInput,
   Input,
@@ -7,27 +8,54 @@ import {
 import profileStyle from './Profile.module.css';
 
 const Profile = () => {
-  const [valueName, setValueName] = useState('Марк');
-  const [valueLogin, setValueLogin] = useState('bob@example.com');
-  const [valuePassword, setValuePassword] = useState('p@ssw0rd');
-  const inputRef = useRef(null);
+  const [name, setName] = useState('Марк');
+  const [login, setLogin] = useState('bob@example.com');
+  const [password, setPassword] = useState('p@ssw0rd');
 
+  const inputRef = useRef(null);
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
-    alert('Icon Click Callback');
+    console.log(inputRef.current.value);
   };
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
-      <nav className={profileStyle.navigate}></nav>
+      <nav className={profileStyle.navigate}>
+        <ul className={profileStyle.navList}>
+          <li className={profileStyle.navItem}>
+            <Link to="/profile" className={`${profileStyle.navLink}`}>
+              <p className="text text_type_main-medium">Профиль</p>
+            </Link>
+          </li>
+          <li className={profileStyle.navItem}>
+            <Link to="/" className={`${profileStyle.navLink}`}>
+              <p className="text text_type_main-medium text_color_inactive">
+                История заказов
+              </p>
+            </Link>
+          </li>
+          <li className={profileStyle.navItem}>
+            <Link to="/register" className={`${profileStyle.navLink}`}>
+              <p className="text text_type_main-medium text_color_inactive">
+                Выход
+              </p>
+            </Link>
+          </li>
+        </ul>
+        <p
+          className={`text text_type_main-default text_color_inactive mt-20 ${profileStyle.subtitle}`}
+        >
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      </nav>
       <div className={profileStyle.inputForm}>
         <Input
-          type={'text'}
-          placeholder={'Имя'}
-          onChange={(e) => setValueName(e.target.value)}
-          icon={'EditIcon'}
-          value={valueName}
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
           name={'name'}
+          placeholder="Имя"
+          icon="EditIcon"
           error={false}
           ref={inputRef}
           onIconClick={onIconClick}
@@ -36,16 +64,18 @@ const Profile = () => {
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={(e) => setValueLogin(e.target.value)}
-          value={valueLogin}
+          type="text"
+          onChange={(e) => setLogin(e.target.value)}
+          value={login}
           name={'email'}
           placeholder="Логин"
           isIcon={true}
           extraClass="mb-6"
         />
         <PasswordInput
-          onChange={(e) => setValuePassword(e.target.value)}
-          value={valuePassword}
+          type="text"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
           name={'password'}
           icon="EditIcon"
         />

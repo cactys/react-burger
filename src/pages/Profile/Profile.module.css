@@ -1,17 +1,57 @@
 .container {
+  margin: 120px auto;
+  max-width: 1280px;
+  min-width: 320px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .navigate {
-  border: 1px solid #3333ff;
-  height: 320px;
-  width: 320px;
-  flex: 1;
-  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 320px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  column-gap: 8px;
+  justify-content: space-between;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.navItem {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.4s;
+}
+
+.navLink:hover {
+  opacity: 0.7;
+}
+
+.subtitle {
+  text-align: start;
+  height: 48px;
 }
 
 .inputForm {
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
 }
