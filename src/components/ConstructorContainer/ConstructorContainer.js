@@ -3,15 +3,16 @@ import {
   DragIcon,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import constructorContainerStyle from './ConstructorContainer.module.css';
-import {
-  dataPropTypes,
-} from '../../utils/constant';
+import { dataPropTypes } from '../../utils/constants';
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { useDrag, useDrop } from '../../../node_modules/react-dnd/dist/index';
 import { Reorder } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER } from '../../services/action/BurgerConstructor';
+import {
+  CONSTRUCTOR_DELETE,
+  CONSTRUCTOR_REORDER,
+} from '../../services/action/BurgerConstructor';
 
 const ConstructorContainer = ({ ingredient, index }) => {
   const dispatch = useDispatch();

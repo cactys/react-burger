@@ -13,18 +13,16 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 const App = () => {
   return (
     <div className={appStyle.page}>
-      <BrowserRouter>
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AppHeader />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 };

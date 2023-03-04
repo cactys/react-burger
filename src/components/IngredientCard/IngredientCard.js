@@ -3,7 +3,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientCardStyle from './IngredientCard.module.css';
-import { dataPropTypes } from '../../utils/constant';
+import { dataPropTypes } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import { useDrag } from '../../../node_modules/react-dnd/dist/index';
 

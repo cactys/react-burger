@@ -1,5 +1,5 @@
 import ingredientDetailsStyle from './IngredientDetails.module.css';
-import { dataPropTypes } from '../../utils/constant';
+import { dataPropTypes } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 

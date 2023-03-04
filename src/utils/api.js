@@ -1,4 +1,4 @@
-import { BASE_URL } from './constant';
+import { BASE_URL } from './constants';
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -7,10 +7,7 @@ class Api {
   }
 
   _checkingResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
   getIngredient() {
@@ -24,6 +21,23 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ ingredients: ingredientId }),
+    }).then(this._checkingResponse);
+  }
+
+  getUser() {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: this._headers,
+    }).then(this._checkingResponse);
+  }
+
+  editUser(data) {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify(data),
     }).then(this._checkingResponse);
   }
 }
