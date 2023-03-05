@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   EmailInput,
   Input,
@@ -8,6 +8,9 @@ import {
 import profileStyle from './Profile.module.css';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [name, setName] = useState('Марк');
   const [login, setLogin] = useState('bob@example.com');
   const [password, setPassword] = useState('p@ssw0rd');
@@ -17,6 +20,10 @@ const Profile = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     console.log(inputRef.current.value);
   };
+
+  // const cn = location.pathname ? '123' : '321';
+
+  // console.log(cn);
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
@@ -28,7 +35,7 @@ const Profile = () => {
             </Link>
           </li>
           <li className={profileStyle.navItem}>
-            <Link to="/" className={`${profileStyle.navLink}`}>
+            <Link to="/profile/orders" className={`${profileStyle.navLink}`}>
               <p className="text text_type_main-medium text_color_inactive">
                 История заказов
               </p>

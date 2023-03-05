@@ -10,6 +10,7 @@ class Auth {
   }
 
   signUp(data) {
+    console.log(data);
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: {
@@ -20,7 +21,6 @@ class Auth {
   }
 
   signIn(data) {
-    console.log(data);
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: {

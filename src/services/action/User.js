@@ -1,8 +1,8 @@
 import { auth } from '../../utils/auth';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_FAILED';
-export const LOGIN_FAILED = 'LOGIN_SUCCESS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
@@ -17,14 +17,13 @@ export function login(body) {
       .signUp(body)
       .then((res) => {
         if (res && res.success) {
-          console.log(res);
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.user,
           });
           const accessToken = res.accessToken.split('Bearer ')[1];
-          localStorage.getItem('refreshToken', res.refreshToken);
-          localStorage.getItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', res.refreshToken);
+          localStorage.setItem('accessToken', accessToken);
         } else {
           dispatch({
             type: LOGIN_FAILED,
@@ -33,6 +32,7 @@ export function login(body) {
         }
       })
       .catch((err) => {
+        console.log(err.message);
         switch (err.message) {
           case 'email or password are incorrect': {
             return dispatch({
@@ -66,8 +66,8 @@ export function register(body) {
             payload: res.user,
           });
           const accessToken = res.accessToken.split('Bearer ')[1];
-          localStorage.getItem('refreshToken', res.refreshToken);
-          localStorage.getItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', res.refreshToken);
+          localStorage.setItem('accessToken', accessToken);
         } else {
           dispatch({
             type: REGISTER_FAILED,

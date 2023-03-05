@@ -13,13 +13,14 @@ import loginStyle from './Login.module.css';
 const Login = () => {
   const dispatch = useDispatch();
 
-  const { failed, message } = useSelector((store) => store.user);
+  const { request, failed, message } = useSelector((store) => store.user);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(failed, message, request);
     dispatch(
       login({
         email: email,
