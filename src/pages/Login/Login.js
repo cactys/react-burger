@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
   InfoIcon,
   PasswordInput,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+import Preloader from '../../components/Preloader/Preloader';
 import { login } from '../../services/action/User';
 import loginStyle from './Login.module.css';
 
@@ -20,7 +21,6 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(failed, message, request);
     dispatch(
       login({
         email: email,
@@ -33,6 +33,7 @@ const Login = () => {
     <main className={loginStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
       <form className={loginStyle.form} onSubmit={(e) => onSubmit(e)}>
+        {request && <Preloader />}
         <EmailInput
           onChange={(e) => setEmail(e.target.value)}
           value={email}

@@ -10,12 +10,11 @@ import { Link } from 'react-router-dom';
 import registerStyle from './Register.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../services/action/User';
+import Preloader from '../../components/Preloader/Preloader';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const { failed, message } = useSelector(
-    (store) => store.user
-  );
+  const { request, failed, message } = useSelector((store) => store.user);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -36,6 +35,7 @@ const Register = () => {
     <main className={registerStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
       <form className={registerStyle.form} onSubmit={(e) => onSubmit(e)}>
+        {request && <Preloader />}
         <Input
           type="text"
           onChange={(e) => setName(e.target.value)}

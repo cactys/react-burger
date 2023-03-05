@@ -1,9 +1,8 @@
 import { BASE_URL } from './constants';
 
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
   }
 
   _checkingResponse(res) {
@@ -19,16 +18,30 @@ class Api {
   addOrder(ingredientId) {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ ingredients: ingredientId }),
     }).then(this._checkingResponse);
   }
 
-  getUser() {
+  getUser(token) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'GET',
-      credentials: 'include',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    }).then(this._checkingResponse);
+  }
+
+  getToken(token) {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: token }),
     }).then(this._checkingResponse);
   }
 
@@ -36,7 +49,9 @@ class Api {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       credentials: 'include',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(data),
     }).then(this._checkingResponse);
   }
@@ -44,7 +59,4 @@ class Api {
 
 export const api = new Api({
   baseUrl: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });

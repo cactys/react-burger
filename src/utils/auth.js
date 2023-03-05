@@ -10,7 +10,6 @@ class Auth {
   }
 
   signUp(data) {
-    console.log(data);
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: {
@@ -30,12 +29,13 @@ class Auth {
     }).then(this._checkingResponse);
   }
 
-  signOut() {
+  signOut(token) {
     return fetch(`${this._url}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ token: token }),
     }).then(this._checkingResponse);
   }
 }

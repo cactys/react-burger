@@ -1,11 +1,123 @@
+import { api } from '../../utils/api';
 import { auth } from '../../utils/auth';
 
+export const CHECKED_USER = 'CHECKED_USER';
+export const USER_REQUEST = 'USER_REQUEST';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAILED = 'USER_FAILED';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+
+export function getUser() {
+  return function (dispatch) {
+    let accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!accessToken && !refreshToken) {
+      dispatch({
+        type: CHECKED_USER,
+      });
+    } else {
+      api
+        .getUser(accessToken)
+        .then((res) => {
+          if (res && res.success) {
+            dispatch({
+              type: USER_SUCCESS,
+              payload: res.user,
+            });
+            dispatch({
+              type: CHECKED_USER,
+            });
+          } else {
+            dispatch({
+              type: USER_FAILED,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+          switch (err.message) {
+            case 'jwt expired': {
+              return api
+                .getToken(refreshToken)
+                .then((res) => {
+                  if (res && res.success) {
+                    accessToken = res.accessToken.split('Bearer ')[1];
+                    localStorage.setItem('refreshToken', res.refreshToken);
+                    localStorage.setItem('accessToken', accessToken);
+                    api
+                      .getUser(accessToken)
+                      .then((res) => {
+                        if (res && res.success) {
+                          dispatch({
+                            type: USER_SUCCESS,
+                            payload: res.user,
+                          });
+                          dispatch({
+                            type: CHECKED_USER,
+                          });
+                        } else {
+                          dispatch({
+                            type: USER_FAILED,
+                          });
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err.message);
+                        dispatch({
+                          type: USER_FAILED,
+                        });
+                      });
+                  } else {
+                    dispatch({
+                      type: USER_FAILED,
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.message);
+                  switch (err.message) {
+                    case 'Token is invalid': {
+                      dispatch({
+                        type: CHECKED_USER,
+                      });
+                      localStorage.clear();
+                      break;
+                    }
+                    default: {
+                      return dispatch({
+                        type: USER_FAILED,
+                      });
+                    }
+                  }
+                });
+            }
+            case 'jwt malformed' || 'invalid token': {
+              return dispatch({
+                type: CHECKED_USER,
+              });
+            }
+            default: {
+              dispatch({
+                type: CHECKED_USER,
+              });
+              dispatch({
+                type: USER_FAILED,
+              });
+              break;
+            }
+          }
+        });
+    }
+  };
+}
 
 export function login(body) {
   return function (dispatch) {
@@ -76,6 +188,7 @@ export function register(body) {
         }
       })
       .catch((err) => {
+        console.log(err.message);
         switch (err.message) {
           case 'User already exists': {
             return dispatch({
@@ -96,6 +209,33 @@ export function register(body) {
             });
           }
         }
+      });
+  };
+}
+
+export function logout() {
+  return function (dispatch) {
+    dispatch({
+      type: LOGOUT_REQUEST,
+    });
+    const refreshToken = localStorage.getItem('refreshToken');
+    auth
+      .signOut(refreshToken)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: LOGOUT_SUCCESS,
+          });
+          localStorage.clear();
+        } else {
+          dispatch({
+            type: LOGOUT_FAILED,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({ type: LOGOUT_FAILED });
       });
   };
 }

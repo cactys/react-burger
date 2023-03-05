@@ -1,14 +1,20 @@
 import {
+  CHECKED_USER,
   LOGIN_FAILED,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  USER_SUCCESS,
 } from '../action/User';
 
 const initialState = {
   user: null,
+  userChecked: false,
   request: false,
   failed: false,
   message: '',
@@ -17,6 +23,20 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case USER_SUCCESS: {
+      return {
+        ...state,
+        user: {
+          ...action.payload,
+        },
+      };
+    }
+    case CHECKED_USER: {
+      return {
+        ...state,
+        userChecked: true,
+      };
+    }
     case LOGIN_SUCCESS: {
       return {
         ...state,
@@ -67,6 +87,29 @@ export const userReducer = (state = initialState, action) => {
         request: false,
         failed: true,
         message: action.payload,
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        user: null,
+        request: false,
+        failed: false,
+        isLogout: true,
+      };
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        request: true,
+        failed: false,
+      };
+    }
+    case LOGOUT_FAILED: {
+      return {
+        ...state,
+        request: false,
+        failed: true,
       };
     }
     default:
