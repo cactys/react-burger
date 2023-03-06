@@ -9,7 +9,6 @@ import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { ProvideAuth } from '../../services/auth';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getUser } from '../../services/action/User';
@@ -23,27 +22,25 @@ const App = () => {
 
   return (
     <div className={appStyle.page}>
-      <ProvideAuth>
-        <BrowserRouter>
-          <AppHeader />
-          <Routes>
-            <Route path="/" element={<ProtectedRoute element={<Main />} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route
-              path="/profile"
-              element={<ProtectedRoute element={<Profile />} />}
-            />
-            <Route
-              path="/profile/orders"
-              element={<ProtectedRoute element={<Profile />} />}
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </ProvideAuth>
+      <BrowserRouter>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<ProtectedRoute element={<Main />} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/profile"
+            element={<ProtectedRoute element={<Profile />} />}
+          />
+          <Route
+            path="/profile/orders"
+            element={<ProtectedRoute element={<Profile />} />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

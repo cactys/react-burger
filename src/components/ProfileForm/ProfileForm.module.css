@@ -1,3 +1,10 @@
 .inputForm {
   margin: 0 auto;
 }
+
+.submitContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin: 20px 0;
+}

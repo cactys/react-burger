@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
@@ -13,8 +13,15 @@ import loginStyle from './Login.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { request, failed, message } = useSelector((store) => store.user);
+  const { request, failed, message, isLogin } = useSelector(
+    (store) => store.user
+  );
+
+  useEffect(() => {
+    isLogin && navigate('/');
+  }, [isLogin, navigate]);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   EmailInput,
@@ -6,7 +6,7 @@ import {
   Input,
   PasswordInput,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import registerStyle from './Register.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../services/action/User';
@@ -14,7 +14,15 @@ import Preloader from '../../components/Preloader/Preloader';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const { request, failed, message } = useSelector((store) => store.user);
+  const navigate = useNavigate();
+
+  const { request, failed, message, isLogin } = useSelector(
+    (store) => store.user
+  );
+
+  useEffect(() => {
+    isLogin && navigate('/');
+  }, [isLogin, navigate]);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

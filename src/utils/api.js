@@ -25,32 +25,35 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  getUser(token) {
+  getUser(accessToken) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + accessToken,
       },
     }).then(this._checkingResponse);
   }
 
-  getToken(token) {
-    return fetch(`${this._baseUrl}/auth/user`, {
+  getRefreshToken(refreshToken) {
+    console.log(refreshToken);
+    return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token: token }),
+      body: JSON.stringify({ token: refreshToken }),
     }).then(this._checkingResponse);
   }
 
   editUser(data) {
+    console.log(data)
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + data,
       },
       body: JSON.stringify(data),
     }).then(this._checkingResponse);

@@ -14,12 +14,16 @@ export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+export const UPDATE_USER_INFO_REQUEST = 'UPDATE_USER_INFO_REQUEST';
+export const UPDATE_USER_INFO_SUCCESS = 'UPDATE_USER_INFO_SUCCESS';
+export const UPDATE_USER_INFO_FAILED = 'UPDATE_USER_INFO_FAILED';
 
 export function getUser() {
   return function (dispatch) {
     let accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
-    if (!accessToken && !refreshToken) {
+    const isLogin = localStorage.getItem('login');
+    if (!accessToken && !refreshToken && !isLogin) {
       dispatch({
         type: CHECKED_USER,
       });
@@ -45,15 +49,17 @@ export function getUser() {
           console.log(err.message);
           switch (err.message) {
             case 'jwt expired': {
+              console.log(err.message, ' :');
               return api
-                .getToken(refreshToken)
+                .getRefreshToken(refreshToken)
                 .then((res) => {
                   if (res && res.success) {
                     accessToken = res.accessToken.split('Bearer ')[1];
                     localStorage.setItem('refreshToken', res.refreshToken);
                     localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('login', true);
                     api
-                      .getUser(accessToken)
+                      .getUser(refreshToken)
                       .then((res) => {
                         if (res && res.success) {
                           dispatch({
@@ -136,6 +142,7 @@ export function login(body) {
           const accessToken = res.accessToken.split('Bearer ')[1];
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('login', true);
         } else {
           dispatch({
             type: LOGIN_FAILED,
@@ -180,6 +187,7 @@ export function register(body) {
           const accessToken = res.accessToken.split('Bearer ')[1];
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('login', true);
         } else {
           dispatch({
             type: REGISTER_FAILED,
@@ -236,6 +244,35 @@ export function logout() {
       .catch((err) => {
         console.log(err.message);
         dispatch({ type: LOGOUT_FAILED });
+      });
+  };
+}
+
+export function updateUserInfo() {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_INFO_REQUEST,
+    });
+    const accessToken = localStorage.getItem('accessToken');
+    api
+      .editUser(accessToken)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_USER_INFO_SUCCESS,
+            payload: res.user,
+          });
+        } else {
+          dispatch({
+            type: UPDATE_USER_INFO_FAILED,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({
+          type: UPDATE_USER_INFO_FAILED,
+        });
       });
   };
 }

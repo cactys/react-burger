@@ -9,6 +9,9 @@ import {
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  UPDATE_USER_INFO_FAILED,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
   USER_SUCCESS,
 } from '../action/User';
 
@@ -19,6 +22,7 @@ const initialState = {
   failed: false,
   message: '',
   isLogout: false,
+  isLogin: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -26,9 +30,7 @@ export const userReducer = (state = initialState, action) => {
     case USER_SUCCESS: {
       return {
         ...state,
-        user: {
-          ...action.payload,
-        },
+        user: { ...action.payload },
       };
     }
     case CHECKED_USER: {
@@ -45,6 +47,7 @@ export const userReducer = (state = initialState, action) => {
         failed: false,
         message: '',
         isLogout: false,
+        isLogin: true,
       };
     }
     case LOGIN_REQUEST: {
@@ -71,6 +74,7 @@ export const userReducer = (state = initialState, action) => {
         failed: false,
         message: '',
         isLogout: false,
+        isLogin: true,
       };
     }
     case REGISTER_REQUEST: {
@@ -96,6 +100,7 @@ export const userReducer = (state = initialState, action) => {
         request: false,
         failed: false,
         isLogout: true,
+        isLogin: false,
       };
     }
     case LOGOUT_REQUEST: {
@@ -110,6 +115,34 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         request: false,
         failed: true,
+      };
+    }
+    case UPDATE_USER_INFO_SUCCESS: {
+      return {
+        ...state,
+        user: { ...action.payload },
+        success: true,
+        request: false,
+        failed: false,
+        message: 'Данные обновлены.',
+      };
+    }
+    case UPDATE_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        success: false,
+        request: true,
+        failed: false,
+        message: '',
+      };
+    }
+    case UPDATE_USER_INFO_FAILED: {
+      return {
+        ...state,
+        success: false,
+        request: false,
+        failed: true,
+        message: 'Произошла ошибка.',
       };
     }
     default:

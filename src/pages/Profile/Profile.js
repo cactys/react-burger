@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import { logout } from '../../services/action/User';
@@ -8,10 +9,17 @@ import profileStyle from './Profile.module.css';
 const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { isLogout } = useSelector((store) => store.user);
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    isLogout && navigate('/login');
+  }, [isLogout, navigate]);
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
