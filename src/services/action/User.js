@@ -29,7 +29,7 @@ export function getUser() {
       });
     } else {
       api
-        .getUser(accessToken)
+        .getCurrentUser(accessToken)
         .then((res) => {
           if (res && res.success) {
             dispatch({
@@ -59,7 +59,7 @@ export function getUser() {
                     localStorage.setItem('accessToken', accessToken);
                     localStorage.setItem('login', true);
                     api
-                      .getUser(refreshToken)
+                      .getCurrentUser(refreshToken)
                       .then((res) => {
                         if (res && res.success) {
                           dispatch({

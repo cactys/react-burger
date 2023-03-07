@@ -7,13 +7,11 @@ import {
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserInfo } from '../../services/action/User';
+import { getUser, updateUserInfo } from '../../services/action/User';
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.user);
-
-  console.log(user);
 
   const [value, setValue] = useState({
     name: '',
@@ -22,17 +20,16 @@ const ProfileForm = () => {
   });
   const [editor, setEditor] = useState(true);
 
-  console.log(value);
-
-  const validity = user.name === value.name && user.email === value.email;
-
-  console.log(validity);
+  const validity =
+    user?.name === value.name &&
+    user?.email === value.email &&
+    user?.password === value.password;
 
   useEffect(() => {
+    dispatch(getUser());
     setValue({
       name: user?.name,
       email: user?.email,
-      password: '',
     });
   }, [setValue, user]);
 
@@ -40,11 +37,10 @@ const ProfileForm = () => {
     e.preventDefault();
     dispatch(updateUserInfo(value.name, value.email, value.password));
     setValue({
-      name: user?.name,
-      email: user?.email,
-      password: '',
+      name: user.name,
+      email: user.email,
     });
-    console.log(e);
+    setEditor(true);
   };
 
   const inputRef = useRef(null);
@@ -52,6 +48,16 @@ const ProfileForm = () => {
   const onIconClick = () => {
     setEditor(false);
     setTimeout(() => inputRef.current.focus(), 0);
+  };
+
+  const handleCancelInput = (e) => {
+    e.preventDefault();
+    setValue({
+      name: user.name,
+      email: user.email,
+      password: '',
+    });
+    setEditor(true);
   };
 
   return (
@@ -86,12 +92,24 @@ const ProfileForm = () => {
         value={value.password || ''}
         name={'password'}
         icon="EditIcon"
+        formTarget={true}
       />
       <div className={profileFormStyle.submitContainer}>
-        <Button htmlType="button" type="secondary" size="small">
+        <Button
+          htmlType="button"
+          type="secondary"
+          size="small"
+          disabled={validity}
+          onClick={handleCancelInput}
+        >
           Отмена
         </Button>
-        <Button htmlType="submit" type="primary" size="small">
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="small"
+          disabled={validity}
+        >
           Сохранить
         </Button>
       </div>

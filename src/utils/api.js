@@ -25,7 +25,7 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  getUser(accessToken) {
+  getCurrentUser(accessToken) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
@@ -36,7 +36,6 @@ class Api {
   }
 
   getRefreshToken(refreshToken) {
-    console.log(refreshToken);
     return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
@@ -47,7 +46,7 @@ class Api {
   }
 
   editUser(data) {
-    console.log(data)
+    console.log(data);
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       credentials: 'include',
