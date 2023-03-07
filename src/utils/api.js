@@ -45,14 +45,12 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  editUser(data) {
-    console.log(data);
+  editUser(data, token) {
     return fetch(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
-      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + data,
+        Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(data),
     }).then(this._checkingResponse);

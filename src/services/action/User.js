@@ -248,14 +248,14 @@ export function logout() {
   };
 }
 
-export function updateUserInfo() {
+export function updateUserInfo(body) {
   return function (dispatch) {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
     const accessToken = localStorage.getItem('accessToken');
     api
-      .editUser(accessToken)
+      .editUser(body, accessToken)
       .then((res) => {
         if (res && res.success) {
           dispatch({

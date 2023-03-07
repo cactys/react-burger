@@ -26,7 +26,6 @@ const ProfileForm = () => {
     user?.password === value.password;
 
   useEffect(() => {
-    dispatch(getUser());
     setValue({
       name: user?.name,
       email: user?.email,
@@ -35,7 +34,7 @@ const ProfileForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserInfo(value.name, value.email, value.password));
+    dispatch(updateUserInfo(value));
     setValue({
       name: user.name,
       email: user.email,
@@ -92,7 +91,6 @@ const ProfileForm = () => {
         value={value.password || ''}
         name={'password'}
         icon="EditIcon"
-        formTarget={true}
       />
       <div className={profileFormStyle.submitContainer}>
         <Button
