@@ -9,28 +9,28 @@ const OrderDetails = () => {
   const { bun, ingredients } = useSelector(
     (store) => store.constructorIngredient
   );
-  const { currentOrder, orderRequest, orderFailed } = useSelector(
+  const { currentOrder, message } = useSelector(
     (store) => store.orderDetails
   );
 
   useEffect(() => {
     const ingredientId = [
-      bun._id,
+      bun?._id,
       ...ingredients.map((ingredient) => ingredient._id),
-      bun._id,
+      bun?._id,
     ];
 
     dispatch(orderDetail(ingredientId));
   }, [dispatch, bun, ingredients]);
 
-  if (orderFailed && orderRequest) return null;
-
   return (
     <div className={`pb-15 ${orderDetailsStyle.container}`}>
       <h3
-        className={`mt-4 text text_type_digits-large ${orderDetailsStyle.numberOrder}`}
+        className={`mt-4 text ${
+          currentOrder ? 'text_type_digits-large' : 'text_type_main-medium'
+        } ${orderDetailsStyle.numberOrder}`}
       >
-        {currentOrder?.number}
+        {currentOrder ? currentOrder.number : message}
       </h3>
       <p className="mt-8 text text_type_main-medium">идентификатор заказа</p>
       <img className="mt-15 mb-15" src={done} alt="Заказ готовится" />

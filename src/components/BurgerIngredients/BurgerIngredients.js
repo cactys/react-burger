@@ -7,8 +7,8 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { MODAL } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ADD_INGREDIENT_INFO,
-  DELETE_INGREDIENT_INFO,
+  INGREDIENT_ADD_INFO,
+  INGREDIENT_DELETE_INFO,
 } from '../../services/action/BurgerIngredients';
 
 const BurgerIngredients = () => {
@@ -82,7 +82,7 @@ const BurgerIngredients = () => {
   const handleIngredientClick = (selectIngredient) => {
     setIsIngredientDetailsOpen(true);
     dispatch({
-      type: ADD_INGREDIENT_INFO,
+      type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
     });
   };
@@ -90,7 +90,7 @@ const BurgerIngredients = () => {
   const closePopups = () => {
     setIsIngredientDetailsOpen(false);
     dispatch({
-      type: DELETE_INGREDIENT_INFO,
+      type: INGREDIENT_DELETE_INFO,
     });
   };
 
@@ -148,9 +148,10 @@ const BurgerIngredients = () => {
           </ol>
         </li>
       </ol>
+
       {isIngredientDetailsOpen && (
-        <Modal title={MODAL.INGREDIENT_TITLE} closePopup={closePopups}>
-          <IngredientDetails ingredientDetails={MODAL.INGREDIENT_DETAILS} />
+        <Modal title="Детали ингредиента" closePopup={closePopups}>
+          <IngredientDetails />
         </Modal>
       )}
     </section>

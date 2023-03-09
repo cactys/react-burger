@@ -9,7 +9,7 @@ import profileStyle from './Profile.module.css';
 const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isLogout, user } = useSelector((store) => store.user);
+  const { isLogout } = useSelector((store) => store.user);
 
   const navigate = useNavigate();
 

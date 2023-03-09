@@ -23,13 +23,3 @@
   align-items: center;
   color: #E52B1A;
 }
-
-.registerFooter {
-  display: flex;
-  gap: 8px;
-}
-
-.linkFooter {
-  text-decoration: none;
-  color: #3333ff;
-}

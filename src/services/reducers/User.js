@@ -1,5 +1,9 @@
 import {
-  CHECKED_USER,
+  USER_SUCCESS,
+  USER_CHECKED,
+  USER_UPDATE_INFO_FAILED,
+  USER_UPDATE_INFO_REQUEST,
+  USER_UPDATE_INFO_SUCCESS,
   LOGIN_FAILED,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -9,18 +13,34 @@ import {
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
-  UPDATE_USER_INFO_FAILED,
-  UPDATE_USER_INFO_REQUEST,
-  UPDATE_USER_INFO_SUCCESS,
-  USER_SUCCESS,
+  RECOVERY_FAILED,
+  RECOVERY_REQUEST,
+  RECOVERY_CHANGE_STATUS,
+  RECOVERY_SEND_EMAIL_SUCCESS,
+  RECOVERY_SET_ERROR_MESSAGE,
+  RECOVERY_SEND_PASSWORD_SUCCESS,
 } from '../action/User';
 
 const initialState = {
   user: null,
   userChecked: false,
-  request: false,
-  failed: false,
-  message: '',
+  loginRequest: false,
+  loginFailed: false,
+  registerRequest: false,
+  registerFailed: false,
+  logoutRequest: false,
+  logoutRailed: false,
+  updateSuccess: false,
+  updateRequest: false,
+  updateFailed: false,
+  recoveryRequest: false,
+  recoveryFailed: false,
+  emailSended: false,
+  passwordRecovered: false,
+  loginMessage: '',
+  registerMessage: '',
+  updateMessage: '',
+  recoveryMessage: '',
   isLogout: false,
   isLogin: false,
 };
@@ -33,7 +53,7 @@ export const userReducer = (state = initialState, action) => {
         user: { ...action.payload },
       };
     }
-    case CHECKED_USER: {
+    case USER_CHECKED: {
       return {
         ...state,
         userChecked: true,
@@ -43,9 +63,9 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: { ...action.payload },
-        request: false,
-        failed: false,
-        message: '',
+        loginRequest: false,
+        loginFailed: false,
+        loginMessage: '',
         isLogout: false,
         isLogin: true,
       };
@@ -53,26 +73,26 @@ export const userReducer = (state = initialState, action) => {
     case LOGIN_REQUEST: {
       return {
         ...state,
-        request: true,
-        failed: false,
-        message: '',
+        loginRequest: true,
+        loginFailed: false,
+        loginMessage: '',
       };
     }
     case LOGIN_FAILED: {
       return {
         ...state,
-        request: false,
-        failed: true,
-        message: action.payload,
+        loginRequest: false,
+        loginFailed: true,
+        loginMessage: action.payload,
       };
     }
     case REGISTER_SUCCESS: {
       return {
         ...state,
         user: { ...action.payload },
-        request: false,
-        failed: false,
-        message: '',
+        registerRequest: false,
+        registerFailed: false,
+        registerMessage: '',
         isLogout: false,
         isLogin: true,
       };
@@ -80,25 +100,25 @@ export const userReducer = (state = initialState, action) => {
     case REGISTER_REQUEST: {
       return {
         ...state,
-        request: true,
-        failed: false,
-        message: '',
+        registerRequest: true,
+        registerFailed: false,
+        registerMessage: '',
       };
     }
     case REGISTER_FAILED: {
       return {
         ...state,
-        request: false,
-        failed: true,
-        message: action.payload,
+        registerRequest: false,
+        registerFailed: true,
+        registerMessage: action.payload,
       };
     }
     case LOGOUT_SUCCESS: {
       return {
         ...state,
         user: null,
-        request: false,
-        failed: false,
+        logoutRequest: false,
+        logoutRailed: false,
         isLogout: true,
         isLogin: false,
       };
@@ -106,43 +126,88 @@ export const userReducer = (state = initialState, action) => {
     case LOGOUT_REQUEST: {
       return {
         ...state,
-        request: true,
-        failed: false,
+        logoutRequest: true,
+        logoutRailed: false,
       };
     }
     case LOGOUT_FAILED: {
       return {
         ...state,
-        request: false,
-        failed: true,
+        logoutRequest: false,
+        logoutRailed: true,
       };
     }
-    case UPDATE_USER_INFO_SUCCESS: {
+    case USER_UPDATE_INFO_SUCCESS: {
       return {
         ...state,
         user: { ...action.payload },
-        success: true,
-        request: false,
-        failed: false,
-        message: 'Данные обновлены.',
+        updateSuccess: true,
+        updateRequest: false,
+        updateFailed: false,
+        updateMessage: 'Данные обновлены.',
       };
     }
-    case UPDATE_USER_INFO_REQUEST: {
+    case USER_UPDATE_INFO_REQUEST: {
       return {
         ...state,
-        success: false,
-        request: true,
-        failed: false,
-        message: '',
+        updateSuccess: false,
+        updateRequest: true,
+        updateFailed: false,
+        updateMessage: '',
       };
     }
-    case UPDATE_USER_INFO_FAILED: {
+    case USER_UPDATE_INFO_FAILED: {
       return {
         ...state,
-        success: false,
-        request: false,
-        failed: true,
-        message: 'Произошла ошибка.',
+        updateSuccess: false,
+        updateRequest: false,
+        updateFailed: true,
+        updateMessage: 'Произошла ошибка.',
+      };
+    }
+    case RECOVERY_CHANGE_STATUS: {
+      return {
+        ...state,
+        emailSended: false,
+      };
+    }
+    case RECOVERY_REQUEST: {
+      return {
+        ...state,
+        recoveryRequest: true,
+        recoveryFailed: false,
+        recoveryMessage: '',
+      };
+    }
+    case RECOVERY_FAILED: {
+      return {
+        ...state,
+        recoveryRequest: false,
+        recoveryFailed: true,
+      };
+    }
+    case RECOVERY_SEND_EMAIL_SUCCESS: {
+      return {
+        ...state,
+        recoveryRequest: false,
+        recoveryFailed: false,
+        emailSended: true,
+        passwordRecovered: false,
+      };
+    }
+    case RECOVERY_SEND_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        recoveryRequest: false,
+        recoveryFailed: false,
+        emailSended: false,
+        passwordRecovered: true,
+      };
+    }
+    case RECOVERY_SET_ERROR_MESSAGE: {
+      return {
+        ...state,
+        recoveryMessage: action.payload,
       };
     }
     default:

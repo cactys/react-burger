@@ -1,4 +1,7 @@
-import { ADD_INGREDIENT_INFO, DELETE_INGREDIENT_INFO } from "../action/BurgerIngredients";
+import {
+  INGREDIENT_ADD_INFO,
+  INGREDIENT_DELETE_INFO,
+} from '../action/BurgerIngredients';
 
 const initialState = {
   info: null,
@@ -6,14 +9,14 @@ const initialState = {
 
 export const ingredientDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_INGREDIENT_INFO: {
+    case INGREDIENT_ADD_INFO: {
       return {
         ...state,
         info: action.payload,
       };
     }
 
-    case DELETE_INGREDIENT_INFO: {
+    case INGREDIENT_DELETE_INFO: {
       return {
         ...state,
         info: null,

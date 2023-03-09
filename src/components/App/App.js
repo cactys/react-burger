@@ -12,6 +12,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getUser } from '../../services/action/User';
+import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
+import Modal from '../Modal/Modal';
+import { MODAL } from '../../utils/constants';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import Ingredients from '../../pages/Ingredients/Ingredients';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,11 +30,23 @@ const App = () => {
       <BrowserRouter>
         <AppHeader />
         <Routes>
-          <Route path="/" element={<ProtectedRoute element={<Main />} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/" element={<Main />} />
+          <Route
+            path="/login"
+            element={<ProtectedAuthRoute element={<Login />} />}
+          />
+          <Route
+            path="/register"
+            element={<ProtectedAuthRoute element={<Register />} />}
+          />
+          <Route
+            path="/forgot-password"
+            element={<ProtectedAuthRoute element={<ForgotPassword />} />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ProtectedAuthRoute element={<ResetPassword />} />}
+          />
           <Route
             path="/profile"
             element={<ProtectedRoute element={<Profile />} />}
@@ -38,6 +55,7 @@ const App = () => {
             path="/profile/orders"
             element={<ProtectedRoute element={<Profile />} />}
           />
+          <Route path="/ingredients/:id" element={<Ingredients />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

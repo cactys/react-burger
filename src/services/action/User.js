@@ -1,22 +1,28 @@
 import { api } from '../../utils/api';
 import { auth } from '../../utils/auth';
 
-export const CHECKED_USER = 'CHECKED_USER';
-export const USER_REQUEST = 'USER_REQUEST';
-export const USER_SUCCESS = 'USER_SUCCESS';
-export const USER_FAILED = 'USER_FAILED';
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILED = 'REGISTER_FAILED';
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
-export const UPDATE_USER_INFO_REQUEST = 'UPDATE_USER_INFO_REQUEST';
-export const UPDATE_USER_INFO_SUCCESS = 'UPDATE_USER_INFO_SUCCESS';
-export const UPDATE_USER_INFO_FAILED = 'UPDATE_USER_INFO_FAILED';
+export const USER_CHECKED = 'USER/CHECKED';
+export const USER_REQUEST = 'USER/REQUEST';
+export const USER_SUCCESS = 'USER/SUCCESS';
+export const USER_FAILED = 'USER/FAILED';
+export const LOGIN_REQUEST = 'LOGIN/REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN/SUCCESS';
+export const LOGIN_FAILED = 'LOGIN/FAILED';
+export const REGISTER_REQUEST = 'REGISTER/REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER/SUCCESS';
+export const REGISTER_FAILED = 'REGISTER/FAILED';
+export const LOGOUT_REQUEST = 'LOGOUT/REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT/SUCCESS';
+export const LOGOUT_FAILED = 'LOGOUT/FAILED';
+export const USER_UPDATE_INFO_REQUEST = 'USER/UPDATE_INFO_REQUEST';
+export const USER_UPDATE_INFO_SUCCESS = 'USER/UPDATE_INFO_SUCCESS';
+export const USER_UPDATE_INFO_FAILED = 'USER/UPDATE_INFO_FAILED';
+export const RECOVERY_REQUEST = 'RECOVERY/REQUEST';
+export const RECOVERY_FAILED = 'RECOVERY/FAILED';
+export const RECOVERY_SEND_EMAIL_SUCCESS = 'RECOVERY/SEND_EMAIL_SUCCESS';
+export const RECOVERY_SEND_PASSWORD_SUCCESS = 'RECOVERY/SEND_PASSWORD_SUCCESS';
+export const RECOVERY_CHANGE_STATUS = 'RECOVERY/CHANGE_STATUS';
+export const RECOVERY_SET_ERROR_MESSAGE = 'RECOVERY/SET_ERROR_MESSAGE';
 
 export function getUser() {
   return function (dispatch) {
@@ -25,7 +31,7 @@ export function getUser() {
     const isLogin = localStorage.getItem('login');
     if (!accessToken && !refreshToken && !isLogin) {
       dispatch({
-        type: CHECKED_USER,
+        type: USER_CHECKED,
       });
     } else {
       api
@@ -37,7 +43,7 @@ export function getUser() {
               payload: res.user,
             });
             dispatch({
-              type: CHECKED_USER,
+              type: USER_CHECKED,
             });
           } else {
             dispatch({
@@ -49,7 +55,7 @@ export function getUser() {
           console.log(err.message);
           switch (err.message) {
             case 'jwt expired': {
-              console.log(err.message, ' :');
+              console.log('попали в свитч');
               return api
                 .getRefreshToken(refreshToken)
                 .then((res) => {
@@ -58,6 +64,7 @@ export function getUser() {
                     localStorage.setItem('refreshToken', res.refreshToken);
                     localStorage.setItem('accessToken', accessToken);
                     localStorage.setItem('login', true);
+                    console.log(res);
                     api
                       .getCurrentUser(refreshToken)
                       .then((res) => {
@@ -67,7 +74,7 @@ export function getUser() {
                             payload: res.user,
                           });
                           dispatch({
-                            type: CHECKED_USER,
+                            type: USER_CHECKED,
                           });
                         } else {
                           dispatch({
@@ -92,7 +99,7 @@ export function getUser() {
                   switch (err.message) {
                     case 'Token is invalid': {
                       dispatch({
-                        type: CHECKED_USER,
+                        type: USER_CHECKED,
                       });
                       localStorage.clear();
                       break;
@@ -107,12 +114,12 @@ export function getUser() {
             }
             case 'jwt malformed' || 'invalid token': {
               return dispatch({
-                type: CHECKED_USER,
+                type: USER_CHECKED,
               });
             }
             default: {
               dispatch({
-                type: CHECKED_USER,
+                type: USER_CHECKED,
               });
               dispatch({
                 type: USER_FAILED,
@@ -251,7 +258,7 @@ export function logout() {
 export function updateUserInfo(body) {
   return function (dispatch) {
     dispatch({
-      type: UPDATE_USER_INFO_REQUEST,
+      type: USER_UPDATE_INFO_REQUEST,
     });
     const accessToken = localStorage.getItem('accessToken');
     api
@@ -259,20 +266,105 @@ export function updateUserInfo(body) {
       .then((res) => {
         if (res && res.success) {
           dispatch({
-            type: UPDATE_USER_INFO_SUCCESS,
+            type: USER_UPDATE_INFO_SUCCESS,
             payload: res.user,
           });
         } else {
           dispatch({
-            type: UPDATE_USER_INFO_FAILED,
+            type: USER_UPDATE_INFO_FAILED,
           });
         }
       })
       .catch((err) => {
         console.log(err.message);
         dispatch({
-          type: UPDATE_USER_INFO_FAILED,
+          type: USER_UPDATE_INFO_FAILED,
         });
+      });
+  };
+}
+
+export function recoveryEmailSend(body) {
+  return function (dispatch) {
+    dispatch({
+      type: RECOVERY_REQUEST,
+    });
+    auth
+      .forgotPassword(body)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: RECOVERY_SEND_EMAIL_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: RECOVERY_FAILED,
+          });
+          dispatch({
+            type: RECOVERY_SET_ERROR_MESSAGE,
+            payload: 'Ошибка, попробуйте еще раз.',
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({
+          type: RECOVERY_FAILED,
+        });
+        dispatch({
+          type: RECOVERY_SET_ERROR_MESSAGE,
+          payload: 'Ошибка, попробуйте еще раз.',
+        });
+      });
+  };
+}
+
+export function recoveryPasswordSend(body) {
+  return function (dispatch) {
+    dispatch({
+      type: RECOVERY_REQUEST,
+    });
+    auth
+      .resetPassword(body)
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: RECOVERY_SEND_PASSWORD_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: RECOVERY_FAILED,
+          });
+          dispatch({
+            type: RECOVERY_SET_ERROR_MESSAGE,
+            payload: 'Ошибка, попробуйте еще раз.',
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch({
+          type: RECOVERY_FAILED,
+        });
+        switch (err.message) {
+          case 'Invalid credentials provided': {
+            return dispatch({
+              type: RECOVERY_SET_ERROR_MESSAGE,
+              payload: 'Введите код.',
+            });
+          }
+          case 'Incorrect reset token': {
+            return dispatch({
+              type: RECOVERY_SET_ERROR_MESSAGE,
+              payload: 'Введен не верный код.',
+            });
+          }
+          default:
+            return dispatch({
+              type: RECOVERY_SET_ERROR_MESSAGE,
+              payload: 'Ошибка, попробуйте еще раз.',
+            });
+        }
       });
   };
 }

@@ -8,22 +8,28 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, updateUserInfo } from '../../services/action/User';
+import Preloader from '../Preloader/Preloader';
+import InformMessage from '../InformMessage/InformMessage';
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.user);
+  const { user, updateRequest, updateFailed, updateMessage } = useSelector(
+    (store) => store.user
+  );
+  const inputRef = useRef(null);
 
   const [value, setValue] = useState({
     name: '',
     email: '',
     password: '',
   });
+
   const [editor, setEditor] = useState(true);
 
   const validity =
-    user?.name === value.name &&
-    user?.email === value.email &&
-    user?.password === value.password;
+    value.name === user?.name &&
+    value.email === user?.email &&
+    value.password === user?.password;
 
   useEffect(() => {
     setValue({
@@ -32,38 +38,40 @@ const ProfileForm = () => {
     });
   }, [setValue, user]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch(updateUserInfo(value));
-    setValue({
-      name: user.name,
-      email: user.email,
-    });
-    setEditor(true);
-  };
-
-  const inputRef = useRef(null);
-
   const onIconClick = () => {
     setEditor(false);
     setTimeout(() => inputRef.current.focus(), 0);
   };
 
-  const handleCancelInput = (e) => {
+  const onChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setValue({
       name: user.name,
       email: user.email,
-      password: '',
     });
+    dispatch(updateUserInfo(value));
+    setEditor(true);
+  };
+
+  const handleCancelSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getUser());
     setEditor(true);
   };
 
   return (
-    <form className={profileFormStyle.inputForm} onSubmit={(e) => onSubmit(e)}>
+    <form className={profileFormStyle.inputForm}>
+      {updateRequest && <Preloader />}
       <Input
         type="text"
-        onChange={(e) => setValue({ ...value, name: e.target.value })}
+        onChange={onChange}
         value={value.name || ''}
         name={'name'}
         error={false}
@@ -78,7 +86,7 @@ const ProfileForm = () => {
       />
       <EmailInput
         type="text"
-        onChange={(e) => setValue({ ...value, email: e.target.value })}
+        onChange={onChange}
         value={value.email || ''}
         name={'email'}
         placeholder="Логин"
@@ -87,7 +95,7 @@ const ProfileForm = () => {
       />
       <PasswordInput
         type="text"
-        onChange={(e) => setValue({ ...value, password: e.target.value })}
+        onChange={onChange}
         value={value.password || ''}
         name={'password'}
         icon="EditIcon"
@@ -98,18 +106,20 @@ const ProfileForm = () => {
           type="secondary"
           size="small"
           disabled={validity}
-          onClick={handleCancelInput}
+          onClick={handleCancelSubmit}
         >
           Отмена
         </Button>
         <Button
-          htmlType="submit"
+          htmlType="button"
           type="primary"
           size="small"
           disabled={validity}
+          onClick={handleSubmit}
         >
           Сохранить
         </Button>
+        {updateFailed && <InformMessage message={updateMessage} />}
       </div>
     </form>
   );

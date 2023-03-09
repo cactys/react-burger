@@ -41,7 +41,7 @@ export default Modal;
 
 Modal.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
   isOpen: PropTypes.bool,
-  closePopup: PropTypes.func.isRequired,
+  closePopup: PropTypes.func,
 };
