@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import IngredientCard from '../IngredientCard/IngredientCard';
-import ingredientsGroupStyle from './IngredientsGroup.module.css';
-import { dataPropTypes } from '../../utils/constants';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import IngredientCard from '../IngredientCard/IngredientCard';
+import { dataPropTypes } from '../../utils/constants';
+import ingredientsGroupStyle from './IngredientsGroup.module.css';
 
 const IngredientsGroup = ({ data, onIngredientClick }) => {
   const { ingredients, bun } = useSelector(

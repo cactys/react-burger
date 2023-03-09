@@ -1,22 +1,19 @@
-import appStyle from './App.module.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { getUser } from '../../services/action/User';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
 import AppHeader from '../AppHeader/AppHeader';
 import Main from '../Main/Main';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import NotFound from '../../pages/NotFound/NotFound';
 import Profile from '../../pages/Profile/Profile';
-import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
+import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getUser } from '../../services/action/User';
-import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
-import Modal from '../Modal/Modal';
-import { MODAL } from '../../utils/constants';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Ingredients from '../../pages/Ingredients/Ingredients';
+import NotFound from '../../pages/NotFound/NotFound';
+import appStyle from './App.module.css';
 
 const App = () => {
   const dispatch = useDispatch();

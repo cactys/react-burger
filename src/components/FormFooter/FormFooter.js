@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import formFooterStyle from './FormFooter.module.css';
 import PropTypes from 'prop-types';
+import formFooterStyle from './FormFooter.module.css';
 
 const FormFooter = ({ text, linkText, path }) => {
   return (

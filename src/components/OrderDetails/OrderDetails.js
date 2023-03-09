@@ -1,8 +1,8 @@
-import orderDetailsStyle from './OrderDetails.module.css';
-import done from '../../images/done.svg';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { orderDetail } from '../../services/action/OrderDetails';
+import done from '../../images/done.svg';
+import orderDetailsStyle from './OrderDetails.module.css';
 
 const OrderDetails = () => {
   const dispatch = useDispatch();

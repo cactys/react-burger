@@ -1,15 +1,14 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerIngredientsStyle from './BurgerIngredients.module.css';
-import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { MODAL } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import Modal from '../Modal/Modal';
 import {
   INGREDIENT_ADD_INFO,
   INGREDIENT_DELETE_INFO,
 } from '../../services/action/BurgerIngredients';
+import burgerIngredientsStyle from './BurgerIngredients.module.css';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');

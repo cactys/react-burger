@@ -17,18 +17,7 @@ const dataPropTypes = PropTypes.shape({
   __v: PropTypes.number.isRequired,
 });
 
-const MODAL = {
-  INGREDIENT_TITLE: 'Детали ингредиента',
-  INGREDIENT_DETAILS: {
-    CALORIES: 'Калории,ккал',
-    PROTEINS: 'Белки, г',
-    FAT: 'Жиры, г',
-    CARBOHYDRATES: 'Углеводы, г',
-  },
-};
-
 export {
   dataPropTypes,
   BASE_URL,
-  MODAL,
 };

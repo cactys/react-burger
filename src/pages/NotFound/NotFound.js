@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import notFoundStyle from './NotFound.module.css';
 import { Button } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+import notFoundStyle from './NotFound.module.css';
 
 const NotFound = () => {
   const navigate = useNavigate();

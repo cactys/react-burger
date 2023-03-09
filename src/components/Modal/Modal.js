@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import { createPortal } from 'react-dom';
-import modalStyle from './Modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import modalStyle from './Modal.module.css';
 
 const Modal = ({ title, children, isOpen, closePopup }) => {
   const modalRoot = document.getElementById('react-modals');

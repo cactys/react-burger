@@ -1,6 +1,6 @@
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import Preloader from '../Preloader/Preloader';
 
 const ProtectedRoute = ({ element }) => {

@@ -1,15 +1,15 @@
-import profileFormStyle from './ProfileForm.module.css';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUser, updateUserInfo } from '../../services/action/User';
 import Preloader from '../Preloader/Preloader';
 import InformMessage from '../InformMessage/InformMessage';
+import profileFormStyle from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   const dispatch = useDispatch();

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import { useNavigate } from 'react-router-dom';
-import registerStyle from './Register.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../services/action/User';
 import Preloader from '../../components/Preloader/Preloader';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
+import { register } from '../../services/action/User';
+import registerStyle from './Register.module.css';
 
 const Register = () => {
   const dispatch = useDispatch();
