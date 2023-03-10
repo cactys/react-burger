@@ -56,6 +56,7 @@ export function getUser() {
           console.error(err.message);
           switch (err.message) {
             case ERROR_STATE.jwtExpired: {
+              console.log('jwt');
               return dispatch(getToken(refreshToken));
             }
             case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {

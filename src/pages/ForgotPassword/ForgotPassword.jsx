@@ -10,7 +10,6 @@ import InformMessage from '../../components/InformMessage/InformMessage';
 import Preloader from '../../components/Preloader/Preloader';
 import {
   recoveryEmailSend,
-  RECOVERY_CHANGE_STATUS,
 } from '../../services/action/User';
 import forgotPasswordStyle from './ForgotPassword.module.css';
 
