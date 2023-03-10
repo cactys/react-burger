@@ -64,13 +64,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #3333ff;
   border-radius: 50px;
   box-shadow: 0px 0px 16px rgb(51 51 255 / 25%),
     0px 0px 8px rgb(51 51 255 / 25%), 0px 4px 32px rgb(51 51 255 / 50%);
 }
 
-.round::after,
+/* .round::after,
 .round::before {
   content: '';
   width: 100px;
@@ -90,4 +89,4 @@
   z-index: 10;
   background: #3333ff;
   animation: preloader-inside-red 1s ease-in-out infinite;
-}
+} */

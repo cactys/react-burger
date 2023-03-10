@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+// import { RingSpinner } from 'react-spinners-kit';
 import done from '../../images/done.svg';
 import Preloader from '../Preloader/Preloader';
 import orderDetailsStyle from './OrderDetails.module.css';
