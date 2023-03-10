@@ -1,4 +1,5 @@
 import { api } from '../../utils/api';
+import { ERROR_STATE } from '../../utils/constants';
 
 export const ORDER_POST_REQUEST = 'ORDER/POST_REQUEST';
 export const ORDER_POST_SUCCESS = 'ORDER/POST_SUCCESS';
@@ -12,8 +13,10 @@ export function orderDetail(ingredientId) {
       type: ORDER_POST_REQUEST,
     });
 
+    const accessToken = localStorage.getItem('accessToken');
+
     api
-      .addOrder(ingredientId)
+      .addOrder(ingredientId, accessToken)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -30,9 +33,9 @@ export function orderDetail(ingredientId) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
         switch (err.message) {
-          case 'One or more ids provided are incorrect': {
+          case ERROR_STATE.emptyOrder: {
             return dispatch({
               type: ORDER_POST_EMPTY,
               payload: 'Добавь булку',

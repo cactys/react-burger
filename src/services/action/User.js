@@ -1,5 +1,6 @@
 import { api } from '../../utils/api';
 import { auth } from '../../utils/auth';
+import { ERROR_STATE } from '../../utils/constants';
 
 export const USER_CHECKED = 'USER/CHECKED';
 export const USER_REQUEST = 'USER/REQUEST';
@@ -26,7 +27,7 @@ export const RECOVERY_SET_ERROR_MESSAGE = 'RECOVERY/SET_ERROR_MESSAGE';
 
 export function getUser() {
   return function (dispatch) {
-    let accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
     const isLogin = localStorage.getItem('login');
     if (!accessToken && !refreshToken && !isLogin) {
@@ -52,67 +53,12 @@ export function getUser() {
           }
         })
         .catch((err) => {
-          console.log(err.message);
+          console.error(err.message);
           switch (err.message) {
-            case 'jwt expired': {
-              console.log('попали в свитч');
-              return api
-                .getRefreshToken(refreshToken)
-                .then((res) => {
-                  if (res && res.success) {
-                    accessToken = res.accessToken.split('Bearer ')[1];
-                    localStorage.setItem('refreshToken', res.refreshToken);
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('login', true);
-                    console.log(res);
-                    api
-                      .getCurrentUser(refreshToken)
-                      .then((res) => {
-                        if (res && res.success) {
-                          dispatch({
-                            type: USER_SUCCESS,
-                            payload: res.user,
-                          });
-                          dispatch({
-                            type: USER_CHECKED,
-                          });
-                        } else {
-                          dispatch({
-                            type: USER_FAILED,
-                          });
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err.message);
-                        dispatch({
-                          type: USER_FAILED,
-                        });
-                      });
-                  } else {
-                    dispatch({
-                      type: USER_FAILED,
-                    });
-                  }
-                })
-                .catch((err) => {
-                  console.log(err.message);
-                  switch (err.message) {
-                    case 'Token is invalid': {
-                      dispatch({
-                        type: USER_CHECKED,
-                      });
-                      localStorage.clear();
-                      break;
-                    }
-                    default: {
-                      return dispatch({
-                        type: USER_FAILED,
-                      });
-                    }
-                  }
-                });
+            case ERROR_STATE.jwtExpired: {
+              return dispatch(getToken(refreshToken));
             }
-            case 'jwt malformed' || 'invalid token': {
+            case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
               return dispatch({
                 type: USER_CHECKED,
               });
@@ -129,6 +75,39 @@ export function getUser() {
           }
         });
     }
+  };
+}
+
+export function getToken(refreshToken) {
+  return function (dispatch) {
+    return api
+      .getRefreshToken(refreshToken)
+      .then((res) => {
+        if (res && res.success) {
+          const accessToken = res.accessToken.split('Bearer ')[1];
+          localStorage.setItem('refreshToken', res.refreshToken);
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('login', true);
+          dispatch(getUser());
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+        switch (err.message) {
+          case ERROR_STATE.tokenIsInvalid: {
+            dispatch({
+              type: USER_CHECKED,
+            });
+            localStorage.clear();
+            break;
+          }
+          default: {
+            return dispatch({
+              type: USER_FAILED,
+            });
+          }
+        }
+      });
   };
 }
 
@@ -158,9 +137,9 @@ export function login(body) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         switch (err.message) {
-          case 'email or password are incorrect': {
+          case ERROR_STATE.incorrectData: {
             return dispatch({
               type: LOGIN_FAILED,
               payload: 'E-mail или пароль введены неверно.',
@@ -203,15 +182,15 @@ export function register(body) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         switch (err.message) {
-          case 'User already exists': {
+          case ERROR_STATE.userExists: {
             return dispatch({
               type: REGISTER_FAILED,
               payload: 'Такой пользователь уже существует.',
             });
           }
-          case 'Email, password and name are required fields': {
+          case ERROR_STATE.requiredFields: {
             return dispatch({
               type: REGISTER_FAILED,
               payload: 'Пропущенное обязательное поле.',
@@ -249,7 +228,7 @@ export function logout() {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         dispatch({ type: LOGOUT_FAILED });
       });
   };
@@ -276,7 +255,7 @@ export function updateUserInfo(body) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         dispatch({
           type: USER_UPDATE_INFO_FAILED,
         });
@@ -307,7 +286,7 @@ export function recoveryEmailSend(body) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         dispatch({
           type: RECOVERY_FAILED,
         });
@@ -342,18 +321,18 @@ export function recoveryPasswordSend(body) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         dispatch({
           type: RECOVERY_FAILED,
         });
         switch (err.message) {
-          case 'Invalid credentials provided': {
+          case ERROR_STATE.invalidCredentials: {
             return dispatch({
               type: RECOVERY_SET_ERROR_MESSAGE,
               payload: 'Введите код.',
             });
           }
-          case 'Incorrect reset token': {
+          case ERROR_STATE.incorrectToken: {
             return dispatch({
               type: RECOVERY_SET_ERROR_MESSAGE,
               payload: 'Введен не верный код.',

@@ -13,7 +13,10 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
 import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
-import { ORDER_RESET_INFO } from '../../services/action/OrderDetails';
+import {
+  orderDetail,
+  ORDER_RESET_INFO,
+} from '../../services/action/OrderDetails';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
@@ -28,6 +31,13 @@ const BurgerConstructor = () => {
   const handleOrderButtonClick = () => {
     if (user) {
       setIsOrderDetailsOpen(true);
+      const ingredientId = [
+        bun?._id,
+        ...ingredients.map((ingredient) => ingredient._id),
+        bun?._id,
+      ];
+
+      dispatch(orderDetail(ingredientId));
     } else {
       navigate('/login');
     }

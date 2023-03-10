@@ -30,7 +30,7 @@ export function getIngredients() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err.message);
         dispatch({
           type: INGREDIENTS__FAILED,
         });

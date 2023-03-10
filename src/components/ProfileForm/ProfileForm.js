@@ -50,7 +50,7 @@ const ProfileForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     setValue({
       name: user.name,
@@ -67,7 +67,7 @@ const ProfileForm = () => {
   };
 
   return (
-    <form className={profileFormStyle.inputForm}>
+    <form className={profileFormStyle.inputForm} onSubmit={onSubmit}>
       {updateRequest && <Preloader />}
       <Input
         type="text"
@@ -85,7 +85,6 @@ const ProfileForm = () => {
         extraClass="mb-6"
       />
       <EmailInput
-        type="text"
         onChange={onChange}
         value={value.email || ''}
         name={'email'}
@@ -94,7 +93,7 @@ const ProfileForm = () => {
         extraClass="mb-6"
       />
       <PasswordInput
-        type="text"
+        type="password"
         onChange={onChange}
         value={value.password || ''}
         name={'password'}
@@ -104,18 +103,17 @@ const ProfileForm = () => {
         <Button
           htmlType="button"
           type="secondary"
-          size="small"
+          size="medium"
           disabled={validity}
           onClick={handleCancelSubmit}
         >
           Отмена
         </Button>
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
-          size="small"
+          size="medium"
           disabled={validity}
-          onClick={handleSubmit}
         >
           Сохранить
         </Button>

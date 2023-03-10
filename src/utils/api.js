@@ -15,11 +15,12 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  addOrder(ingredientId) {
+  addOrder(ingredientId, accessToken) {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken,
       },
       body: JSON.stringify({ ingredients: ingredientId }),
     }).then(this._checkingResponse);

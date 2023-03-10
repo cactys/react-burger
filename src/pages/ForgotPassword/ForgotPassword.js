@@ -48,17 +48,13 @@ const ForgotPassword = () => {
   };
 
   useEffect(() => {
-    dispatch({
-      type: RECOVERY_CHANGE_STATUS,
-    });
-
-    emailSended && navigate('/reset-password');
-  }, [emailSended, navigate, dispatch]);
+    if (emailSended) navigate('/reset-password');
+  }, [emailSended, navigate]);
 
   return (
     <main className={forgotPasswordStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
-      <form className={forgotPasswordStyle.form} onSubmit={(e) => onSubmit(e)}>
+      <form className={forgotPasswordStyle.form} onSubmit={onSubmit}>
         {recoveryRequest && <Preloader />}
         <EmailInput
           placeholder={'Укажите e-mail'}

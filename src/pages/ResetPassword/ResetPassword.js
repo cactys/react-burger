@@ -21,6 +21,7 @@ const ResetPassword = () => {
     recoveryFailed,
     recoveryMessage,
     passwordRecovered,
+    emailSended,
   } = useSelector((store) => store.user);
 
   const [value, setValue] = useState({
@@ -32,6 +33,8 @@ const ResetPassword = () => {
     enable: false,
     message: '',
   });
+
+  console.log(emailSended);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,16 +58,14 @@ const ResetPassword = () => {
   };
 
   useEffect(() => {
-    passwordRecovered && navigate('/login');
-  }, [navigate, passwordRecovered]);
+    if (!emailSended) navigate('/forgot-password');
+    if (passwordRecovered) navigate('/login');
+  }, [navigate, passwordRecovered, emailSended]);
 
   return (
-    <main
-      className={resetPasswordStyle.container}
-      onSubmit={(e) => onSubmit(e)}
-    >
+    <main className={resetPasswordStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
-      <form className={resetPasswordStyle.form}>
+      <form className={resetPasswordStyle.form} onSubmit={onSubmit}>
         {recoveryRequest && <Preloader />}
         <PasswordInput
           placeholder={'Введите новый пароль'}

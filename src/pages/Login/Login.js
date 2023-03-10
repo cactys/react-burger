@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <main className={loginStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
-      <form className={loginStyle.form} onSubmit={(e) => onSubmit(e)}>
+      <form className={loginStyle.form} onSubmit={onSubmit}>
         {loginRequest && <Preloader />}
         <EmailInput
           onChange={(e) => setValue({ ...value, email: e.target.value })}

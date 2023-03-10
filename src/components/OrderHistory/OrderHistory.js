@@ -1,6 +1,8 @@
+import orderHistoryStyle from './OrderHistory.module.css';
+
 const OrderHistory = () => {
   return (
-    <div style={{ height: 240 }}>
+    <div className={orderHistoryStyle.container}>
       {'Страница "История заказов" пока не готова!'}
     </div>
   );

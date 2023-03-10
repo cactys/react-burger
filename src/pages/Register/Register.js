@@ -44,7 +44,7 @@ const Register = () => {
   return (
     <main className={registerStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-      <form className={registerStyle.form} onSubmit={(e) => onSubmit(e)}>
+      <form className={registerStyle.form} onSubmit={onSubmit}>
         {registerRequest && <Preloader />}
         <Input
           type="text"
