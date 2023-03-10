@@ -2,17 +2,13 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal';
 import {
   INGREDIENT_ADD_INFO,
-  INGREDIENT_DELETE_INFO,
 } from '../../services/action/BurgerIngredients';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
-  const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -79,17 +75,9 @@ const BurgerIngredients = () => {
   };
 
   const handleIngredientClick = (selectIngredient) => {
-    setIsIngredientDetailsOpen(true);
     dispatch({
       type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
-    });
-  };
-
-  const closePopups = () => {
-    setIsIngredientDetailsOpen(false);
-    dispatch({
-      type: INGREDIENT_DELETE_INFO,
     });
   };
 
@@ -147,12 +135,6 @@ const BurgerIngredients = () => {
           </ol>
         </li>
       </ol>
-
-      {isIngredientDetailsOpen && (
-        <Modal title="Детали ингредиента" closePopup={closePopups}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </section>
   );
 };

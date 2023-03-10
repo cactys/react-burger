@@ -33,7 +33,7 @@ const BurgerConstructor = () => {
     }
   };
 
-  const closePopups = () => {
+  const handleModalClose = () => {
     setIsOrderDetailsOpen(false);
     dispatch({
       type: ORDER_RESET_INFO,
@@ -137,7 +137,7 @@ const BurgerConstructor = () => {
         </Button>
       </div>
       {isOrderDetailsOpen && (
-        <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
+        <Modal isOpen={isOrderDetailsOpen} onClose={handleModalClose}>
           <OrderDetails />
         </Modal>
       )}

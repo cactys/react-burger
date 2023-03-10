@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import IngredientDetails from '../../components/IngredientDetails/IngredientDetails';
 import { getIngredients } from '../../services/action/BurgerIngredients';
 import ingredientsStyle from './Ingredients.module.css';
 
 const Ingredients = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
   const [info, setInfo] = useState(null);
   const { id } = useParams();
@@ -14,6 +15,19 @@ const Ingredients = () => {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        navigate(-1);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [navigate]);
 
   useEffect(() => {
     if (ingredients) {

@@ -1,17 +1,22 @@
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ingredientDetailsStyle from './IngredientDetails.module.css';
+import Preloader from '../Preloader/Preloader';
 
 const IngredientDetails = ({ data }) => {
   const { info } = useSelector((store) => store.ingredientDetails);
 
   return (
     <div className={ingredientDetailsStyle.container}>
-      <img
-        src={info?.image_large || data?.image_large}
-        alt={info?.name || data?.name}
-        className={ingredientDetailsStyle.img}
-      />
+      {data || info ? (
+        <img
+          src={info?.image_large || data?.image_large}
+          alt={info?.name || data?.name}
+          className={ingredientDetailsStyle.img}
+        />
+      ) : (
+        <Preloader />
+      )}
       <p className="mt-4 mb-8 text text_type_main-medium">
         {info?.name || data?.name}
       </p>

@@ -6,9 +6,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { dataPropTypes } from '../../utils/constants';
 import ingredientCardStyle from './IngredientCard.module.css';
+import { Link, useLocation } from 'react-router-dom';
 
 const IngredientCard = ({ ingredient, onIngredientClick, count }) => {
-  const { name, image, price } = ingredient;
+  const location = useLocation();
+  const { name, image, price, _id } = ingredient;
 
   const handleClick = () => {
     onIngredientClick(ingredient);
@@ -23,22 +25,31 @@ const IngredientCard = ({ ingredient, onIngredientClick, count }) => {
   });
 
   return (
-    <div
-      className={ingredientCardStyle.container}
-      onClick={handleClick}
-      ref={dragRef}
-      style={{ opacity }}
+    <Link
+      key={_id}
+      to={{ pathname: `/ingredients/${_id}` }}
+      state={{ background: location }}
+      className={ingredientCardStyle.link}
     >
-      {count ? <Counter count={count} size="default" extraClass="m-1" /> : ''}
-      <img className={ingredientCardStyle.image} src={image} alt={name} />
-      <div className={`mb-2 ${ingredientCardStyle.price}`}>
-        <p className="mr-2 text text_type_digits-default">{price}</p>
-        <CurrencyIcon type="primary" />
+      <div
+        className={ingredientCardStyle.container}
+        onClick={handleClick}
+        ref={dragRef}
+        style={{ opacity }}
+      >
+        {count ? <Counter count={count} size="default" extraClass="m-1" /> : ''}
+        <img className={ingredientCardStyle.image} src={image} alt={name} />
+        <div className={`mb-2 ${ingredientCardStyle.price}`}>
+          <p className="mr-2 text text_type_digits-default">{price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p
+          className={`text text_type_main-default ${ingredientCardStyle.title}`}
+        >
+          {name}
+        </p>
       </div>
-      <p className={`text text_type_main-default ${ingredientCardStyle.title}`}>
-        {name}
-      </p>
-    </div>
+    </Link>
   );
 };
 
