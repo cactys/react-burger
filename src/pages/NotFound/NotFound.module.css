@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 88px);
+}
+
+.code {
+  text-shadow: 0px 0px 16px rgb(51 51 255 / 25%),
+    0px 0px 8px rgb(51 51 255 / 25%), 0px 4px 32px rgb(51 51 255 / 50%);
+}
+
+.line {
+  width: 150px;
+  display: inline-flex;
+  border-top: 1px solid #3333ff;
+  box-shadow: 0px 0px 16px rgb(51 51 255 / 25%),
+    0px 0px 8px rgb(51 51 255 / 25%), 0px 4px 32px rgb(51 51 255 / 50%);
+}

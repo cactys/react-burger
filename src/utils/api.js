@@ -1,16 +1,12 @@
-import { BASE_URL } from './constant';
+import { BASE_URL } from './constants';
 
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
   }
 
   _checkingResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
   getIngredient() {
@@ -19,18 +15,49 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  addOrder(ingredientId) {
+  addOrder(ingredientId, accessToken) {
     return fetch(`${this._baseUrl}/orders`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken,
+      },
       body: JSON.stringify({ ingredients: ingredientId }),
+    }).then(this._checkingResponse);
+  }
+
+  getCurrentUser(accessToken) {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + accessToken,
+      },
+    }).then(this._checkingResponse);
+  }
+
+  getRefreshToken(refreshToken) {
+    return fetch(`${this._baseUrl}/auth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: refreshToken }),
+    }).then(this._checkingResponse);
+  }
+
+  editUser(data, token) {
+    return fetch(`${this._baseUrl}/auth/user`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(data),
     }).then(this._checkingResponse);
   }
 }
 
 export const api = new Api({
   baseUrl: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });

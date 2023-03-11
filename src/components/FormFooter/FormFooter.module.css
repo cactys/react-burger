@@ -1,0 +1,16 @@
+.formFooter {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.linkFormFooter {
+  text-decoration: none;
+  color: #3333ff;
+  transition: text-shadow 0.4s;
+}
+
+.linkFormFooter:hover {
+  text-shadow: 0px 0px 16px rgba(35, 35, 255, 0.726),
+    0px 0px 8px rgba(124, 124, 255, 0.671), 0px 4px 32px rgba(0, 0, 255, 0.651);
+}

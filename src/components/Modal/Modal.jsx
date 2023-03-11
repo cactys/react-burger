@@ -1,25 +1,29 @@
-import PropTypes from 'prop-types';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import { createPortal } from 'react-dom';
-import modalStyle from './Modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import modalStyle from './Modal.module.css';
 
-const Modal = ({ title, children, isOpen, closePopup }) => {
+const Modal = ({ title, children, onClose }) => {
   const modalRoot = document.getElementById('react-modals');
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', closePopup);
-      return () => {
-        document.removeEventListener('keydown', closePopup);
-      };
-    }
-  }, [closePopup, isOpen]);
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [onClose]);
 
   return createPortal(
     <>
-      <ModalOverlay onClose={closePopup} />
+      <ModalOverlay onClose={onClose} />
       <div
         className={`pt-10 pl-10 pb-15 pr-10 ${modalStyle.modal}`}
         onClick={(evt) => evt.stopPropagation()}
@@ -27,7 +31,7 @@ const Modal = ({ title, children, isOpen, closePopup }) => {
         <h2 className={`text text_type_main-large ${modalStyle.title}`}>
           {title}
         </h2>
-        <div onClick={closePopup} className={modalStyle.closeIcon}>
+        <div onClick={onClose} className={modalStyle.closeIcon}>
           <CloseIcon />
         </div>
         {children}
@@ -42,6 +46,5 @@ export default Modal;
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element.isRequired,
-  isOpen: PropTypes.bool,
-  closePopup: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

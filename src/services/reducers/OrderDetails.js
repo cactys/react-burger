@@ -1,14 +1,21 @@
-import { POST_ORDER_FAILED, POST_ORDER_REQUEST, POST_ORDER_SUCCESS, RESET_ORDER_INFO } from "../action/OrderDetails";
+import {
+  ORDER_POST_EMPTY,
+  ORDER_POST_FAILED,
+  ORDER_POST_REQUEST,
+  ORDER_POST_SUCCESS,
+  ORDER_RESET_INFO,
+} from '../action/OrderDetails';
 
 const initialState = {
   currentOrder: null,
+  message: '',
   orderRequest: false,
   orderFailed: false,
 };
 
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case POST_ORDER_SUCCESS: {
+    case ORDER_POST_SUCCESS: {
       return {
         ...state,
         currentOrder: { ...action.order },
@@ -16,20 +23,28 @@ export const orderReducer = (state = initialState, action) => {
         orderFailed: false,
       };
     }
-    case POST_ORDER_REQUEST: {
+    case ORDER_POST_REQUEST: {
       return {
         ...state,
         orderRequest: true,
       };
     }
-    case POST_ORDER_FAILED: {
+    case ORDER_POST_EMPTY: {
+      return {
+        ...state,
+        message: action.payload,
+        orderRequest: false,
+        orderFailed: true,
+      };
+    }
+    case ORDER_POST_FAILED: {
       return {
         ...state,
         orderRequest: false,
         orderFailed: true,
       };
     }
-    case RESET_ORDER_INFO: {
+    case ORDER_RESET_INFO: {
       return {
         ...state,
         currentOrder: null,

@@ -1,17 +1,18 @@
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useDrag, useDrop } from 'react-dnd';
+import { Reorder } from 'framer-motion';
+import PropTypes from 'prop-types';
 import {
   ConstructorElement,
   DragIcon,
 } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import constructorContainerStyle from './ConstructorContainer.module.css';
 import {
-  dataPropTypes,
-} from '../../utils/constant';
-import { useDispatch } from 'react-redux';
-import { useRef } from 'react';
-import { useDrag, useDrop } from '../../../node_modules/react-dnd/dist/index';
-import { Reorder } from 'framer-motion';
-import PropTypes from 'prop-types';
-import { CONSTRUCTOR_DELETE, CONSTRUCTOR_REORDER } from '../../services/action/BurgerConstructor';
+  CONSTRUCTOR_DELETE,
+  CONSTRUCTOR_REORDER,
+} from '../../services/action/BurgerConstructor';
+import { dataPropTypes } from '../../utils/constants';
+import constructorContainerStyle from './ConstructorContainer.module.css';
 
 const ConstructorContainer = ({ ingredient, index }) => {
   const dispatch = useDispatch();

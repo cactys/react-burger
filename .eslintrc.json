@@ -22,6 +22,15 @@
     "react",
     "@typescript-eslint"
   ],
-  "rules": {
-  }
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    }
+  },
+  "rules": {}
 }
