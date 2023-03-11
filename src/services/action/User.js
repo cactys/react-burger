@@ -240,6 +240,7 @@ export function updateUserInfo(body) {
       type: USER_UPDATE_INFO_REQUEST,
     });
     const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
     api
       .editUser(body, accessToken)
       .then((res) => {
@@ -256,9 +257,28 @@ export function updateUserInfo(body) {
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: USER_UPDATE_INFO_FAILED,
-        });
+        switch (err.message) {
+          case ERROR_STATE.jwtExpired: {
+            return dispatch(getToken(refreshToken));
+          }
+          case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
+            return dispatch({
+              type: USER_CHECKED,
+            });
+          }
+          default: {
+            dispatch({
+              type: USER_CHECKED,
+            });
+            dispatch({
+              type: USER_FAILED,
+            });
+            dispatch({
+              type: USER_UPDATE_INFO_FAILED,
+            });
+            break;
+          }
+        }
       });
   };
 }
