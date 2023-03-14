@@ -9,7 +9,7 @@ import {
 import InformMessage from '../../components/InformMessage/InformMessage';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import Preloader from '../../components/Preloader/Preloader';
-import { login } from '../../services/action/User';
+import { getUser, login } from '../../services/action/User';
 import loginStyle from './Login.module.css';
 
 const Login = () => {
@@ -21,6 +21,7 @@ const Login = () => {
   );
 
   useEffect(() => {
+    dispatch(getUser());
     isLogin && navigate('/');
   }, [isLogin, navigate]);
 

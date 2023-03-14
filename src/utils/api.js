@@ -1,12 +1,45 @@
-import { BASE_URL } from './constants';
+import { BASE_URL, ERROR_STATE } from './constants';
 
 class Api {
-  constructor({ baseUrl }) {
+  constructor({ baseUrl, refreshToken, accessToken }) {
     this._baseUrl = baseUrl;
+    this._refreshToken = refreshToken;
+    this._accessToken = accessToken;
   }
 
   _checkingResponse(res) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+  }
+
+  _fetchWithRefresh(url, options) {
+    return fetch(url, options)
+      .then(this._checkingResponse)
+      .catch((err) => {
+        switch (err.message) {
+          case ERROR_STATE.jwtExpired: {
+            const refreshData = this.refreshToken().then((res) => {
+              console.log(res);
+              res.ok ? res.json() : null;
+            });
+            console.log(this.refreshToken());
+            console.log(refreshData);
+            console.log(refreshData.refreshToken);
+            console.log(refreshData.accessToken);
+            console.log(options);
+            if (!refreshData.success) {
+              Promise.reject(refreshData);
+            }
+            localStorage.setItem('refreshToken', refreshData.refreshToken);
+            localStorage.setItem('accessToken', refreshData.accessToken);
+            options.headers.authorization = refreshData.accessToken;
+            console.log(options.headers);
+            return fetch(url, options).then(this._checkingResponse);
+          }
+          default: {
+            return Promise.reject(err);
+          }
+        }
+      });
   }
 
   getIngredient() {
@@ -15,49 +48,51 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  addOrder(ingredientId, accessToken) {
-    return fetch(`${this._baseUrl}/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      },
-      body: JSON.stringify({ ingredients: ingredientId }),
-    }).then(this._checkingResponse);
-  }
-
-  getCurrentUser(accessToken) {
-    return fetch(`${this._baseUrl}/auth/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + accessToken,
-      },
-    }).then(this._checkingResponse);
-  }
-
-  getRefreshToken(refreshToken) {
+  refreshToken() {
     return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token: refreshToken }),
+      body: JSON.stringify({ token: this._refreshToken }),
     }).then(this._checkingResponse);
   }
 
-  editUser(data, token) {
-    return fetch(`${this._baseUrl}/auth/user`, {
+  addOrder(ingredientId) {
+    return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this._accessToken,
+      },
+      body: JSON.stringify({ ingredients: ingredientId }),
+    });
+  }
+
+  getCurrentUser() {
+    return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this._accessToken,
+      },
+    });
+  }
+
+  editUser(data) {
+    return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + this._accessToken,
       },
       body: JSON.stringify(data),
-    }).then(this._checkingResponse);
+    });
   }
 }
 
 export const api = new Api({
   baseUrl: BASE_URL,
+  refreshToken: localStorage.getItem('refreshToken'),
+  accessToken: localStorage.getItem('accessToken'),
 });

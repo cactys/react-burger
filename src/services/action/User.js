@@ -36,7 +36,7 @@ export function getUser() {
       });
     } else {
       api
-        .getCurrentUser(accessToken)
+        .getCurrentUser()
         .then((res) => {
           if (res && res.success) {
             dispatch({
@@ -55,9 +55,6 @@ export function getUser() {
         .catch((err) => {
           console.error(err.message);
           switch (err.message) {
-            case ERROR_STATE.jwtExpired: {
-              return dispatch(getToken(refreshToken));
-            }
             case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
               return dispatch({
                 type: USER_CHECKED,
@@ -78,38 +75,38 @@ export function getUser() {
   };
 }
 
-export function getToken(refreshToken) {
-  return function (dispatch) {
-    return api
-      .getRefreshToken(refreshToken)
-      .then((res) => {
-        if (res && res.success) {
-          const accessToken = res.accessToken.split('Bearer ')[1];
-          localStorage.setItem('refreshToken', res.refreshToken);
-          localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem('login', true);
-          dispatch(getUser());
-        }
-      })
-      .catch((err) => {
-        console.error(err.message);
-        switch (err.message) {
-          case ERROR_STATE.tokenIsInvalid: {
-            dispatch({
-              type: USER_CHECKED,
-            });
-            localStorage.clear();
-            break;
-          }
-          default: {
-            return dispatch({
-              type: USER_FAILED,
-            });
-          }
-        }
-      });
-  };
-}
+// export function getToken() {
+//   return function (dispatch) {
+//     return api
+//       .refreshToken()
+//       .then((res) => {
+//         if (res && res.success) {
+//           const accessToken = res.accessToken.split('Bearer ')[1];
+//           localStorage.setItem('refreshToken', res.refreshToken);
+//           localStorage.setItem('accessToken', accessToken);
+//           localStorage.setItem('login', true);
+//           dispatch(getUser());
+//         }
+//       })
+//       .catch((err) => {
+//         console.error(err.message);
+//         switch (err.message) {
+//           case ERROR_STATE.tokenIsInvalid: {
+//             dispatch({
+//               type: USER_CHECKED,
+//             });
+//             localStorage.clear();
+//             break;
+//           }
+//           default: {
+//             return dispatch({
+//               type: USER_FAILED,
+//             });
+//           }
+//         }
+//       });
+//   };
+// }
 
 export function login(body) {
   return function (dispatch) {
@@ -242,7 +239,7 @@ export function updateUserInfo(body) {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
     api
-      .editUser(body, accessToken)
+      .editUser(body)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -258,9 +255,6 @@ export function updateUserInfo(body) {
       .catch((err) => {
         console.error(err.message);
         switch (err.message) {
-          case ERROR_STATE.jwtExpired: {
-            return dispatch(getToken(refreshToken));
-          }
           case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
             return dispatch({
               type: USER_CHECKED,
