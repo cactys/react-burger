@@ -9,9 +9,11 @@ export const ORDER_RESET_INFO = 'ORDER/RESET_INFO';
 
 export function orderDetail(ingredientId) {
   return function (dispatch) {
-    dispatch({ type: ORDER_POST_REQUEST });
-    api
-      .addOrder(ingredientId)
+    dispatch({
+      type: ORDER_POST_REQUEST,
+    });
+
+    api.addOrder(ingredientId)
       .then((res) => {
         if (res && res.success) {
           dispatch({
