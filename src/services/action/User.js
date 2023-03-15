@@ -36,7 +36,7 @@ export function getUser() {
       });
     } else {
       api
-        .getCurrentUser(accessToken)
+        .getCurrentUser()
         .then((res) => {
           if (res && res.success) {
             dispatch({
@@ -56,7 +56,7 @@ export function getUser() {
           console.error(err.message);
           switch (err.message) {
             case ERROR_STATE.jwtExpired: {
-              return dispatch(getToken(refreshToken));
+              return dispatch(getToken());
             }
             case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
               return dispatch({
@@ -78,10 +78,10 @@ export function getUser() {
   };
 }
 
-export function getToken(refreshToken) {
+export function getToken() {
   return function (dispatch) {
     return api
-      .getRefreshToken(refreshToken)
+      .getRefreshToken()
       .then((res) => {
         if (res && res.success) {
           const accessToken = res.accessToken.split('Bearer ')[1];
@@ -239,9 +239,8 @@ export function updateUserInfo(body) {
     dispatch({
       type: USER_UPDATE_INFO_REQUEST,
     });
-    const accessToken = localStorage.getItem('accessToken');
     api
-      .editUser(body, accessToken)
+      .editUser(body)
       .then((res) => {
         if (res && res.success) {
           dispatch({

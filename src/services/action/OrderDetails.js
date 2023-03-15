@@ -13,10 +13,7 @@ export function orderDetail(ingredientId) {
       type: ORDER_POST_REQUEST,
     });
 
-    const accessToken = localStorage.getItem('accessToken');
-
-    api
-      .addOrder(ingredientId, accessToken)
+    api.addOrder(ingredientId)
       .then((res) => {
         if (res && res.success) {
           dispatch({
