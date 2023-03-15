@@ -1,6 +1,5 @@
 import { api } from '../../utils/api';
 import { ERROR_STATE } from '../../utils/constants';
-import { USER_CHECKED } from './User';
 
 export const ORDER_POST_REQUEST = 'ORDER/POST_REQUEST';
 export const ORDER_POST_SUCCESS = 'ORDER/POST_SUCCESS';
@@ -31,6 +30,11 @@ export function orderDetail(ingredientId) {
             return dispatch({
               type: ORDER_POST_EMPTY,
               payload: 'Добавь булку',
+            });
+          }
+          case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
+            return dispatch({
+              type: ORDER_POST_FAILED,
             });
           }
           default: {

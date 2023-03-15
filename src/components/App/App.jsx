@@ -17,6 +17,7 @@ import appStyle from './App.module.css';
 import { INGREDIENT_DELETE_INFO } from '../../services/action/BurgerIngredients';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { api } from '../../utils/api';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    api.refreshToken();
     dispatch(getUser());
   }, [dispatch]);
 

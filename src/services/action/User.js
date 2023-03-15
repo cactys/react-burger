@@ -36,7 +36,7 @@ export function getUser() {
       });
     } else {
       api
-        .getCurrentUser()
+        .getCurrentUser(accessToken)
         .then((res) => {
           if (res && res.success) {
             dispatch({

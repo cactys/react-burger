@@ -17,22 +17,31 @@ class Api {
       .catch((err) => {
         switch (err.message) {
           case ERROR_STATE.jwtExpired: {
-            const refreshData = this.refreshToken().then((res) => {
-              console.log(res);
-              res.ok ? res.json() : null;
-            });
-            console.log(this.refreshToken());
-            console.log(refreshData);
-            console.log(refreshData.refreshToken);
-            console.log(refreshData.accessToken);
-            console.log(options);
-            if (!refreshData.success) {
-              Promise.reject(refreshData);
-            }
-            localStorage.setItem('refreshToken', refreshData.refreshToken);
-            localStorage.setItem('accessToken', refreshData.accessToken);
-            options.headers.authorization = refreshData.accessToken;
-            console.log(options.headers);
+            api
+              .refreshToken()
+              .then((res) => {
+                console.log(res);
+                console.log('мф попали в ', ERROR_STATE.jwtExpired);
+                if (res.success) {
+                  localStorage.setItem('refreshToken', res.refreshToken);
+                  localStorage.setItem('accessToken', res.accessToken);
+                  localStorage.setItem('login', true);
+                }
+              })
+              .catch((err) => console.error(err.message));
+            // const refreshData = this.refreshToken();
+            // console.log(this.refreshToken());
+            // console.log(refreshData);
+            // console.log(refreshData.refreshToken);
+            // console.log(refreshData.accessToken);
+            // console.log(options);
+            // if (!refreshData.success) {
+            //   Promise.reject(refreshData);
+            // }
+            // localStorage.setItem('refreshToken', refreshData.refreshToken);
+            // localStorage.setItem('accessToken', refreshData.accessToken);
+            // options.headers.authorization = refreshData.accessToken;
+            // console.log(options.headers);
             return fetch(url, options).then(this._checkingResponse);
           }
           default: {
@@ -69,12 +78,12 @@ class Api {
     });
   }
 
-  getCurrentUser() {
+  getCurrentUser(token) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this._accessToken,
+        Authorization: 'Bearer ' + token,
       },
     });
   }
