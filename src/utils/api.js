@@ -39,28 +39,15 @@ class Api {
     }
   }
 
-  // _fetchWithRefresh(url, options) {
-  //   return fetch(url, options)
-  //     .then(this._checkingResponse)
-  //     .catch((err) => {
-  //       if (err.message === ERROR_STATE.jwtExpired) {
-  //         const refreshData = this.getRefreshToken().then(
-  //           this._checkingResponse
-  //         );
-  //         console.log(refreshData);
-  //         if (!refreshData.success) {
-  //           Promise.reject(refreshData);
-  //         }
-  //         localStorage.setItem('refreshToken', refreshData.refreshToken);
-  //         localStorage.setItem('accessToken', refreshData.accessToken);
-  //         localStorage.setItem('login', true);
-  //         options.headers.authorization = refreshData.accessToken;
-  //         return fetch(url, options).then(this._checkingResponse);
-  //       } else {
-  //         return Promise.reject(err);
-  //       }
-  //     });
-  // }
+  getRefreshToken() {
+    return fetch(`${this._baseUrl}/auth/token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: this._refreshToken }),
+    }).then(this._checkingResponse);
+  }
 
   getIngredient() {
     return fetch(`${this._baseUrl}/ingredients`, {
@@ -80,23 +67,13 @@ class Api {
   }
 
   getCurrentUser() {
-    return fetch(`${this._baseUrl}/auth/user`, {
+    return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + this._accessToken,
       },
-    }).then(this._checkingResponse);
-  }
-
-  getRefreshToken() {
-    return fetch(`${this._baseUrl}/auth/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token: this._refreshToken }),
-    }).then(this._checkingResponse);
+    });
   }
 
   editUser(data) {

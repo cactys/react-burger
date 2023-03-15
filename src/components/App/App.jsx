@@ -34,7 +34,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    api.refreshToken();
     dispatch(getUser());
   }, [dispatch]);
 
