@@ -1,35 +1,52 @@
+import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDrop } from 'react-dnd';
+import { Reorder, motion } from 'framer-motion';
 import {
   Button,
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from 'react-redux';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
-import { useDrop } from '../../../node_modules/react-dnd/dist/index';
-import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
-import { Reorder, motion } from 'framer-motion';
-import { RESET_ORDER_INFO } from '../../services/action/OrderDetails';
+import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
+import {
+  orderDetail,
+  ORDER_RESET_INFO,
+} from '../../services/action/OrderDetails';
+import burgerConstructorStyle from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { bun, ingredients } = useSelector(
     (store) => store.constructorIngredient
   );
+  const { user } = useSelector((store) => store.user);
 
   const handleOrderButtonClick = () => {
-    setIsOrderDetailsOpen(true);
+    if (user) {
+      setIsOrderDetailsOpen(true);
+      const ingredientId = [
+        bun?._id,
+        ...ingredients.map((ingredient) => ingredient._id),
+        bun?._id,
+      ];
+
+      dispatch(orderDetail(ingredientId));
+    } else {
+      navigate('/login');
+    }
   };
 
-  const closePopups = () => {
+  const handleModalClose = () => {
     setIsOrderDetailsOpen(false);
     dispatch({
-      type: RESET_ORDER_INFO,
+      type: ORDER_RESET_INFO,
     });
   };
 
@@ -130,7 +147,7 @@ const BurgerConstructor = () => {
         </Button>
       </div>
       {isOrderDetailsOpen && (
-        <Modal isOpen={isOrderDetailsOpen} closePopup={closePopups}>
+        <Modal isOpen={isOrderDetailsOpen} onClose={handleModalClose}>
           <OrderDetails />
         </Modal>
       )}

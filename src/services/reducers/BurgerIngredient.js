@@ -1,4 +1,9 @@
-import { GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, RESET_INGREDIENTS } from "../action/BurgerIngredients";
+import {
+  INGREDIENTS__FAILED,
+  INGREDIENTS_REQUEST,
+  INGREDIENTS_SUCCESS,
+  INGREDIENTS_RESET,
+} from '../action/BurgerIngredients';
 
 const initialState = {
   ingredients: [],
@@ -8,7 +13,7 @@ const initialState = {
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_INGREDIENTS_SUCCESS: {
+    case INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredients: action.data,
@@ -16,20 +21,20 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredientsFailed: true,
       };
     }
-    case GET_INGREDIENTS_REQUEST: {
+    case INGREDIENTS_REQUEST: {
       return {
         ...state,
         ingredientsRequest: true,
       };
     }
-    case GET_INGREDIENTS_FAILED: {
+    case INGREDIENTS__FAILED: {
       return {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: true,
       };
     }
-    case RESET_INGREDIENTS: {
+    case INGREDIENTS_RESET: {
       return {
         ...state,
         ingredients: [],

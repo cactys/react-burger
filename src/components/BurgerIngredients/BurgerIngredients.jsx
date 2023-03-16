@@ -1,16 +1,14 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerIngredientsStyle from './BurgerIngredients.module.css';
-import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { MODAL } from '../../utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT_INFO, DELETE_INGREDIENT_INFO } from '../../services/action/BurgerIngredients';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
+import {
+  INGREDIENT_ADD_INFO,
+} from '../../services/action/BurgerIngredients';
+import burgerIngredientsStyle from './BurgerIngredients.module.css';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
-  const [isIngredientDetailsOpen, setIsIngredientDetailsOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -77,17 +75,9 @@ const BurgerIngredients = () => {
   };
 
   const handleIngredientClick = (selectIngredient) => {
-    setIsIngredientDetailsOpen(true);
     dispatch({
-      type: ADD_INGREDIENT_INFO,
+      type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
-    });
-  };
-
-  const closePopups = () => {
-    setIsIngredientDetailsOpen(false);
-    dispatch({
-      type: DELETE_INGREDIENT_INFO,
     });
   };
 
@@ -145,11 +135,6 @@ const BurgerIngredients = () => {
           </ol>
         </li>
       </ol>
-      {isIngredientDetailsOpen && (
-        <Modal title={MODAL.INGREDIENT_TITLE} closePopup={closePopups}>
-          <IngredientDetails ingredientDetails={MODAL.INGREDIENT_DETAILS} />
-        </Modal>
-      )}
     </section>
   );
 };

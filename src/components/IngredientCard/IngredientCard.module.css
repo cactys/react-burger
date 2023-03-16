@@ -6,7 +6,11 @@
   gap: 8px;
   position: relative;
   height: 208px;
-  cursor: pointer;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .image {
