@@ -18,9 +18,6 @@ class Api {
     } catch (err) {
       if (err.message === ERROR_STATE.jwtExpired) {
         const refreshData = await this.getRefreshToken();
-        console.log(refreshData);
-        console.log(refreshData.refreshToken);
-        console.log(refreshData.accessToken);
         if (!refreshData.success) {
           Promise.reject(refreshData);
         }
@@ -30,7 +27,7 @@ class Api {
           refreshData.accessToken.split('Bearer ')[1]
         );
         localStorage.setItem('login', true);
-        options.headers.authorization = refreshData.accessToken;
+        options.headers.Authorization = refreshData.accessToken;
         const res = await fetch(url, options);
         return await this._checkingResponse(res);
       } else {
