@@ -16,22 +16,25 @@ class Api {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
     } catch (err) {
-      if (err.message === ERROR_STATE.jwtExpired) {
-        const refreshData = await this.getRefreshToken();
-        if (!refreshData.success) {
-          Promise.reject(refreshData);
+      switch (err.message) {
+        case ERROR_STATE.jwtExpired: {
+          const refreshData = await this.getRefreshToken();
+          if (!refreshData.success) {
+            Promise.reject(refreshData);
+          }
+          localStorage.setItem('refreshToken', refreshData.refreshToken);
+          localStorage.setItem(
+            'accessToken',
+            refreshData.accessToken.split('Bearer ')[1]
+          );
+          localStorage.setItem('login', true);
+          options.headers.Authorization = refreshData.accessToken;
+          const res = await fetch(url, options);
+          return await this._checkingResponse(res);
         }
-        localStorage.setItem('refreshToken', refreshData.refreshToken);
-        localStorage.setItem(
-          'accessToken',
-          refreshData.accessToken.split('Bearer ')[1]
-        );
-        localStorage.setItem('login', true);
-        options.headers.Authorization = refreshData.accessToken;
-        const res = await fetch(url, options);
-        return await this._checkingResponse(res);
-      } else {
-        return Promise.reject(err);
+        default: {
+          return Promise.reject(err);
+        }
       }
     }
   }

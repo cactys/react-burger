@@ -34,15 +34,13 @@ const ResetPassword = () => {
     message: '',
   });
 
-  console.log(emailSended);
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (value.password.length >= 5) {
       dispatch(
         recoveryPasswordSend({
           password: value.password,
-          token: value.secretCode,
+          token: value.token,
         })
       );
       setValidity({

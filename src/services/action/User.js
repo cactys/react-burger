@@ -75,39 +75,6 @@ export function getUser() {
   };
 }
 
-// export function getToken() {
-//   return function (dispatch) {
-//     return api
-//       .getRefreshToken()
-//       .then((res) => {
-//         if (res && res.success) {
-//           const accessToken = res.accessToken.split('Bearer ')[1];
-//           localStorage.setItem('refreshToken', res.refreshToken);
-//           localStorage.setItem('accessToken', accessToken);
-//           localStorage.setItem('login', true);
-//           dispatch(getUser());
-//         }
-//       })
-//       .catch((err) => {
-//         console.error(err.message);
-//         switch (err.message) {
-//           case ERROR_STATE.tokenIsInvalid: {
-//             dispatch({
-//               type: USER_CHECKED,
-//             });
-//             localStorage.clear();
-//             break;
-//           }
-//           default: {
-//             return dispatch({
-//               type: USER_FAILED,
-//             });
-//           }
-//         }
-//       });
-//   };
-// }
-
 export function login(body) {
   return function (dispatch) {
     dispatch({

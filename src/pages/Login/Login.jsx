@@ -23,7 +23,7 @@ const Login = () => {
   useEffect(() => {
     dispatch(getUser());
     isLogin && navigate('/');
-  }, [isLogin, navigate]);
+  }, [isLogin, navigate, dispatch]);
 
   const [value, setValue] = useState({
     email: '',
