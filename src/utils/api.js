@@ -18,7 +18,8 @@ class Api {
     } catch (err) {
       switch (err.message) {
         case ERROR_STATE.jwtExpired: {
-          const refreshData = await this.getRefreshToken();
+          const refreshToken = localStorage.getItem('refreshToken');
+          const refreshData = await this.getRefreshToken(refreshToken);
           if (!refreshData.success) {
             Promise.reject(refreshData);
           }
@@ -39,49 +40,49 @@ class Api {
     }
   }
 
-  getRefreshToken() {
+  getRefreshToken(refreshToken) {
     return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token: this._refreshToken }),
+      body: JSON.stringify({ token: refreshToken }),
     }).then(this._checkingResponse);
   }
 
   getIngredient() {
-    return fetch(`${this._baseUrl}/ingredients`, {
+    return this._fetchWithRefresh(`${this._baseUrl}/ingredients`, {
       method: 'GET',
-    }).then(this._checkingResponse);
+    });
   }
 
-  addOrder(ingredientId) {
+  addOrder(ingredientId, accessToken) {
     return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this._accessToken,
+        Authorization: 'Bearer ' + accessToken,
       },
       body: JSON.stringify({ ingredients: ingredientId }),
     });
   }
 
-  getCurrentUser() {
+  getCurrentUser(accessToken) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this._accessToken,
+        Authorization: 'Bearer ' + accessToken,
       },
     });
   }
 
-  editUser(data) {
+  editUser(data, accessToken) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this._accessToken,
+        Authorization: 'Bearer ' + accessToken,
       },
       body: JSON.stringify(data),
     });

@@ -36,7 +36,7 @@ export function getUser() {
       });
     } else {
       api
-        .getCurrentUser()
+        .getCurrentUser(accessToken)
         .then((res) => {
           if (res && res.success) {
             dispatch({
@@ -85,14 +85,14 @@ export function login(body) {
       .signUp(body)
       .then((res) => {
         if (res && res.success) {
-          dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res.user,
-          });
           const accessToken = res.accessToken.split('Bearer ')[1];
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('login', true);
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.user,
+          });
         } else {
           dispatch({
             type: LOGIN_FAILED,
@@ -203,8 +203,11 @@ export function updateUserInfo(body) {
     dispatch({
       type: USER_UPDATE_INFO_REQUEST,
     });
+
+    const accessToken = localStorage.getItem('accessToken');
+
     api
-      .editUser(body)
+      .editUser(body, accessToken)
       .then((res) => {
         if (res && res.success) {
           dispatch({
