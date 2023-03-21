@@ -45,7 +45,8 @@ class Api extends Component<IApiProps> {
             refreshData.accessToken.split('Bearer ')[1]
           );
           localStorage.setItem('login', JSON.stringify(true));
-          options.headers.Authorization = refreshData.accessToken;
+          (options.headers as { [key: string]: string }).Authorization =
+            refreshData.accessToken;
           const res = await fetch(url, options);
           return await this._checkingResponse(res);
         }
