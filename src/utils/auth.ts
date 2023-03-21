@@ -1,16 +1,22 @@
+import { Component } from 'react';
+import { IApiProps } from '../interfaces';
 import { BASE_URL } from './constants';
 
-class Auth {
-  constructor({ baseUrl, header }) {
-    this._url = baseUrl;
-    this._header = header;
+class Auth extends Component<IApiProps> {
+  private readonly _url: string;
+  private readonly _header?: HeadersInit;
+
+  constructor(props: IApiProps) {
+    super(props);
+    this._url = props.baseUrl;
+    this._header = props.header;
   }
 
-  _checkingResponse(res) {
+  _checkingResponse(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
-  signUp(data) {
+  signUp(data: Response) {
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: this._header,
@@ -18,7 +24,7 @@ class Auth {
     }).then(this._checkingResponse);
   }
 
-  signIn(data) {
+  signIn(data: Response) {
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: this._header,
@@ -26,7 +32,7 @@ class Auth {
     }).then(this._checkingResponse);
   }
 
-  signOut(token) {
+  signOut(token: string) {
     return fetch(`${this._url}/auth/logout`, {
       method: 'POST',
       headers: this._header,
@@ -34,7 +40,7 @@ class Auth {
     }).then(this._checkingResponse);
   }
 
-  forgotPassword(body) {
+  forgotPassword(body: object) {
     return fetch(`${this._url}/password-reset`, {
       method: 'POST',
       headers: this._header,
@@ -42,7 +48,7 @@ class Auth {
     }).then(this._checkingResponse);
   }
 
-  resetPassword(body) {
+  resetPassword(body: object) {
     return fetch(`${this._url}/password-reset/reset`, {
       method: 'POST',
       headers: this._header,

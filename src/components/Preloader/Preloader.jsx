@@ -6,7 +6,7 @@ const Preloader = () => {
     <div className={preloaderStyle.preloader}>
       <div className={preloaderStyle.container}>
         <span className={preloaderStyle.round}>
-          <RingSpinner size={100} color="#3333ff" />
+          {/* <RingSpinner size={100} color="#3333ff" /> */}
         </span>
       </div>
     </div>
