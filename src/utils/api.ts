@@ -1,24 +1,40 @@
+import { Component } from 'react';
+import { IApiProps } from '../interfaces';
 import { BASE_URL, ERROR_STATE } from './constants';
 
-class Api {
-  constructor({ baseUrl, accessToken, refreshToken }) {
-    this._baseUrl = baseUrl;
-    this._accessToken = accessToken;
-    this._refreshToken = refreshToken;
+interface TFetchWithRefresh {
+  success: boolean;
+  refreshToken: string;
+  accessToken: string;
+}
+
+interface IHeader {
+  method: string;
+  headers?: HeadersInit;
+  body?: string;
+}
+
+class Api extends Component<IApiProps> {
+  private readonly _baseUrl: string;
+
+  constructor(props: IApiProps) {
+    super(props);
+    this._baseUrl = props.baseUrl;
   }
 
-  _checkingResponse(res) {
+  private _checkingResponse(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
-  async _fetchWithRefresh(url, options) {
+  private async _fetchWithRefresh(url: string, options: RequestInit) {
     try {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
-    } catch (err) {
+    } catch (err: any) {
+      console.log(err);
       switch (err.message) {
         case ERROR_STATE.jwtExpired: {
-          const refreshToken = localStorage.getItem('refreshToken');
+          const refreshToken = localStorage.getItem('refreshToken') || '';
           const refreshData = await this.getRefreshToken(refreshToken);
           if (!refreshData.success) {
             Promise.reject(refreshData);
@@ -28,7 +44,7 @@ class Api {
             'accessToken',
             refreshData.accessToken.split('Bearer ')[1]
           );
-          localStorage.setItem('login', true);
+          localStorage.setItem('login', JSON.stringify(true));
           options.headers.Authorization = refreshData.accessToken;
           const res = await fetch(url, options);
           return await this._checkingResponse(res);
@@ -40,7 +56,7 @@ class Api {
     }
   }
 
-  getRefreshToken(refreshToken) {
+  public getRefreshToken(refreshToken: string): Promise<TFetchWithRefresh> {
     return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
@@ -50,13 +66,13 @@ class Api {
     }).then(this._checkingResponse);
   }
 
-  getIngredient() {
+  public getIngredient() {
     return this._fetchWithRefresh(`${this._baseUrl}/ingredients`, {
       method: 'GET',
     });
   }
 
-  addOrder(ingredientId, accessToken) {
+  public addOrder(ingredientId: object, accessToken: string) {
     return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
@@ -67,7 +83,7 @@ class Api {
     });
   }
 
-  getCurrentUser(accessToken) {
+  public getCurrentUser(accessToken: string) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'GET',
       headers: {
@@ -77,7 +93,7 @@ class Api {
     });
   }
 
-  editUser(data, accessToken) {
+  public editUser(data: object, accessToken: string) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       headers: {
@@ -91,6 +107,4 @@ class Api {
 
 export const api = new Api({
   baseUrl: BASE_URL,
-  accessToken: localStorage.getItem('accessToken'),
-  refreshToken: localStorage.getItem('refreshToken'),
 });
