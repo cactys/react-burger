@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
+import Preloader from '../../components/Preloader/Preloader';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import { logout } from '../../services/action/User';
 import profileStyle from './Profile.module.css';
@@ -9,7 +10,9 @@ import profileStyle from './Profile.module.css';
 const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isLogout } = useSelector((store) => store.user);
+  const { isLogout, logoutRequest } = useSelector((store) => store.user);
+
+  console.log(logoutRequest);
 
   const navigate = useNavigate();
 
@@ -23,6 +26,7 @@ const Profile = () => {
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
+      {logoutRequest && <Preloader />}
       <nav className={profileStyle.navigate}>
         <ul className={profileStyle.navList}>
           <li className={profileStyle.navItem}>

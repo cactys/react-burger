@@ -8,12 +8,6 @@ interface TFetchWithRefresh {
   accessToken: string;
 }
 
-interface IHeader {
-  method: string;
-  headers?: HeadersInit;
-  body?: string;
-}
-
 class Api extends Component<IApiProps> {
   private readonly _baseUrl: string;
 
@@ -30,6 +24,7 @@ class Api extends Component<IApiProps> {
     try {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.log(err);
       switch (err.message) {
