@@ -6,18 +6,19 @@ import {
   INGREDIENT_ADD_INFO,
 } from '../../services/action/BurgerIngredients';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
+import { TIngredientItem, TIngredients } from '../../services/types';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
 
   const dispatch = useDispatch();
 
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const ingredients = useSelector((state: TIngredients) => state.ingredients.ingredients);
 
-  const scrollRef = useRef(null);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const scrollRef = useRef<HTMLOListElement>(null);
+  const bunRef = useRef<HTMLLIElement>(null);
+  const sauceRef = useRef<HTMLLIElement>(null);
+  const mainRef = useRef<HTMLLIElement>(null);
 
   const bun = useMemo(
     () => ingredients.filter((i) => i.type === 'bun'),
@@ -32,20 +33,22 @@ const BurgerIngredients = () => {
     [ingredients]
   );
 
-  const handleClickTab = useCallback((value) => {
+  console.log(bunRef)
+
+  const handleClickTab = useCallback((value: string) => {
     switch (value) {
       case 'bun': {
-        bunRef.current.scrollIntoView({ behavior: 'smooth' });
+        bunRef.current?.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
       }
       case 'sauce': {
-        sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+        sauceRef.current?.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
       }
       case 'main': {
-        mainRef.current.scrollIntoView({ behavior: 'smooth' });
+        mainRef.current?.scrollIntoView({ behavior: 'smooth' });
         setCurrent(value);
         break;
       }
@@ -74,7 +77,7 @@ const BurgerIngredients = () => {
       return setCurrent('main');
   };
 
-  const handleIngredientClick = (selectIngredient) => {
+  const handleIngredientClick = (selectIngredient: TIngredientItem) => {
     dispatch({
       type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
@@ -110,7 +113,6 @@ const BurgerIngredients = () => {
             <IngredientsGroup
               onIngredientClick={handleIngredientClick}
               data={bun}
-              title={'Булки'}
             />
           </ol>
         </li>
@@ -120,7 +122,6 @@ const BurgerIngredients = () => {
             <IngredientsGroup
               onIngredientClick={handleIngredientClick}
               data={sauce}
-              title={'Соусы'}
             />
           </ol>
         </li>
@@ -130,7 +131,6 @@ const BurgerIngredients = () => {
             <IngredientsGroup
               onIngredientClick={handleIngredientClick}
               data={main}
-              title={'Начинка'}
             />
           </ol>
         </li>

@@ -33,7 +33,8 @@ const App: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch<any>(getUser());
+    console.log(getUser())
   }, [dispatch]);
 
   return (

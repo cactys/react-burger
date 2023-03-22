@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { IApiProps } from '../interfaces';
+import { IApiProps } from '../services/interfaces';
 import { BASE_URL } from './constants';
 
 class Auth extends Component<IApiProps> {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
@@ -18,26 +18,28 @@ import {
   ORDER_RESET_INFO,
 } from '../../services/action/OrderDetails';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
+import { TConstructorIngredients, TIngredientItem, TUser } from '../../services/types';
 
-const BurgerConstructor = () => {
-  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
+const BurgerConstructor: FC = () => {
+  const { bun, ingredients } = useSelector(
+    (store: TConstructorIngredients) => store.constructorIngredient
+  );
+  const { user } = useSelector((store: TUser) => store.user);
+  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState<boolean>();
+  const [reorder, setReorder] = useState(ingredients);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { bun, ingredients } = useSelector(
-    (store) => store.constructorIngredient
-  );
-  const { user } = useSelector((store) => store.user);
 
   const handleOrderButtonClick = () => {
     if (user) {
       setIsOrderDetailsOpen(true);
       const ingredientId = [
         bun?._id,
-        ...ingredients.map((ingredient) => ingredient._id),
+        ...ingredients.map((ingredient: TIngredientItem) => ingredient._id),
         bun?._id,
       ];
 
-      dispatch(orderDetail(ingredientId));
+      dispatch<any>(orderDetail(ingredientId));
     } else {
       navigate('/login');
     }
@@ -50,13 +52,13 @@ const BurgerConstructor = () => {
     });
   };
 
-  const onDropHandler = (item) => {
+  const onDropHandler = (item: TIngredientItem) => {
     dispatch(addBurgerIngredient(item));
   };
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: TIngredientItem) {
       onDropHandler(item);
     },
   });
@@ -64,7 +66,7 @@ const BurgerConstructor = () => {
   const totalPrice = useMemo(() => {
     return (
       (bun ? bun.price * 2 : 0) +
-      ingredients.reduce((sum, item) => sum + item.price, 0)
+      ingredients.reduce((sum: number, item: TIngredientItem) => sum + item.price, 0)
     );
   }, [bun, ingredients]);
 
@@ -84,7 +86,7 @@ const BurgerConstructor = () => {
               className="pl-8"
               style={{ height: 80 }}
             >
-              {bun !== null && bun.length !== 0 && (
+              {bun !== null && (
                 <ConstructorElement
                   type="top"
                   isLocked={true}
@@ -96,18 +98,19 @@ const BurgerConstructor = () => {
             </motion.div>
             <Reorder.Group
               axis="y"
-              values={ingredients}
+              values={reorder}
+              onReorder={setReorder}
               className={burgerConstructorStyle.constructorList}
             >
               {ingredients.length === 0
                 ? ''
-                : ingredients.map((ingredient, index) => (
-                    <ConstructorContainer
-                      key={ingredient.uuid}
-                      ingredient={ingredient}
-                      index={index}
-                    />
-                  ))}
+                : ingredients.map((ingredient: TIngredientItem, index: number) => (
+                  <ConstructorContainer
+                    key={ingredient.uuid}
+                    ingredient={ingredient}
+                    index={index}
+                  />
+                ))}
             </Reorder.Group>
             <motion.div
               initial={{ opacity: 0 }}
@@ -115,7 +118,7 @@ const BurgerConstructor = () => {
               className="pl-8"
               style={{ height: 80 }}
             >
-              {bun !== null && bun.length !== 0 && (
+              {bun !== null && (
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}

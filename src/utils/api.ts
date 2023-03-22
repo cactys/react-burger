@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { IApiProps } from '../interfaces';
+import { IApiProps } from '../services/interfaces';
 import { BASE_URL, ERROR_STATE } from './constants';
 
 interface TFetchWithRefresh {
@@ -24,9 +24,7 @@ class Api extends Component<IApiProps> {
     try {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log(err);
       switch (err.message) {
         case ERROR_STATE.jwtExpired: {
           const refreshToken = localStorage.getItem('refreshToken') || '';

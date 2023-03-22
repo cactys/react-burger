@@ -12,8 +12,6 @@ const Profile = () => {
   const location = useLocation();
   const { isLogout, logoutRequest } = useSelector((store) => store.user);
 
-  console.log(logoutRequest);
-
   const navigate = useNavigate();
 
   const handleLogout = () => {

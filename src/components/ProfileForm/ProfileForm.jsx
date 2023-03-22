@@ -68,7 +68,7 @@ const ProfileForm = () => {
 
   return (
     <form className={profileFormStyle.inputForm} onSubmit={onSubmit}>
-      {updateRequest && <Preloader />}
+      {updateRequest && <Preloader isOverflow={true} />}
       <Input
         type="text"
         onChange={onChange}

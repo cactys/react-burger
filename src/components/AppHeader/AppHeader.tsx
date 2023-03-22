@@ -4,10 +4,11 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import headerStyle from './AppHeader.module.css';
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
   return (
     <header className={headerStyle.header}>
       <nav className={headerStyle.container}>
@@ -32,7 +33,6 @@ const AppHeader = () => {
           <Link
             to="/profile"
             className={`${headerStyle.link} pl-5 pr-5 pb-4 pt-4`}
-            href="/"
           >
             <ProfileIcon type="secondary" />
             <p className="text text_type_main-default text_color_inactive">
