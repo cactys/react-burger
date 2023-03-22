@@ -58,7 +58,7 @@ type TIngredientItem = {
   proteins: number;
   type: string;
   __v: number;
-  uuid?: number;
+  uuid: number;
 };
 
 type TModal = {

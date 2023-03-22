@@ -1,22 +1,27 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Reorder } from 'framer-motion';
-import PropTypes from 'prop-types';
 import {
   ConstructorElement,
   DragIcon,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import {
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
 } from '../../services/action/BurgerConstructor';
-import { dataPropTypes } from '../../utils/constants';
 import constructorContainerStyle from './ConstructorContainer.module.css';
+import { TIngredientItem } from '../../services/types';
 
-const ConstructorContainer = ({ ingredient, index }) => {
+interface IConstructorContainer {
+  key: number;
+  ingredient: TIngredientItem;
+  index: number;
+}
+
+const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) => {
   const dispatch = useDispatch();
-  const ingredientRef = useRef(null);
+  const ingredientRef = useRef<HTMLElement>(null);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: 'SORT_INGREDIENT',
@@ -33,16 +38,16 @@ const ConstructorContainer = ({ ingredient, index }) => {
     collect(monitor) {
       return { handlerId: monitor.getHandlerId() };
     },
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) return;
 
-      const hoverBoundingRect = ingredientRef.current?.getBoundingClientRect();
+      const hoverBoundingRect: any = ingredientRef.current?.getBoundingClientRect() || 0;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset: any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
@@ -60,7 +65,7 @@ const ConstructorContainer = ({ ingredient, index }) => {
     },
   });
 
-  const deleteIngredient = (index) => {
+  const deleteIngredient = (index: number) => {
     dispatch({
       type: CONSTRUCTOR_DELETE,
       payload: index,
@@ -76,7 +81,7 @@ const ConstructorContainer = ({ ingredient, index }) => {
   return (
     <Reorder.Item
       value={ingredient}
-      id={ingredient}
+      id={ingredient._id}
       transition={{ type: 'spring', duration: 0.8 }}
       className={cn}
       ref={ingredientRef}
@@ -94,8 +99,3 @@ const ConstructorContainer = ({ ingredient, index }) => {
 };
 
 export default ConstructorContainer;
-
-ConstructorContainer.propTypes = {
-  ingredient: dataPropTypes.isRequired,
-  index: PropTypes.number.isRequired,
-};

@@ -33,8 +33,6 @@ const BurgerIngredients: FC = () => {
     [ingredients]
   );
 
-  console.log(bunRef)
-
   const handleClickTab = useCallback((value: string) => {
     switch (value) {
       case 'bun': {

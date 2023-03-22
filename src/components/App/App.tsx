@@ -34,7 +34,6 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch<any>(getUser());
-    console.log(getUser())
   }, [dispatch]);
 
   return (
