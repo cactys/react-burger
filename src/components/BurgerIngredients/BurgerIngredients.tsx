@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
@@ -8,7 +8,7 @@ import {
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import { TIngredientItem, TIngredients } from '../../services/types';
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const [current, setCurrent] = useState('bun');
 
   const dispatch = useDispatch();
@@ -58,15 +58,15 @@ const BurgerIngredients = () => {
   }, []);
 
   const onScroll = () => {
-    const scrollY = scrollRef.current.getBoundingClientRect().y;
+    const scrollY = scrollRef.current?.getBoundingClientRect().y || 0;
     const bunOffsetY = Math.abs(
-      bunRef.current.getBoundingClientRect().y - scrollY
+      (bunRef.current?.getBoundingClientRect().y || 0) - scrollY
     );
     const sauceOffsetY = Math.abs(
-      sauceRef.current.getBoundingClientRect().y - scrollY
+      (sauceRef.current?.getBoundingClientRect().y || 0) - scrollY
     );
     const mainOffsetY = Math.abs(
-      mainRef.current.getBoundingClientRect().y - scrollY
+      (mainRef.current?.getBoundingClientRect().y || 0) - scrollY
     );
 
     if (bunOffsetY < sauceOffsetY && bunOffsetY < mainOffsetY)
