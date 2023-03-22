@@ -1,13 +1,26 @@
+import PropTypes from 'prop-types';
 import preloaderStyle from './Preloader.module.css';
 
-const Preloader = () => {
+const Preloader = ({ isOverflow }) => {
   return (
-    <div className={preloaderStyle.preloader}>
-      <div className={preloaderStyle.container}>
-        <span className={preloaderStyle.loader} />
-      </div>
-    </div>
+    <>
+      {isOverflow ? (
+        <div className={preloaderStyle.preloader}>
+          <div className={preloaderStyle.container}>
+            <span className={preloaderStyle.loader} />
+          </div>
+        </div>
+      ) : (
+        <div className={preloaderStyle.container}>
+          <span className={preloaderStyle.loader} />
+        </div>
+      )}
+    </>
   );
 };
 
 export default Preloader;
+
+Preloader.propTypes = {
+  isOverflow: PropTypes.bool,
+};

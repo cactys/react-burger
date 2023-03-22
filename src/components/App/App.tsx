@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser } from '../../services/action/User';
@@ -18,12 +18,12 @@ import { INGREDIENT_DELETE_INFO } from '../../services/action/BurgerIngredients'
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
-const App = () => {
+const App: FC = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
   const navigate = useNavigate();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
 
   const handleModalClose = () => {
     navigate(-1);

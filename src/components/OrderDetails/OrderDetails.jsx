@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import done from '../../images/done.svg';
+import Preloader from '../Preloader/Preloader';
 import orderDetailsStyle from './OrderDetails.module.css';
 
 const OrderDetails = () => {
-  const { currentOrder, message } = useSelector(
-    (store) => store.orderDetails
-  );
+  const { orderRequest } = useSelector((store) => store.orderDetails);
+  const { currentOrder, message } = useSelector((store) => store.orderDetails);
 
   return (
     <div className={`pb-15 ${orderDetailsStyle.container}`}>
@@ -17,7 +17,13 @@ const OrderDetails = () => {
         {currentOrder ? currentOrder.number : message}
       </h3>
       <p className="mt-8 text text_type_main-medium">идентификатор заказа</p>
-      <img className="mt-15 mb-15" src={done} alt="Заказ готовится" />
+      <div className={`mt-15 mb-15 ${orderDetailsStyle.done}`}>
+        {orderRequest ? (
+          <Preloader />
+        ) : (
+          <img src={done} alt="Заказ готовится" />
+        )}
+      </div>
       <p className="mb-2 text text_type_main-default">
         Ваш заказ начали готовить
       </p>

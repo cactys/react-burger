@@ -44,7 +44,7 @@ const Login = () => {
     <main className={loginStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
       <form className={loginStyle.form} onSubmit={onSubmit}>
-        {loginRequest && <Preloader />}
+        {loginRequest && <Preloader isOverflow={true} />}
         <EmailInput
           onChange={(e) => setValue({ ...value, email: e.target.value })}
           value={value.email}

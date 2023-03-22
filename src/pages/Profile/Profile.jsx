@@ -26,7 +26,7 @@ const Profile = () => {
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
-      {logoutRequest && <Preloader />}
+      {logoutRequest && <Preloader isOverflow={true} />}
       <nav className={profileStyle.navigate}>
         <ul className={profileStyle.navList}>
           <li className={profileStyle.navItem}>

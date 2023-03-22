@@ -64,7 +64,7 @@ const ResetPassword = () => {
     <main className={resetPasswordStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <form className={resetPasswordStyle.form} onSubmit={onSubmit}>
-        {recoveryRequest && <Preloader />}
+        {recoveryRequest && <Preloader isOverflow={true} />}
         <PasswordInput
           placeholder={'Введите новый пароль'}
           onChange={(e) => setValue({ ...value, password: e.target.value })}

@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
@@ -12,18 +13,19 @@
 }
 
 .container {
+  margin: 0 auto;
   width: 100px;
   height: 100px;
   position: relative;
 }
 
 .loader {
-  /* position: relative; */
   width: 100px;
   height: 100px;
 }
 
-.loader:before , .loader:after{
+.loader:before,
+.loader:after {
   content: '';
   border-radius: 50%;
   position: absolute;
@@ -36,39 +38,10 @@
 }
 
 @keyframes rotate {
-  0% {  transform: rotate(0)}
-  100% { transform: rotate(360deg)}
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-/* .round {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50px;
-  box-shadow: 0px 0px 16px rgb(51 51 255 / 25%),
-    0px 0px 8px rgb(51 51 255 / 25%), 0px 4px 32px rgb(51 51 255 / 50%);
-} */
-
-/* .round::after,
-.round::before {
-  content: '';
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50px;
-}
-
-.round::after {
-  background: white;
-  animation: preloader-inside-white 1s ease-in-out infinite;
-}
-
-.round::before {
-  z-index: 10;
-  background: #3333ff;
-  animation: preloader-inside-red 1s ease-in-out infinite;
-} */

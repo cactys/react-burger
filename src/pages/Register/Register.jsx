@@ -45,7 +45,7 @@ const Register = () => {
     <main className={registerStyle.container}>
       <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
       <form className={registerStyle.form} onSubmit={onSubmit}>
-        {registerRequest && <Preloader />}
+        {registerRequest && <Preloader isOverflow={true} />}
         <Input
           type="text"
           onChange={(e) => setValue({ ...value, name: e.target.value })}
