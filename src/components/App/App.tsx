@@ -2,6 +2,11 @@ import { useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser } from '../../services/action/User';
+import {
+  getIngredients,
+  INGREDIENT_ADD_INFO,
+  INGREDIENT_DELETE_INFO,
+} from '../../services/action/BurgerIngredients';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
 import AppHeader from '../AppHeader/AppHeader';
@@ -14,7 +19,6 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Ingredients from '../../pages/Ingredients/Ingredients';
 import NotFound from '../../pages/NotFound/NotFound';
 import appStyle from './App.module.css';
-import { INGREDIENT_DELETE_INFO } from '../../services/action/BurgerIngredients';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
@@ -34,7 +38,11 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch<any>(getUser());
+    dispatch<any>(getIngredients());
   }, [dispatch]);
+
+  console.log(background);
+  console.log(location.state);
 
   return (
     <div className={appStyle.page}>

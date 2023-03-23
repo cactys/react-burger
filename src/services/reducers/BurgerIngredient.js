@@ -1,5 +1,5 @@
 import {
-  INGREDIENTS__FAILED,
+  INGREDIENTS_FAILED,
   INGREDIENTS_REQUEST,
   INGREDIENTS_SUCCESS,
   INGREDIENTS_RESET,
@@ -18,16 +18,17 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredients: action.data,
         ingredientsRequest: true,
-        ingredientsFailed: true,
+        ingredientsFailed: false,
       };
     }
     case INGREDIENTS_REQUEST: {
       return {
         ...state,
         ingredientsRequest: true,
+        ingredientsFailed: false,
       };
     }
-    case INGREDIENTS__FAILED: {
+    case INGREDIENTS_FAILED: {
       return {
         ...state,
         ingredientsRequest: false,
