@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -6,15 +6,16 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import { getIngredients } from '../../services/action/BurgerIngredients';
 import mainStyle from './Main.module.css';
+import { TIngredients } from '../../services/types';
 
-const Main = () => {
+const Main: FC = () => {
   const dispatch = useDispatch();
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    (store) => store.ingredients
+    (store: TIngredients) => store.ingredients
   );
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch<any>(getIngredients());
   }, [dispatch]);
 
   return (

@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 type TError = {
   status?: number;
   success?: boolean;
@@ -6,7 +8,7 @@ type TError = {
 
 type TUser = {
   user: {
-    user: null | { name: string; email: string };
+    user: null | { name: string; email: string; password?: string };
     isLogin: boolean;
     emailSended: boolean;
     isLogout: boolean;
@@ -61,15 +63,44 @@ type TIngredientItem = {
   uuid: number;
 };
 
-type TModal = {
-  isOpen?: boolean;
-  title: string;
-  onClose: () => void;
-  children: Element;
+type TIngredientDetailsData = {
+  data?: TIngredientItem;
 };
 
-type TDict<T> = {
-  [name: string]: T;
+type TIngredientDetailsStore = {
+  ingredientDetails: { info: TIngredientItem };
+};
+
+type TOwner = {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+};
+
+type TOrder = {
+  currentOrder: {
+    createdAt: string;
+    ingredients: TIngredientItem;
+    name: string;
+    number: number;
+    owner: TOwner;
+    price: number;
+    status: string;
+    updateAt: string;
+    _id: string;
+  };
+  message: string;
+  orderRequest: boolean;
+  orderFailed: boolean;
+};
+
+type TOrderDetails = {
+  orderDetails: TOrder;
+};
+
+type TDict = {
+  [key in string]: number;
 };
 
 export type {
@@ -78,6 +109,10 @@ export type {
   TConstructorIngredients,
   TIngredients,
   TIngredientItem,
-  TModal,
+  TIngredientDetailsData,
+  TIngredientDetailsStore,
+  TOwner,
+  TOrder,
+  TOrderDetails,
   TDict,
 };

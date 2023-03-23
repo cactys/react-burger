@@ -11,13 +11,7 @@ import {
   CONSTRUCTOR_REORDER,
 } from '../../services/action/BurgerConstructor';
 import constructorContainerStyle from './ConstructorContainer.module.css';
-import { TIngredientItem } from '../../services/types';
-
-interface IConstructorContainer {
-  key: number;
-  ingredient: TIngredientItem;
-  index: number;
-}
+import { IConstructorContainer } from '../../services/interfaces';
 
 const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) => {
   const dispatch = useDispatch();

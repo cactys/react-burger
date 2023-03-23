@@ -1,27 +1,28 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
   PasswordInput,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import Preloader from '../../components/Preloader/Preloader';
 import { getUser, login } from '../../services/action/User';
 import loginStyle from './Login.module.css';
+import { TUser } from '../../services/types';
 
-const Login = () => {
+const Login: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { loginRequest, loginFailed, loginMessage, isLogin } = useSelector(
-    (store) => store.user
+    (store: TUser) => store.user
   );
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch<any>(getUser());
     isLogin && navigate('/');
   }, [isLogin, navigate, dispatch]);
 
@@ -30,9 +31,9 @@ const Login = () => {
     password: '',
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(
+    dispatch<any>(
       login({
         email: value.email,
         password: value.password,

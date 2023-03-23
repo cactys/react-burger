@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import notFoundStyle from './NotFound.module.css';
 
-const NotFound = () => {
+const NotFound: FC = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {

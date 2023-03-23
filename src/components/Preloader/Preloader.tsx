@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { IPreloader } from '../../services/interfaces';
 import preloaderStyle from './Preloader.module.css';
 
-const Preloader = ({ isOverflow }) => {
+const Preloader: FC<IPreloader> = ({ isOverflow }) => {
   return (
     <>
       {isOverflow ? (
@@ -20,7 +21,3 @@ const Preloader = ({ isOverflow }) => {
 };
 
 export default Preloader;
-
-Preloader.propTypes = {
-  isOverflow: PropTypes.bool,
-};

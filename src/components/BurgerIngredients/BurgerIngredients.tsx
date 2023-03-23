@@ -76,7 +76,7 @@ const BurgerIngredients: FC = () => {
   };
 
   const handleIngredientClick = (selectIngredient: TIngredientItem) => {
-    dispatch({
+    return dispatch<any>({
       type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
     });

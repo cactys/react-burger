@@ -1,14 +1,14 @@
+import { FC } from 'react';
 import { useDrag } from 'react-dnd';
-import PropTypes from 'prop-types';
 import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { dataPropTypes } from '../../utils/constants';
 import ingredientCardStyle from './IngredientCard.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import { IIngredientCard } from '../../services/interfaces';
 
-const IngredientCard = ({ ingredient, onIngredientClick, count }) => {
+const IngredientCard: FC<IIngredientCard> = ({ ingredient, onIngredientClick, count }) => {
   const location = useLocation();
   const { name, image, price, _id } = ingredient;
 
@@ -54,9 +54,3 @@ const IngredientCard = ({ ingredient, onIngredientClick, count }) => {
 };
 
 export default IngredientCard;
-
-IngredientCard.propTypes = {
-  ingredient: dataPropTypes.isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
-  count: PropTypes.number,
-};

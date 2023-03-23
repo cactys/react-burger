@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { IFormFooter } from '../../services/interfaces';
 import formFooterStyle from './FormFooter.module.css';
 
-const FormFooter = ({ text, linkText, path }) => {
+const FormFooter: FC<IFormFooter> = ({ text, linkText, path }) => {
   return (
     <div className={`mb-4 ${formFooterStyle.formFooter}`}>
       <p className="text text_type_main-default text_color_inactive">{text}</p>
@@ -14,12 +15,6 @@ const FormFooter = ({ text, linkText, path }) => {
       </Link>
     </div>
   );
-};
-
-FormFooter.propTypes = {
-  text: PropTypes.string,
-  linkText: PropTypes.string,
-  path: PropTypes.string,
 };
 
 export default FormFooter;

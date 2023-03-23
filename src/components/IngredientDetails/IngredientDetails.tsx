@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import ingredientDetailsStyle from './IngredientDetails.module.css';
 import Preloader from '../Preloader/Preloader';
+import { TIngredientDetailsData, TIngredientDetailsStore } from '../../services/types';
 
-const IngredientDetails = ({ data }) => {
-  const { info } = useSelector((store) => store.ingredientDetails);
+const IngredientDetails: FC<TIngredientDetailsData> = ({ data }) => {
+  const { info } = useSelector((store: TIngredientDetailsStore) => store.ingredientDetails);
 
   return (
     <div className={ingredientDetailsStyle.container}>
@@ -51,7 +52,3 @@ const IngredientDetails = ({ data }) => {
 };
 
 export default IngredientDetails;
-
-IngredientDetails.propTypes = {
-  data: PropTypes.object,
-};

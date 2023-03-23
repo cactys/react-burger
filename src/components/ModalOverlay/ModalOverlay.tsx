@@ -1,10 +1,10 @@
+import { FC } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import Preloader from '../Preloader/Preloader';
 import modalOverlayStyle from './ModalOverlay.module.css';
+import { IModal } from '../../services/interfaces';
 
-const ModalOverlay = ({ onClose }) => {
-  const toggleClose = (evt) => {
+const ModalOverlay: FC<IModal> = ({ onClose }) => {
+  const toggleClose = (evt: any) => {
     if (evt.target.classList.contains(modalOverlayStyle.overlay)) {
       onClose();
     }

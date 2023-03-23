@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -6,19 +6,20 @@ import {
   EmailInput,
   Input,
   PasswordInput,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import Preloader from '../../components/Preloader/Preloader';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import { register } from '../../services/action/User';
 import registerStyle from './Register.module.css';
+import { TUser } from '../../services/types';
 
-const Register = () => {
+const Register: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { registerRequest, registerFailed, registerMessage, isLogin } =
-    useSelector((store) => store.user);
+    useSelector((store: TUser) => store.user);
 
   useEffect(() => {
     isLogin && navigate('/');
@@ -30,9 +31,9 @@ const Register = () => {
     password: '',
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(
+    dispatch<any>(
       register({
         email: value.email,
         password: value.password,

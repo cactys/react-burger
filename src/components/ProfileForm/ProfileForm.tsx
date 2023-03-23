@@ -1,24 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser, updateUserInfo } from '../../services/action/User';
 import Preloader from '../Preloader/Preloader';
 import InformMessage from '../InformMessage/InformMessage';
 import profileFormStyle from './ProfileForm.module.css';
+import { TUser } from '../../services/types';
 
-const ProfileForm = () => {
+const ProfileForm: FC = () => {
   const dispatch = useDispatch();
   const { user, updateRequest, updateFailed, updateMessage } = useSelector(
-    (store) => store.user
+    (store: TUser) => store.user
   );
-  const inputRef = useRef(null);
 
-  const [value, setValue] = useState({
+  const [value, setValue] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+  }>({
     name: '',
     email: '',
     password: '',
@@ -40,29 +44,28 @@ const ProfileForm = () => {
 
   const onIconClick = () => {
     setEditor(false);
-    setTimeout(() => inputRef.current.focus(), 0);
   };
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     setValue({
       ...value,
       [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     setValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name,
+      email: user?.email,
     });
-    dispatch(updateUserInfo(value));
+    dispatch<any>(updateUserInfo(value));
     setEditor(true);
   };
 
-  const handleCancelSubmit = (e) => {
+  const handleCancelSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(getUser());
+    dispatch<any>(getUser());
     setEditor(true);
   };
 
@@ -75,7 +78,6 @@ const ProfileForm = () => {
         value={value.name || ''}
         name={'name'}
         error={false}
-        ref={inputRef}
         onIconClick={onIconClick}
         disabled={editor}
         errorText={'Ошибка'}
@@ -93,7 +95,6 @@ const ProfileForm = () => {
         extraClass="mb-6"
       />
       <PasswordInput
-        type="password"
         onChange={onChange}
         value={value.password || ''}
         name={'password'}

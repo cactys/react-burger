@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Input,
   PasswordInput,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import Preloader from '../../components/Preloader/Preloader';
 import { recoveryPasswordSend } from '../../services/action/User';
 import resetPasswordStyle from './ResetPassword.module.css';
+import { TUser } from '../../services/types';
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const ResetPassword = () => {
     recoveryMessage,
     passwordRecovered,
     emailSended,
-  } = useSelector((store) => store.user);
+  } = useSelector((store: TUser) => store.user);
 
   const [value, setValue] = useState({
     password: '',
@@ -34,10 +35,10 @@ const ResetPassword = () => {
     message: '',
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     if (value.password.length >= 5) {
-      dispatch(
+      dispatch<any>(
         recoveryPasswordSend({
           password: value.password,
           token: value.token,
@@ -71,8 +72,6 @@ const ResetPassword = () => {
           value={value.password}
           name={'password'}
           extraClass="mb-6"
-          error={validity.enable}
-          errorText={validity.message}
         />
         <Input
           type="text"
@@ -85,6 +84,7 @@ const ResetPassword = () => {
         <Button htmlType="submit" type="primary" size="medium">
           Сохранить
         </Button>
+        {validity.message && <InformMessage message={validity.message} />}
         {recoveryFailed && <InformMessage message={recoveryMessage} />}
       </form>
       <div className="mt-20">

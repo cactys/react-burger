@@ -1,17 +1,17 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import IngredientCard from '../IngredientCard/IngredientCard';
-import { dataPropTypes } from '../../utils/constants';
 import ingredientsGroupStyle from './IngredientsGroup.module.css';
+import { IIngredientGroup } from '../../services/interfaces';
+import { TConstructorIngredients, TDict } from '../../services/types';
 
-const IngredientsGroup = ({ data, onIngredientClick }) => {
+const IngredientsGroup: FC<IIngredientGroup> = ({ data, onIngredientClick }) => {
   const { ingredients, bun } = useSelector(
-    (store) => store.constructorIngredient
+    (store: TConstructorIngredients) => store.constructorIngredient
   );
 
   const calcCounter = useMemo(() => {
-    const counters = {};
+    const counters: TDict = {};
     ingredients.forEach((ingredient) => {
       if (!counters[ingredient._id]) counters[ingredient._id] = 0;
       counters[ingredient._id]++;
@@ -36,8 +36,3 @@ const IngredientsGroup = ({ data, onIngredientClick }) => {
 };
 
 export default IngredientsGroup;
-
-IngredientsGroup.propTypes = {
-  data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
-};

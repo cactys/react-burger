@@ -47,6 +47,19 @@
   opacity: 0.7;
 }
 
+.navButton {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+.navButton:hover {
+  opacity: 0.7;
+}
+
 .subtitle {
   text-align: start;
   height: 48px;

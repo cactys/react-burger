@@ -1,11 +1,11 @@
+import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Logo,
   BurgerIcon,
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import headerStyle from './AppHeader.module.css';
 
 const AppHeader: FC = () => {

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
-} from '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/index';
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import Preloader from '../../components/Preloader/Preloader';
@@ -12,21 +12,22 @@ import {
   recoveryEmailSend,
 } from '../../services/action/User';
 import forgotPasswordStyle from './ForgotPassword.module.css';
+import { TUser } from '../../services/types';
 
-const ForgotPassword = () => {
+const ForgotPassword: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { recoveryRequest, recoveryFailed, recoveryMessage, emailSended } =
-    useSelector((store) => store.user);
+    useSelector((store: TUser) => store.user);
 
   const [email, setEmail] = useState('');
-  const [validity, setValidity] = useState({
+  const [validity, setValidity] = useState<any>({
     enable: false,
     message: '',
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     if (email.length === 0) {
       setValidity({
@@ -34,7 +35,7 @@ const ForgotPassword = () => {
         message: 'Введите E-mail',
       });
     } else {
-      dispatch(
+      dispatch<any>(
         recoveryEmailSend({
           email: email,
         })
@@ -62,12 +63,11 @@ const ForgotPassword = () => {
           name={'email'}
           isIcon={false}
           extraClass="mb-6"
-          error={validity.enable}
-          errorText={validity.message}
         />
         <Button htmlType="submit" type="primary" size="medium">
           Восстановить
         </Button>
+        {validity.message && <InformMessage message={validity.message} />}
         {recoveryFailed && <InformMessage message={recoveryMessage} />}
       </form>
       <div className="mt-20">
