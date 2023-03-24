@@ -2,9 +2,7 @@ import { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
-import {
-  INGREDIENT_ADD_INFO,
-} from '../../services/action/BurgerIngredients';
+import { INGREDIENT_ADD_INFO } from '../../services/action/BurgerIngredients';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import { TIngredientItem, TIngredients } from '../../services/types';
 
@@ -13,7 +11,9 @@ const BurgerIngredients: FC = () => {
 
   const dispatch = useDispatch();
 
-  const ingredients = useSelector((state: TIngredients) => state.ingredients.ingredients);
+  const ingredients = useSelector(
+    (state: TIngredients) => state.ingredients.ingredients
+  );
 
   const scrollRef = useRef<HTMLOListElement>(null);
   const bunRef = useRef<HTMLLIElement>(null);

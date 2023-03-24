@@ -1,4 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import {
+  FC,
+  FormEventHandler,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
@@ -11,59 +17,49 @@ import Preloader from '../Preloader/Preloader';
 import InformMessage from '../InformMessage/InformMessage';
 import profileFormStyle from './ProfileForm.module.css';
 import { TUser } from '../../services/types';
+import { useForm } from '../../hooks/useForm';
 
 const ProfileForm: FC = () => {
   const dispatch = useDispatch();
   const { user, updateRequest, updateFailed, updateMessage } = useSelector(
     (store: TUser) => store.user
   );
-
-  const [value, setValue] = useState<{
-    name?: string;
-    email?: string;
-    password?: string;
-  }>({
+  const { values, handleChange, setValues } = useForm({
     name: '',
     email: '',
     password: '',
   });
-
   const [editor, setEditor] = useState(true);
 
   const validity =
-    value.name === user?.name &&
-    value.email === user?.email &&
-    value.password === user?.password;
+    values.name === user?.name &&
+    values.email === user?.email &&
+    values.password === user?.password;
 
   useEffect(() => {
-    setValue({
+    setValues({
       name: user?.name,
       email: user?.email,
     });
-  }, [setValue, user]);
+  }, [setValues, user]);
 
   const onIconClick = () => {
     setEditor(false);
   };
 
-  const onChange = (e: any) => {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = (e: any) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (
+    e: SyntheticEvent<Element>
+  ) => {
     e.preventDefault();
-    setValue({
+    setValues({
       name: user?.name,
       email: user?.email,
     });
-    dispatch<any>(updateUserInfo(value));
+    dispatch<any>(updateUserInfo(values));
     setEditor(true);
   };
 
-  const handleCancelSubmit = (e: any) => {
+  const handleCancelSubmit = (e: SyntheticEvent<Element>) => {
     e.preventDefault();
     dispatch<any>(getUser());
     setEditor(true);
@@ -74,8 +70,8 @@ const ProfileForm: FC = () => {
       {updateRequest && <Preloader isOverflow={true} />}
       <Input
         type="text"
-        onChange={onChange}
-        value={value.name || ''}
+        onChange={handleChange}
+        value={values.name || ''}
         name={'name'}
         error={false}
         onIconClick={onIconClick}
@@ -87,16 +83,16 @@ const ProfileForm: FC = () => {
         extraClass="mb-6"
       />
       <EmailInput
-        onChange={onChange}
-        value={value.email || ''}
+        onChange={handleChange}
+        value={values.email || ''}
         name={'email'}
         placeholder="Логин"
         isIcon={true}
         extraClass="mb-6"
       />
       <PasswordInput
-        onChange={onChange}
-        value={value.password || ''}
+        onChange={handleChange}
+        value={values.password || ''}
         name={'password'}
         icon="EditIcon"
       />

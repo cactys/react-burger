@@ -4,7 +4,6 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser } from '../../services/action/User';
 import {
   getIngredients,
-  INGREDIENT_ADD_INFO,
   INGREDIENT_DELETE_INFO,
 } from '../../services/action/BurgerIngredients';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -16,7 +15,6 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import Ingredients from '../../pages/Ingredients/Ingredients';
 import NotFound from '../../pages/NotFound/NotFound';
 import appStyle from './App.module.css';
 import Modal from '../Modal/Modal';
@@ -42,7 +40,6 @@ const App: FC = () => {
   }, [dispatch]);
 
   console.log(background);
-  console.log(location.state);
 
   return (
     <div className={appStyle.page}>
@@ -73,13 +70,20 @@ const App: FC = () => {
           path="/profile/orders"
           element={<ProtectedRoute element={<Profile />} />}
         />
-        <Route path="/ingredients/:id" element={<Ingredients />} />
+        <Route path="/ingredients/:id" element={<IngredientDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
-        <Modal title="Детали ингредиента" onClose={handleModalClose}>
-          <IngredientDetails />
-        </Modal>
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal title="Детали ингредиента" onClose={handleModalClose}>
+                <IngredientDetails background={background} />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
     </div>
   );

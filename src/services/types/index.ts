@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 type TError = {
   status?: number;
   success?: boolean;
@@ -64,11 +62,7 @@ type TIngredientItem = {
 };
 
 type TIngredientDetailsData = {
-  data?: TIngredientItem;
-};
-
-type TIngredientDetailsStore = {
-  ingredientDetails: { info: TIngredientItem };
+  background?: boolean;
 };
 
 type TOwner = {
@@ -110,7 +104,6 @@ export type {
   TIngredients,
   TIngredientItem,
   TIngredientDetailsData,
-  TIngredientDetailsStore,
   TOwner,
   TOrder,
   TOrderDetails,

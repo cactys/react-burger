@@ -7,8 +7,8 @@ export const INGREDIENTS_RESET = 'INGREDIENTS/RESET';
 export const INGREDIENT_ADD_INFO = 'INGREDIENT/ADD_INFO';
 export const INGREDIENT_DELETE_INFO = 'INGREDIENT/DELETE_INFO';
 
-export function getIngredients() {
-  return function (dispatch) {
+export const getIngredients = () => {
+  return (dispatch) => {
     dispatch({
       type: INGREDIENTS_REQUEST,
     });
