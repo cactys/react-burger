@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, FormEventHandler, SyntheticEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,6 +13,7 @@ import InformMessage from '../../components/InformMessage/InformMessage';
 import { register } from '../../services/action/User';
 import registerStyle from './Register.module.css';
 import { TUser } from '../../services/types';
+import { useForm } from '../../hooks/useForm';
 
 const Register: FC = () => {
   const dispatch = useDispatch();
@@ -21,26 +22,29 @@ const Register: FC = () => {
   const { registerRequest, registerFailed, registerMessage, isLogin } =
     useSelector((store: TUser) => store.user);
 
-  useEffect(() => {
-    isLogin && navigate('/');
-  }, [isLogin, navigate]);
-
-  const [value, setValue] = useState({
+  const {values, handleChange} = useForm({
     name: '',
     email: '',
     password: '',
   });
 
-  const onSubmit = (e: any) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (
+    e: SyntheticEvent<Element>
+  ) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(
       register({
-        email: value.email,
-        password: value.password,
-        name: value.name,
+        email: values.email,
+        password: values.password,
+        name: values.name,
       })
     );
   };
+
+  useEffect(() => {
+    isLogin && navigate('/');
+  }, [isLogin, navigate]);
 
   return (
     <main className={registerStyle.container}>
@@ -49,22 +53,22 @@ const Register: FC = () => {
         {registerRequest && <Preloader isOverflow={true} />}
         <Input
           type="text"
-          onChange={(e) => setValue({ ...value, name: e.target.value })}
-          value={value.name}
+          onChange={handleChange}
+          value={values.name || ''}
           name={'name'}
           placeholder="Имя"
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={(e) => setValue({ ...value, email: e.target.value })}
-          value={value.email}
+          onChange={handleChange}
+          value={values.email || ''}
           name={'email'}
           isIcon={false}
           extraClass="mb-6"
         />
         <PasswordInput
-          onChange={(e) => setValue({ ...value, password: e.target.value })}
-          value={value.password}
+          onChange={handleChange}
+          value={values.password || ''}
           name={'password'}
           min={3}
           extraClass="mb-6"

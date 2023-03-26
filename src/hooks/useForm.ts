@@ -4,6 +4,9 @@ const useForm = (inputValue: {
   name?: string;
   email?: string;
   password?: string;
+  token?: string;
+  enable?: boolean;
+  message?: string;
 }) => {
   const [values, setValues] = useState(inputValue);
 

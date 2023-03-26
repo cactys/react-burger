@@ -35,11 +35,11 @@ const App: FC = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(getUser());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(getIngredients());
   }, [dispatch]);
-
-  console.log(background);
 
   return (
     <div className={appStyle.page}>

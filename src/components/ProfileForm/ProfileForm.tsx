@@ -55,12 +55,14 @@ const ProfileForm: FC = () => {
       name: user?.name,
       email: user?.email,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(updateUserInfo(values));
     setEditor(true);
   };
 
   const handleCancelSubmit = (e: SyntheticEvent<Element>) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(getUser());
     setEditor(true);
   };

@@ -76,6 +76,7 @@ const BurgerIngredients: FC = () => {
   };
 
   const handleIngredientClick = (selectIngredient: TIngredientItem) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return dispatch<any>({
       type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,

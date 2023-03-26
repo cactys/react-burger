@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, FormEventHandler, SyntheticEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,6 +12,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import { recoveryPasswordSend } from '../../services/action/User';
 import resetPasswordStyle from './ResetPassword.module.css';
 import { TUser } from '../../services/types';
+import { useForm } from '../../hooks/useForm';
 
 const ResetPassword: FC = () => {
   const dispatch = useDispatch();
@@ -25,31 +26,31 @@ const ResetPassword: FC = () => {
     emailSended,
   } = useSelector((store: TUser) => store.user);
 
-  const [value, setValue] = useState({
+  const { values, handleChange, setValues } = useForm({
     password: '',
     token: '',
-  });
-
-  const [validity, setValidity] = useState({
     enable: false,
     message: '',
   });
 
-  const onSubmit = (e: any) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (
+    e: SyntheticEvent<Element>
+  ) => {
     e.preventDefault();
-    if (value.password.length >= 5) {
+    if (values.password?.length && values.password?.length >= 5) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       dispatch<any>(
         recoveryPasswordSend({
-          password: value.password,
-          token: value.token,
+          password: values.password,
+          token: values.token,
         })
       );
-      setValidity({
+      setValues({
         enable: false,
         message: '',
       });
     } else {
-      setValidity({
+      setValues({
         enable: true,
         message: 'Введите не меньше 5 символов.',
       });
@@ -68,15 +69,15 @@ const ResetPassword: FC = () => {
         {recoveryRequest && <Preloader isOverflow={true} />}
         <PasswordInput
           placeholder={'Введите новый пароль'}
-          onChange={(e) => setValue({ ...value, password: e.target.value })}
-          value={value.password}
+          onChange={handleChange}
+          value={values.password || ''}
           name={'password'}
           extraClass="mb-6"
         />
         <Input
           type="text"
-          onChange={(e) => setValue({ ...value, token: e.target.value })}
-          value={value.token}
+          onChange={handleChange}
+          value={values.token || ''}
           name={'token'}
           placeholder={'Введите код из письма'}
           extraClass="mb-6"
@@ -84,7 +85,7 @@ const ResetPassword: FC = () => {
         <Button htmlType="submit" type="primary" size="medium">
           Сохранить
         </Button>
-        {validity.message && <InformMessage message={validity.message} />}
+        {values.message && <InformMessage message={values.message} />}
         {recoveryFailed && <InformMessage message={recoveryMessage} />}
       </form>
       <div className="mt-20">
