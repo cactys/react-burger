@@ -16,6 +16,7 @@ const Profile: FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(logout());
   };
 

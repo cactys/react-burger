@@ -39,6 +39,7 @@ const BurgerConstructor: FC = () => {
         bun?._id,
       ];
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       dispatch<any>(orderDetail(ingredientId));
     } else {
       navigate('/login');
