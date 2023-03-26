@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useDrag } from 'react-dnd';
 import {
   Counter,
@@ -7,15 +7,12 @@ import {
 import ingredientCardStyle from './IngredientCard.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredientCard } from '../../services/interfaces';
-import { useDispatch } from 'react-redux';
-import { INGREDIENT_ADD_INFO } from '../../services/action/BurgerIngredients';
 
 const IngredientCard: FC<IIngredientCard> = ({
   ingredient,
   onIngredientClick,
   count,
 }) => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const { name, image, price, _id } = ingredient;
 

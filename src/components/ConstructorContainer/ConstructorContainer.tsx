@@ -32,15 +32,18 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
     collect(monitor) {
       return { handlerId: monitor.getHandlerId() };
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover(item: any, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) return;
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hoverBoundingRect: any = ingredientRef.current?.getBoundingClientRect() || 0;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const clientOffset: any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 

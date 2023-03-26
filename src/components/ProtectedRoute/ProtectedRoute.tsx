@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProtectedRoute: FC<IProtectedRoute> = ({ element }): any => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
 
