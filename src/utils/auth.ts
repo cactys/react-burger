@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { IApiProps } from '../interfaces';
+import { IApiProps } from '../services/interfaces';
 import { BASE_URL } from './constants';
 
 class Auth extends Component<IApiProps> {
@@ -12,11 +12,11 @@ class Auth extends Component<IApiProps> {
     this._header = props.header;
   }
 
-  _checkingResponse(res: Response) {
+  private _checkingResponse(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
-  signUp(data: Response) {
+  public signUp(data: Response) {
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: this._header,
@@ -24,7 +24,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  signIn(data: Response) {
+  public signIn(data: Response) {
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: this._header,
@@ -32,7 +32,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  signOut(token: string) {
+  public signOut(token: string) {
     return fetch(`${this._url}/auth/logout`, {
       method: 'POST',
       headers: this._header,
@@ -40,7 +40,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  forgotPassword(body: object) {
+  public forgotPassword(body: object) {
     return fetch(`${this._url}/password-reset`, {
       method: 'POST',
       headers: this._header,
@@ -48,7 +48,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  resetPassword(body: object) {
+  public resetPassword(body: object) {
     return fetch(`${this._url}/password-reset/reset`, {
       method: 'POST',
       headers: this._header,

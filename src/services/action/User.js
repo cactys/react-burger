@@ -25,8 +25,8 @@ export const RECOVERY_SEND_PASSWORD_SUCCESS = 'RECOVERY/SEND_PASSWORD_SUCCESS';
 export const RECOVERY_CHANGE_STATUS = 'RECOVERY/CHANGE_STATUS';
 export const RECOVERY_SET_ERROR_MESSAGE = 'RECOVERY/SET_ERROR_MESSAGE';
 
-export function getUser() {
-  return function (dispatch) {
+export const getUser = () => {
+  return (dispatch) => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
     const isLogin = localStorage.getItem('login');
@@ -73,10 +73,10 @@ export function getUser() {
         });
     }
   };
-}
+};
 
-export function login(body) {
-  return function (dispatch) {
+export const login = (body) => {
+  return (dispatch) => {
     dispatch({
       type: LOGIN_REQUEST,
     });
@@ -118,10 +118,10 @@ export function login(body) {
         }
       });
   };
-}
+};
 
-export function register(body) {
-  return function (dispatch) {
+export const register = (body) => {
+  return (dispatch) => {
     dispatch({
       type: REGISTER_REQUEST,
     });
@@ -169,10 +169,10 @@ export function register(body) {
         }
       });
   };
-}
+};
 
-export function logout() {
-  return function (dispatch) {
+export const logout = () => {
+  return (dispatch) => {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -196,10 +196,10 @@ export function logout() {
         dispatch({ type: LOGOUT_FAILED });
       });
   };
-}
+};
 
-export function updateUserInfo(body) {
-  return function (dispatch) {
+export const updateUserInfo = (body) => {
+  return (dispatch) => {
     dispatch({
       type: USER_UPDATE_INFO_REQUEST,
     });
@@ -243,10 +243,10 @@ export function updateUserInfo(body) {
         }
       });
   };
-}
+};
 
-export function recoveryEmailSend(body) {
-  return function (dispatch) {
+export const recoveryEmailSend = (body) => {
+  return (dispatch) => {
     dispatch({
       type: RECOVERY_REQUEST,
     });
@@ -278,10 +278,10 @@ export function recoveryEmailSend(body) {
         });
       });
   };
-}
+};
 
-export function recoveryPasswordSend(body) {
-  return function (dispatch) {
+export const recoveryPasswordSend = (body) => {
+  return (dispatch) => {
     dispatch({
       type: RECOVERY_REQUEST,
     });
@@ -328,4 +328,4 @@ export function recoveryPasswordSend(body) {
         }
       });
   };
-}
+};

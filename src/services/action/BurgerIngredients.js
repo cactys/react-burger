@@ -2,13 +2,13 @@ import { api } from '../../utils/api';
 
 export const INGREDIENTS_REQUEST = 'INGREDIENTS/REQUEST';
 export const INGREDIENTS_SUCCESS = 'INGREDIENTS/SUCCESS';
-export const INGREDIENTS__FAILED = 'INGREDIENTS/FAILED';
+export const INGREDIENTS_FAILED = 'INGREDIENTS/FAILED';
 export const INGREDIENTS_RESET = 'INGREDIENTS/RESET';
 export const INGREDIENT_ADD_INFO = 'INGREDIENT/ADD_INFO';
 export const INGREDIENT_DELETE_INFO = 'INGREDIENT/DELETE_INFO';
 
-export function getIngredients() {
-  return function (dispatch) {
+export const getIngredients = () => {
+  return (dispatch) => {
     dispatch({
       type: INGREDIENTS_REQUEST,
     });
@@ -22,7 +22,7 @@ export function getIngredients() {
           });
         } else {
           dispatch({
-            type: INGREDIENTS__FAILED,
+            type: INGREDIENTS_FAILED,
           });
           dispatch({
             type: INGREDIENTS_RESET,
@@ -32,7 +32,7 @@ export function getIngredients() {
       .catch((err) => {
         console.error(err.message);
         dispatch({
-          type: INGREDIENTS__FAILED,
+          type: INGREDIENTS_FAILED,
         });
         dispatch({
           type: INGREDIENTS_RESET,

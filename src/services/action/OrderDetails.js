@@ -7,8 +7,8 @@ export const ORDER_POST_EMPTY = 'ORDER/POST_EMPTY';
 export const ORDER_POST_FAILED = 'ORDER/POST_FAILED';
 export const ORDER_RESET_INFO = 'ORDER/RESET_INFO';
 
-export function orderDetail(ingredientId) {
-  return function (dispatch) {
+export const orderDetail = (ingredientId) => {
+  return (dispatch) => {
     dispatch({
       type: ORDER_POST_REQUEST,
     });
