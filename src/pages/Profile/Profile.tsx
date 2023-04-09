@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
 import Preloader from '../../components/Preloader/Preloader';
@@ -7,6 +6,7 @@ import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import { logout } from '../../services/action/User';
 import { TUser } from '../../services/types';
 import profileStyle from './Profile.module.css';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,7 @@ const Profile: FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(logout());
+    dispatch(logout());
   };
 
   useEffect(() => {

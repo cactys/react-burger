@@ -24,7 +24,6 @@ class Api extends Component<IApiProps> {
     try {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       switch (err.message) {
         case ERROR_STATE.jwtExpired: {

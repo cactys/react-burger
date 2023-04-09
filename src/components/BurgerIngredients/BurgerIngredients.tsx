@@ -1,10 +1,10 @@
 import { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
 import { INGREDIENT_ADD_INFO } from '../../services/action/BurgerIngredients';
 import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import { TIngredientItem, TIngredients } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const BurgerIngredients: FC = () => {
   const [current, setCurrent] = useState('bun');
@@ -76,8 +76,7 @@ const BurgerIngredients: FC = () => {
   };
 
   const handleIngredientClick = (selectIngredient: TIngredientItem) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return dispatch<any>({
+    return dispatch({
       type: INGREDIENT_ADD_INFO,
       payload: selectIngredient,
     });

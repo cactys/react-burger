@@ -4,7 +4,6 @@ import {
   SyntheticEvent,
   useEffect,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -17,6 +16,7 @@ import { recoveryEmailSend } from '../../services/action/User';
 import forgotPasswordStyle from './ForgotPassword.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ForgotPassword: FC = () => {
   const dispatch = useDispatch();

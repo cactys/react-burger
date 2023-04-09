@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   EmailInput,
@@ -18,6 +17,7 @@ import InformMessage from '../InformMessage/InformMessage';
 import profileFormStyle from './ProfileForm.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ProfileForm: FC = () => {
   const dispatch = useDispatch();

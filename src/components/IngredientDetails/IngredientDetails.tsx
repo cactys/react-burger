@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import ingredientDetailsStyle from './IngredientDetails.module.css';
 import Preloader from '../Preloader/Preloader';
 import {
@@ -8,6 +7,7 @@ import {
   TIngredients,
 } from '../../services/types';
 import { useParams } from 'react-router-dom';
+import { useSelector } from '../../services/hooks';
 
 const IngredientDetails: FC<TIngredientDetailsData> = ({ background }) => {
   const ingredients = useSelector(

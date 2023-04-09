@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Preloader from '../Preloader/Preloader';
 import { FC } from 'react';
 import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
+import { useSelector } from '../../services/hooks';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProtectedRoute: FC<IProtectedRoute> = ({ element }): any => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
 

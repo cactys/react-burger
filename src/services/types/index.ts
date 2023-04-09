@@ -169,6 +169,10 @@ type AppThink<ReturnType = void> = ThunkAction<
   TAppActions
 >;
 
+type AppDispatch<TReturnType = void> = (
+  action: TAppActions | AppThink
+) => TReturnType;
+
 export type {
   TError,
   TUserState,
@@ -182,6 +186,8 @@ export type {
   TOrder,
   TOrderDetails,
   TDict,
+  RootState,
   TUserActions,
   AppThink,
+  AppDispatch,
 };

@@ -23,7 +23,7 @@ import {
   userUpdateInfoRequest,
   userUpdateInfoSuccess,
 } from '../constants';
-import { AppThink, TUser, TUserBody } from '../types';
+import { AppThink, TUserBody } from '../types';
 
 export const getUser = (): AppThink => {
   return (dispatch) => {

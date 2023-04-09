@@ -18,18 +18,20 @@ class Auth extends Component<IApiProps> {
   }
 
   public signUp(data: TUserBody) {
+    const { email, password } = data;
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email: email, password: password }),
     }).then(this._checkingResponse);
   }
 
   public signIn(data: TUserBody) {
+    const { name, email, password } = data;
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ name: name, email: email, password: password }),
     }).then(this._checkingResponse);
   }
 

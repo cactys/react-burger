@@ -1,5 +1,4 @@
 import { useEffect, FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser } from '../../services/action/User';
 import {
@@ -19,6 +18,7 @@ import NotFound from '../../pages/NotFound/NotFound';
 import appStyle from './App.module.css';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { useDispatch } from '../../services/hooks';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getUser());
-    dispatch<any>(getIngredients());
+    dispatch(getIngredients());
   }, [dispatch]);
 
   return (

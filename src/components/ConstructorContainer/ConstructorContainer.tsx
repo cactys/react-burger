@@ -1,5 +1,4 @@
 import { FC, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Reorder } from 'framer-motion';
 import {
@@ -12,6 +11,7 @@ import {
 } from '../../services/action/BurgerConstructor';
 import constructorContainerStyle from './ConstructorContainer.module.css';
 import { IConstructorContainer } from '../../services/interfaces';
+import { useDispatch } from '../../services/hooks';
 
 const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) => {
   const dispatch = useDispatch();
@@ -32,18 +32,15 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
     collect(monitor) {
       return { handlerId: monitor.getHandlerId() };
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover(item: any, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) return;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hoverBoundingRect: any = ingredientRef.current?.getBoundingClientRect() || 0;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const clientOffset: any = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 

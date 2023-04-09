@@ -1,5 +1,4 @@
 import { FC, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import { Reorder, motion } from 'framer-motion';
@@ -19,6 +18,7 @@ import {
 } from '../../services/action/OrderDetails';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 import { TConstructorIngredients, TIngredientItem, TUser } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const BurgerConstructor: FC = () => {
   const { bun, ingredients } = useSelector(
@@ -39,8 +39,7 @@ const BurgerConstructor: FC = () => {
         bun?._id,
       ];
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(orderDetail(ingredientId));
+      dispatch(orderDetail(ingredientId));
     } else {
       navigate('/login');
     }

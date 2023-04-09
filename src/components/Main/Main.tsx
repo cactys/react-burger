@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import mainStyle from './Main.module.css';
 import { TIngredients } from '../../services/types';
+import { useSelector } from '../../services/hooks';
 
 const Main: FC = () => {
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(

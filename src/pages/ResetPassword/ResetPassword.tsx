@@ -1,5 +1,4 @@
 import { FC, FormEventHandler, SyntheticEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -13,6 +12,7 @@ import { recoveryPasswordSend } from '../../services/action/User';
 import resetPasswordStyle from './ResetPassword.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 const ResetPassword: FC = () => {
   const dispatch = useDispatch();
