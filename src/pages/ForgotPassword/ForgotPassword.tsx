@@ -42,8 +42,7 @@ const ForgotPassword: FC = () => {
         message: 'Введите E-mail',
       });
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(
+      dispatch(
         recoveryEmailSend({
           email: values.email,
         })

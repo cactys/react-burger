@@ -1,33 +1,70 @@
+import type { ThunkAction } from 'redux-thunk';
+import type {} from 'redux-thunk/extend-redux';
+import { store } from '..';
+import {
+  loginFailed,
+  loginRequest,
+  loginSuccess,
+  logoutFailed,
+  logoutRequest,
+  logoutSuccess,
+  recoveryChangeStatus,
+  recoveryFailed,
+  recoveryRequest,
+  recoverySendEmailSuccess,
+  recoverySendPasswordSuccess,
+  recoverySetErrorMessage,
+  registerFailed,
+  registerRequest,
+  registerSuccess,
+  userChecked,
+  userFailed,
+  userRequest,
+  userSuccess,
+  userUpdateInfoFailed,
+  userUpdateInfoRequest,
+  userUpdateInfoSuccess,
+} from '../constants';
+
 type TError = {
   status?: number;
   success?: boolean;
   message?: string;
 };
 
+type TUserState = {
+  user: null | { name: string; email: string; password?: string };
+  isLogin: boolean;
+  emailSended: boolean;
+  isLogout: boolean;
+  loginFailed: boolean;
+  loginMessage: string | null;
+  loginRequest: boolean;
+  logoutRailed: boolean;
+  logoutRequest: boolean;
+  passwordRecovered: boolean;
+  recoveryFailed: boolean;
+  recoveryMessage: string | null;
+  recoveryRequest: boolean;
+  registerFailed: boolean;
+  registerMessage: string | null;
+  registerRequest: boolean;
+  updateFailed: boolean;
+  updateMessage: string | null;
+  updateRequest: boolean;
+  updateSuccess: boolean;
+  userChecked: boolean;
+};
+
 type TUser = {
-  user: {
-    user: null | { name: string; email: string; password?: string };
-    isLogin: boolean;
-    emailSended: boolean;
-    isLogout: boolean;
-    loginFailed: boolean;
-    loginMessage: string | null;
-    loginRequest: boolean;
-    logoutRailed: boolean;
-    logoutRequest: boolean;
-    passwordRecovered: boolean;
-    recoveryFailed: boolean;
-    recoveryMessage: string | null;
-    recoveryRequest: boolean;
-    registerFailed: boolean;
-    registerMessage: string | null;
-    registerRequest: boolean;
-    updateFailed: boolean;
-    updateMessage: string | null;
-    updateRequest: boolean;
-    updateSuccess: boolean;
-    userChecked: boolean;
-  };
+  user: TUserState;
+};
+
+type TUserBody = {
+  email?: string;
+  password?: string;
+  name?: string;
+  token?: string;
 };
 
 type TConstructorIngredients = {
@@ -97,9 +134,46 @@ type TDict = {
   [key in string]: number;
 };
 
+type TUserActions =
+  | ReturnType<typeof userChecked>
+  | ReturnType<typeof userRequest>
+  | ReturnType<typeof userSuccess>
+  | ReturnType<typeof userFailed>
+  | ReturnType<typeof loginRequest>
+  | ReturnType<typeof loginSuccess>
+  | ReturnType<typeof loginFailed>
+  | ReturnType<typeof registerRequest>
+  | ReturnType<typeof registerSuccess>
+  | ReturnType<typeof registerFailed>
+  | ReturnType<typeof logoutRequest>
+  | ReturnType<typeof logoutSuccess>
+  | ReturnType<typeof logoutFailed>
+  | ReturnType<typeof userUpdateInfoRequest>
+  | ReturnType<typeof userUpdateInfoSuccess>
+  | ReturnType<typeof userUpdateInfoFailed>
+  | ReturnType<typeof recoveryRequest>
+  | ReturnType<typeof recoveryFailed>
+  | ReturnType<typeof recoverySendEmailSuccess>
+  | ReturnType<typeof recoverySendPasswordSuccess>
+  | ReturnType<typeof recoveryChangeStatus>
+  | ReturnType<typeof recoverySetErrorMessage>;
+
+type RootState = ReturnType<typeof store.getState>;
+
+type TAppActions = TUserActions;
+
+type AppThink<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  TAppActions
+>;
+
 export type {
   TError,
+  TUserState,
   TUser,
+  TUserBody,
   TConstructorIngredients,
   TIngredients,
   TIngredientItem,
@@ -108,4 +182,6 @@ export type {
   TOrder,
   TOrderDetails,
   TDict,
+  TUserActions,
+  AppThink,
 };

@@ -35,9 +35,7 @@ const App: FC = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(getUser());
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch(getUser());
     dispatch<any>(getIngredients());
   }, [dispatch]);
 

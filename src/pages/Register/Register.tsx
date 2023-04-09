@@ -32,8 +32,7 @@ const Register: FC = () => {
     e: SyntheticEvent<Element>
   ) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(
+    dispatch(
       register({
         email: values.email,
         password: values.password,

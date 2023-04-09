@@ -38,8 +38,7 @@ const ResetPassword: FC = () => {
   ) => {
     e.preventDefault();
     if (values.password?.length && values.password?.length >= 5) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(
+      dispatch(
         recoveryPasswordSend({
           password: values.password,
           token: values.token,

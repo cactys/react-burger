@@ -31,8 +31,7 @@ const Login: FC = () => {
     e: SyntheticEvent<Element>
   ) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(
+    dispatch(
       login({
         email: values.email,
         password: values.password,
@@ -41,8 +40,7 @@ const Login: FC = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(getUser());
+    dispatch(getUser());
     isLogin && navigate('/');
   }, [isLogin, navigate, dispatch]);
 
