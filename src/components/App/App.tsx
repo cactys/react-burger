@@ -1,9 +1,6 @@
 import { useEffect, FC } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { getUser } from '../../services/action/User';
-import {
-  getIngredients,
-} from '../../services/action/BurgerIngredients';
+import { getUser, getIngredients } from '../../services/action';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
 import AppHeader from '../AppHeader/AppHeader';

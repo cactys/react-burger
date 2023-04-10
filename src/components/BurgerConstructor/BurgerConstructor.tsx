@@ -11,8 +11,7 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
-import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
-import { orderDetail } from '../../services/action/OrderDetails';
+import { orderDetail, addBurgerIngredient } from '../../services/action';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 import {
   TConstructorIngredients,

@@ -11,7 +11,7 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, updateUserInfo } from '../../services/action/User';
+import { getUser, updateUserInfo } from '../../services/action';
 import Preloader from '../Preloader/Preloader';
 import InformMessage from '../InformMessage/InformMessage';
 import profileFormStyle from './ProfileForm.module.css';

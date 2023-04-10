@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
 import Preloader from '../../components/Preloader/Preloader';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
-import { logout } from '../../services/action/User';
+import { logout } from '../../services/action';
 import { TUser } from '../../services/types';
 import profileStyle from './Profile.module.css';
 import { useDispatch, useSelector } from '../../services/hooks';

@@ -8,7 +8,7 @@ import {
 import InformMessage from '../../components/InformMessage/InformMessage';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import Preloader from '../../components/Preloader/Preloader';
-import { getUser, login } from '../../services/action/User';
+import { getUser, login } from '../../services/action';
 import loginStyle from './Login.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';

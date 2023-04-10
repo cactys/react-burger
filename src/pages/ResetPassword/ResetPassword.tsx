@@ -8,7 +8,7 @@ import {
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import Preloader from '../../components/Preloader/Preloader';
-import { recoveryPasswordSend } from '../../services/action/User';
+import { recoveryPasswordSend } from '../../services/action';
 import resetPasswordStyle from './ResetPassword.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';

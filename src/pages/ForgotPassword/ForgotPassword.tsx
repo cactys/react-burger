@@ -12,7 +12,7 @@ import {
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
 import Preloader from '../../components/Preloader/Preloader';
-import { recoveryEmailSend } from '../../services/action/User';
+import { recoveryEmailSend } from '../../services/action';
 import forgotPasswordStyle from './ForgotPassword.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';

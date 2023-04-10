@@ -9,7 +9,7 @@ import {
 import Preloader from '../../components/Preloader/Preloader';
 import FormFooter from '../../components/FormFooter/FormFooter';
 import InformMessage from '../../components/InformMessage/InformMessage';
-import { register } from '../../services/action/User';
+import { register } from '../../services/action';
 import registerStyle from './Register.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';

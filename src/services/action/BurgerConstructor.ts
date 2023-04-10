@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { AppThink, TIngredientItem } from '../types';
-import { constructorAdd, constructorDelete } from '../constants';
+import { constructorAdd } from '../constants';
 
 
 export const addBurgerIngredient = (item: TIngredientItem): AppThink => {
@@ -8,6 +8,3 @@ export const addBurgerIngredient = (item: TIngredientItem): AppThink => {
     dispatch(constructorAdd({ ...item, uuid: uuid() }));
   };
 };
-
-export const deleteBurgerIngredient = (index: number) =>
-  constructorDelete(index);
