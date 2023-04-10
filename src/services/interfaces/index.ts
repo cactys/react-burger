@@ -39,7 +39,6 @@ interface IIngredientCard {
 interface IIngredientGroup {
   data: TIngredientItem[];
   onIngredientClick: (ingredient: TIngredientItem) => void;
-  // onIngredientClick(ingredient: TIngredientItem): TIngredientItem | undefined;
 }
 
 interface IModal {
