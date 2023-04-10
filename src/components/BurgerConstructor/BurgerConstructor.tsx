@@ -107,15 +107,13 @@ const BurgerConstructor: FC = () => {
             >
               {ingredients.length === 0
                 ? ''
-                : ingredients.map(
-                    (ingredient: TIngredientItem, index: number) => (
-                      <ConstructorContainer
-                        key={ingredient.uuid}
-                        ingredient={ingredient}
-                        index={index}
-                      />
-                    )
-                  )}
+                : ingredients.map((ingredient: TIngredientItem, index) => (
+                    <ConstructorContainer
+                      key={ingredient.uuid}
+                      ingredient={ingredient}
+                      index={index}
+                    />
+                  ))}
             </Reorder.Group>
             <motion.div
               initial={{ opacity: 0 }}

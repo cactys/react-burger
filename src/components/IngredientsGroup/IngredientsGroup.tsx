@@ -5,7 +5,9 @@ import { IIngredientGroup } from '../../services/interfaces';
 import { TConstructorIngredients, TDict } from '../../services/types';
 import { useSelector } from '../../services/hooks';
 
-const IngredientsGroup: FC<IIngredientGroup> = ({ data, onIngredientClick }) => {
+const IngredientsGroup: FC<IIngredientGroup> = ({ data,
+  onIngredientClick 
+}) => {
   const { ingredients, bun } = useSelector(
     (store: TConstructorIngredients) => store.constructorIngredient
   );

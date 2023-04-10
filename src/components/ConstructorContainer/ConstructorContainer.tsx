@@ -6,14 +6,17 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
-  CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_REORDER,
-} from '../../services/action/BurgerConstructor';
+  constructorDelete,
+  constructorReorder,
+} from '../../services/constants';
 import constructorContainerStyle from './ConstructorContainer.module.css';
 import { IConstructorContainer } from '../../services/interfaces';
 import { useDispatch } from '../../services/hooks';
 
-const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) => {
+const ConstructorContainer: FC<IConstructorContainer> = ({
+  ingredient,
+  index,
+}) => {
   const dispatch = useDispatch();
   const ingredientRef = useRef<HTMLElement>(null);
 
@@ -34,11 +37,12 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
     },
     hover(item: any, monitor) {
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex: number | string = index;
 
       if (dragIndex === hoverIndex) return;
 
-      const hoverBoundingRect: any = ingredientRef.current?.getBoundingClientRect() || 0;
+      const hoverBoundingRect: any =
+        ingredientRef.current?.getBoundingClientRect() || 0;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset: any = monitor.getClientOffset();
@@ -47,23 +51,19 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      dispatch({
-        type: CONSTRUCTOR_REORDER,
-        payload: {
+      dispatch(
+        constructorReorder({
           from: dragIndex,
           to: hoverIndex,
-        },
-      });
+        })
+      );
 
       item.index = hoverIndex;
     },
   });
 
   const deleteIngredient = (index: number) => {
-    dispatch({
-      type: CONSTRUCTOR_DELETE,
-      payload: index,
-    });
+    dispatch(constructorDelete(index));
   };
 
   dragRef(dropRef(ingredientRef));

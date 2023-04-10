@@ -7,7 +7,7 @@ interface IApiProps {
 }
 
 interface IConstructorContainer {
-  key: number;
+  key: string;
   ingredient: TIngredientItem;
   index: number;
 }
@@ -32,13 +32,14 @@ interface IProtectedRoute {
 
 interface IIngredientCard {
   ingredient: TIngredientItem;
-  onIngredientClick(ingredient: TIngredientItem): TIngredientItem;
+  onIngredientClick: (ingredient: TIngredientItem) => void;
   count: number;
 }
 
 interface IIngredientGroup {
   data: TIngredientItem[];
-  onIngredientClick(ingredient: TIngredientItem): TIngredientItem;
+  onIngredientClick: (ingredient: TIngredientItem) => void;
+  // onIngredientClick(ingredient: TIngredientItem): TIngredientItem | undefined;
 }
 
 interface IModal {

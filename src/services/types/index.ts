@@ -35,6 +35,9 @@ import {
   orderPostRequest,
   orderPostSuccess,
   orderResetInfo,
+  constructorAdd,
+  constructorDelete,
+  constructorReorder,
 } from '../constants';
 
 type TError = {
@@ -108,14 +111,19 @@ type TIngredientItem = {
   proteins: number;
   type: string;
   __v: number;
-  uuid: number;
-  from?: number;
-  to?: number;
+  uuid: string;
+  from: number;
+  to: number;
 };
 
 type TBurgerConstructor = {
   uuid: string;
 } & TIngredientItem;
+
+type TConstructorIndex = {
+  from: number;
+  to: number | string;
+}
 
 type TIngredientDetailsData = {
   background?: boolean;
@@ -192,12 +200,18 @@ type TOrderDetailsActions =
   | ReturnType<typeof orderPostEmpty>
   | ReturnType<typeof orderResetInfo>;
 
+type TBurgerConstructorActions =
+  | ReturnType<typeof constructorAdd>
+  | ReturnType<typeof constructorDelete>
+  | ReturnType<typeof constructorReorder>;
+
 type RootState = ReturnType<typeof store.getState>;
 
 type TAppActions =
   | TUserActions
   | TBurgerIngredientActions
   | TOrderDetailsActions
+  | TBurgerConstructorActions;
 
 type AppThink<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -220,6 +234,7 @@ export type {
   TBurgerConstructor,
   TIngredients,
   TIngredientItem,
+  TConstructorIndex,
   TIngredientDetailsData,
   TOwner,
   TOrder,
@@ -229,6 +244,7 @@ export type {
   TUserActions,
   TBurgerIngredientActions,
   TOrderDetailsActions,
+  TBurgerConstructorActions,
   AppThink,
   AppDispatch,
 };

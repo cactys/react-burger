@@ -1,17 +1,13 @@
 import { v4 as uuid } from 'uuid';
+import { AppThink, TIngredientItem } from '../types';
+import { constructorAdd, constructorDelete } from '../constants';
 
-export const CONSTRUCTOR_ADD = 'CONSTRUCTOR/ADD';
-export const CONSTRUCTOR_DELETE = 'CONSTRUCTOR/DELETE';
-export const CONSTRUCTOR_REORDER = 'CONSTRUCTOR/REORDER';
 
-export const addBurgerIngredient = (item) => {
-  return {
-    type: CONSTRUCTOR_ADD,
-    payload: { ...item, uuid: uuid() },
+export const addBurgerIngredient = (item: TIngredientItem): AppThink => {
+  return (dispatch) => {
+    dispatch(constructorAdd({ ...item, uuid: uuid() }));
   };
 };
 
-export const deleteBurgerIngredient = (uuid) => ({
-  type: CONSTRUCTOR_DELETE,
-  payload: uuid,
-});
+export const deleteBurgerIngredient = (index: number) =>
+  constructorDelete(index);

@@ -72,3 +72,12 @@ export {
   orderPostEmpty,
   orderResetInfo,
 } from './OrderDetails';
+
+export {
+  CONSTRUCTOR_ADD,
+  CONSTRUCTOR_DELETE,
+  CONSTRUCTOR_REORDER,
+  constructorAdd,
+  constructorDelete,
+  constructorReorder,
+} from './BurgerConstructor';
