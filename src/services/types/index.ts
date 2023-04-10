@@ -24,6 +24,12 @@ import {
   userUpdateInfoFailed,
   userUpdateInfoRequest,
   userUpdateInfoSuccess,
+  ingredientsRequest,
+  ingredientsSuccess,
+  ingredientsFailed,
+  ingredientsReset,
+  ingredientAddInfo,
+  ingredientDeleteInfo,
 } from '../constants';
 
 type TError = {
@@ -158,9 +164,17 @@ type TUserActions =
   | ReturnType<typeof recoveryChangeStatus>
   | ReturnType<typeof recoverySetErrorMessage>;
 
+type TBurgerIngredientAction =
+  | ReturnType<typeof ingredientsRequest>
+  | ReturnType<typeof ingredientsSuccess>
+  | ReturnType<typeof ingredientsFailed>
+  | ReturnType<typeof ingredientsReset>
+  | ReturnType<typeof ingredientAddInfo>
+  | ReturnType<typeof ingredientDeleteInfo>;
+
 type RootState = ReturnType<typeof store.getState>;
 
-type TAppActions = TUserActions;
+type TAppActions = TUserActions | TBurgerIngredientAction;
 
 type AppThink<ReturnType = void> = ThunkAction<
   ReturnType,

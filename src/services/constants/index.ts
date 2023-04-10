@@ -44,3 +44,18 @@ export {
   recoveryChangeStatus,
   recoverySetErrorMessage,
 } from './User';
+
+export {
+  INGREDIENTS_REQUEST,
+  INGREDIENTS_SUCCESS,
+  INGREDIENTS_FAILED,
+  INGREDIENTS_RESET,
+  INGREDIENT_ADD_INFO,
+  INGREDIENT_DELETE_INFO,
+  ingredientsRequest,
+  ingredientsSuccess,
+  ingredientsFailed,
+  ingredientsReset,
+  ingredientAddInfo,
+  ingredientDeleteInfo,
+} from './BurgerIngredients';

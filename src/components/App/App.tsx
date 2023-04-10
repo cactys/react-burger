@@ -3,7 +3,6 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser } from '../../services/action/User';
 import {
   getIngredients,
-  INGREDIENT_DELETE_INFO,
 } from '../../services/action/BurgerIngredients';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
@@ -19,6 +18,7 @@ import appStyle from './App.module.css';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from '../../services/hooks';
+import { ingredientDeleteInfo } from '../../services/constants';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -29,9 +29,7 @@ const App: FC = () => {
 
   const handleModalClose = () => {
     navigate(-1);
-    dispatch({
-      type: INGREDIENT_DELETE_INFO,
-    });
+    dispatch(ingredientDeleteInfo());
   };
 
   useEffect(() => {

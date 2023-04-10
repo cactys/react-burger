@@ -1,9 +1,11 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import {
   INGREDIENTS_FAILED,
   INGREDIENTS_REQUEST,
   INGREDIENTS_SUCCESS,
   INGREDIENTS_RESET,
-} from '../action/BurgerIngredients';
+} from '../constants';
+import { TIngredientItem } from '../types';
 
 const initialState = {
   ingredients: [],
@@ -11,12 +13,15 @@ const initialState = {
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (
+  state = initialState,
+  action: PayloadAction<TIngredientItem>
+) => {
   switch (action.type) {
     case INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        ingredients: action.data,
+        ingredients: action.payload,
         ingredientsRequest: true,
         ingredientsFailed: false,
       };
