@@ -66,7 +66,7 @@ class Api extends Component<IApiProps> {
     });
   }
 
-  public addOrder(ingredientId: object, accessToken: string) {
+  public addOrder(ingredientId: object, accessToken: string | null) {
     return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {

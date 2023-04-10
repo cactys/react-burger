@@ -14,7 +14,6 @@ export const getIngredients = (): AppThink => {
       .getIngredient()
       .then((res) => {
         if (res && res.success) {
-          console.log(res.data);
           dispatch(ingredientsSuccess(res.data));
         } else {
           dispatch(ingredientsFailed());

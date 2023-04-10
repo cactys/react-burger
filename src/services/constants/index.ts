@@ -59,3 +59,16 @@ export {
   ingredientAddInfo,
   ingredientDeleteInfo,
 } from './BurgerIngredients';
+
+export {
+  ORDER_POST_REQUEST,
+  ORDER_POST_SUCCESS,
+  ORDER_POST_FAILED,
+  ORDER_POST_EMPTY,
+  ORDER_RESET_INFO,
+  orderPostRequest,
+  orderPostSuccess,
+  orderPostFailed,
+  orderPostEmpty,
+  orderResetInfo,
+} from './OrderDetails';

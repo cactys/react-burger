@@ -30,6 +30,11 @@ import {
   ingredientsReset,
   ingredientAddInfo,
   ingredientDeleteInfo,
+  orderPostEmpty,
+  orderPostFailed,
+  orderPostRequest,
+  orderPostSuccess,
+  orderResetInfo,
 } from '../constants';
 
 type TError = {
@@ -73,11 +78,13 @@ type TUserBody = {
   token?: string;
 };
 
+type TConstructorInitialState = {
+  ingredients: TIngredientItem[];
+  bun: TIngredientItem | null;
+};
+
 type TConstructorIngredients = {
-  constructorIngredient: {
-    ingredients: TIngredientItem[];
-    bun: TIngredientItem | null;
-  };
+  constructorIngredient: TConstructorInitialState;
 };
 
 type TIngredients = {
@@ -102,7 +109,13 @@ type TIngredientItem = {
   type: string;
   __v: number;
   uuid: number;
+  from?: number;
+  to?: number;
 };
+
+type TBurgerConstructor = {
+  uuid: string;
+} & TIngredientItem;
 
 type TIngredientDetailsData = {
   background?: boolean;
@@ -164,7 +177,7 @@ type TUserActions =
   | ReturnType<typeof recoveryChangeStatus>
   | ReturnType<typeof recoverySetErrorMessage>;
 
-type TBurgerIngredientAction =
+type TBurgerIngredientActions =
   | ReturnType<typeof ingredientsRequest>
   | ReturnType<typeof ingredientsSuccess>
   | ReturnType<typeof ingredientsFailed>
@@ -172,9 +185,19 @@ type TBurgerIngredientAction =
   | ReturnType<typeof ingredientAddInfo>
   | ReturnType<typeof ingredientDeleteInfo>;
 
+type TOrderDetailsActions =
+  | ReturnType<typeof orderPostRequest>
+  | ReturnType<typeof orderPostSuccess>
+  | ReturnType<typeof orderPostFailed>
+  | ReturnType<typeof orderPostEmpty>
+  | ReturnType<typeof orderResetInfo>;
+
 type RootState = ReturnType<typeof store.getState>;
 
-type TAppActions = TUserActions | TBurgerIngredientAction;
+type TAppActions =
+  | TUserActions
+  | TBurgerIngredientActions
+  | TOrderDetailsActions
 
 type AppThink<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -192,7 +215,9 @@ export type {
   TUserState,
   TUser,
   TUserBody,
+  TConstructorInitialState,
   TConstructorIngredients,
+  TBurgerConstructor,
   TIngredients,
   TIngredientItem,
   TIngredientDetailsData,
@@ -202,6 +227,8 @@ export type {
   TDict,
   RootState,
   TUserActions,
+  TBurgerIngredientActions,
+  TOrderDetailsActions,
   AppThink,
   AppDispatch,
 };

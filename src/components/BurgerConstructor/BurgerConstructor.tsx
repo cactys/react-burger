@@ -12,13 +12,15 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
 import EmptyContainer from '../EmptyContainer/EmptyContainer';
 import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
-import {
-  orderDetail,
-  ORDER_RESET_INFO,
-} from '../../services/action/OrderDetails';
+import { orderDetail } from '../../services/action/OrderDetails';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { TConstructorIngredients, TIngredientItem, TUser } from '../../services/types';
+import {
+  TConstructorIngredients,
+  TIngredientItem,
+  TUser,
+} from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';
+import { orderResetInfo } from '../../services/constants';
 
 const BurgerConstructor: FC = () => {
   const { bun, ingredients } = useSelector(
@@ -47,9 +49,7 @@ const BurgerConstructor: FC = () => {
 
   const handleModalClose = () => {
     setIsOrderDetailsOpen(false);
-    dispatch({
-      type: ORDER_RESET_INFO,
-    });
+    dispatch(orderResetInfo());
   };
 
   const onDropHandler = (item: TIngredientItem) => {
@@ -66,7 +66,10 @@ const BurgerConstructor: FC = () => {
   const totalPrice = useMemo(() => {
     return (
       (bun ? bun.price * 2 : 0) +
-      ingredients.reduce((sum: number, item: TIngredientItem) => sum + item.price, 0)
+      ingredients.reduce(
+        (sum: number, item: TIngredientItem) => sum + item.price,
+        0
+      )
     );
   }, [bun, ingredients]);
 
@@ -104,13 +107,15 @@ const BurgerConstructor: FC = () => {
             >
               {ingredients.length === 0
                 ? ''
-                : ingredients.map((ingredient: TIngredientItem, index: number) => (
-                  <ConstructorContainer
-                    key={ingredient.uuid}
-                    ingredient={ingredient}
-                    index={index}
-                  />
-                ))}
+                : ingredients.map(
+                    (ingredient: TIngredientItem, index: number) => (
+                      <ConstructorContainer
+                        key={ingredient.uuid}
+                        ingredient={ingredient}
+                        index={index}
+                      />
+                    )
+                  )}
             </Reorder.Group>
             <motion.div
               initial={{ opacity: 0 }}

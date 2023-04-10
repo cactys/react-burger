@@ -6,7 +6,7 @@ import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
 import { useSelector } from '../../services/hooks';
 
-const ProtectedRoute: FC<IProtectedRoute> = ({ element }): any => {
+const ProtectedRoute: FC<IProtectedRoute> = ({ element }: any) => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
 
   if (!userChecked) {

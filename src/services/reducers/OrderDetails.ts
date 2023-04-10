@@ -1,24 +1,29 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import {
   ORDER_POST_EMPTY,
   ORDER_POST_FAILED,
   ORDER_POST_REQUEST,
   ORDER_POST_SUCCESS,
   ORDER_RESET_INFO,
-} from '../action/OrderDetails';
+} from '../constants';
+import { TOrderDetails } from '../types';
 
 const initialState = {
-  currentOrder: null,
+  currentOrder: {},
   message: '',
   orderRequest: false,
   orderFailed: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (
+  state = initialState,
+  action: PayloadAction<TOrderDetails>
+) => {
   switch (action.type) {
     case ORDER_POST_SUCCESS: {
       return {
         ...state,
-        currentOrder: { ...action.order },
+        currentOrder: { ...action.payload },
         orderRequest: false,
         orderFailed: false,
       };
