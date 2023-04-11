@@ -33,7 +33,8 @@ const webSocketMiddleware = (
 
       if (socket) {
         socket.onopen = () => dispatch(onOpen());
-        socket.onerror = (err) => console.log(err);
+        // socket.onerror = (err) => console.log(err);
+        socket.onerror = () => dispatch(wsConnecting());
         socket.onmessage = (evt) => {
           const { data } = evt;
           dispatch(onMessage(JSON.parse(data)));
