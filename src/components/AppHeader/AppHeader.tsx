@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Logo,
   BurgerIcon,
@@ -9,20 +9,36 @@ import {
 import headerStyle from './AppHeader.module.css';
 
 const AppHeader: FC = () => {
+  const location = useLocation();
+
   return (
     <header className={headerStyle.header}>
       <nav className={headerStyle.container}>
         <ul className={headerStyle.navigate}>
           <li className="pl-5 pr-5 pb-4 pt-4">
             <Link className={headerStyle.link} to="/">
-              <BurgerIcon type="primary" />
-              <p className="text text_type_main-default">Конструктор</p>
+              <BurgerIcon
+                type={location.pathname === '/' ? 'primary' : 'secondary'}
+              />
+              <p
+                className={`text text_type_main-default ${
+                  location.pathname !== '/' ? 'text_color_inactive' : ''
+                }`}
+              >
+                Конструктор
+              </p>
             </Link>
           </li>
           <li className="pl-5 pr-5 pb-4 pt-4">
-            <Link className={headerStyle.link} to="/">
-              <ListIcon type="secondary" />
-              <p className="text text_type_main-default text_color_inactive">
+            <Link className={headerStyle.link} to="/feed">
+              <ListIcon
+                type={location.pathname === '/feed' ? 'primary' : 'secondary'}
+              />
+              <p
+                className={`text text_type_main-default ${
+                  location.pathname !== '/feed' ? 'text_color_inactive' : ''
+                }`}
+              >
                 Лента заказов
               </p>
             </Link>
@@ -34,8 +50,14 @@ const AppHeader: FC = () => {
             to="/profile"
             className={`${headerStyle.link} pl-5 pr-5 pb-4 pt-4`}
           >
-            <ProfileIcon type="secondary" />
-            <p className="text text_type_main-default text_color_inactive">
+            <ProfileIcon
+              type={location.pathname === '/profile' ? 'primary' : 'secondary'}
+            />
+            <p
+              className={`text text_type_main-default ${
+                location.pathname !== '/profile' ? 'text_color_inactive' : ''
+              }`}
+            >
               Личный кабинет
             </p>
           </Link>
@@ -43,6 +65,6 @@ const AppHeader: FC = () => {
       </nav>
     </header>
   );
-}
+};
 
 export default AppHeader;

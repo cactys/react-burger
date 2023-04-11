@@ -1,5 +1,5 @@
-import { createAction } from "@reduxjs/toolkit";
-import { TConstructorIndex, TIngredientItem } from "../types";
+import { createAction } from '@reduxjs/toolkit';
+import { TConstructorIndex, TIngredientItem } from '../types';
 
 export const CONSTRUCTOR_ADD: 'CONSTRUCTOR/ADD' | null = 'CONSTRUCTOR/ADD';
 export const CONSTRUCTOR_DELETE: 'CONSTRUCTOR/DELETE' | null =

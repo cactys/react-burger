@@ -10,9 +10,10 @@ export const ORDER_POST_EMPTY: 'ORDER/POST_EMPTY' | null = 'ORDER/POST_EMPTY';
 export const ORDER_RESET_INFO: 'ORDER/RESET_INFO' | null = 'ORDER/RESET_INFO';
 
 export const orderPostRequest = createAction(ORDER_POST_REQUEST);
-export const orderPostSuccess = createAction<TOrderDetails, typeof ORDER_POST_SUCCESS>(
-  ORDER_POST_SUCCESS
-);
+export const orderPostSuccess = createAction<
+  TOrderDetails,
+  typeof ORDER_POST_SUCCESS
+>(ORDER_POST_SUCCESS);
 export const orderPostFailed = createAction(ORDER_POST_FAILED);
 export const orderPostEmpty = createAction<string, typeof ORDER_POST_EMPTY>(
   ORDER_POST_EMPTY

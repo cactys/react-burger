@@ -16,6 +16,7 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from '../../services/hooks';
 import { ingredientDeleteInfo } from '../../services/constants';
+import { OrderFeeds } from '../../pages/OrderFeeds/OrderFeeds';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App: FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<Main />} />
+        <Route path="/feed" element={<OrderFeeds />} />
         <Route
           path="/login"
           element={<ProtectedAuthRoute element={<Login />} />}

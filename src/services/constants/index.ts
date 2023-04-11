@@ -81,3 +81,20 @@ export {
   constructorDelete,
   constructorReorder,
 } from './BurgerConstructor';
+
+export {
+  WS_CLOSE,
+  WS_CONNECT,
+  WS_CONNECTING,
+  WS_DISCONNECT,
+  WS_ERROR,
+  WS_MESSAGE,
+  WS_OPEN,
+  wsClose,
+  wsConnect,
+  wsConnecting,
+  wsDisconnect,
+  wsError,
+  wsMessage,
+  wsOpen,
+} from './WebSocket';

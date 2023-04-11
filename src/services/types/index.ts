@@ -38,7 +38,18 @@ import {
   constructorAdd,
   constructorDelete,
   constructorReorder,
+  wsConnect,
+  wsClose,
+  wsConnecting,
+  wsDisconnect,
+  wsError,
+  wsMessage,
 } from '../constants';
+import { IOrderMessage } from '../interfaces';
+import {
+  ActionCreatorWithPayload,
+  ActionCreatorWithoutPayload,
+} from '@reduxjs/toolkit';
 
 type TError = {
   status?: number;
@@ -123,7 +134,7 @@ type TBurgerConstructor = {
 type TConstructorIndex = {
   from: number;
   to: number | string;
-}
+};
 
 type TIngredientDetailsData = {
   background?: boolean;
@@ -137,28 +148,56 @@ type TOwner = {
 };
 
 type TOrder = {
-  currentOrder: {
-    createdAt: string;
-    ingredients: TIngredientItem;
-    name: string;
-    number: number;
-    owner: TOwner;
-    price: number;
-    status: string;
-    updateAt: string;
-    _id: string;
-  };
+  createdAt: string;
+  ingredients: TIngredientItem;
+  name: string;
+  number: number;
+  owner: TOwner;
+  price: number;
+  status: string;
+  updateAt: string;
+  _id: string;
+};
+
+type TOrderState = {
+  currentOrder: TOrder;
   message: string;
   orderRequest: boolean;
   orderFailed: boolean;
 };
 
 type TOrderDetails = {
-  orderDetails: TOrder;
+  orderDetails: TOrderState;
 };
 
 type TDict = {
   [key in string]: number;
+};
+
+type TWSMessage = {
+  success: boolean;
+  orders: IOrderMessage[];
+  total: number;
+  totalToday: number;
+};
+
+type TWSState = {
+  status: 'offline' | 'connecting' | 'online';
+  connectionError: string;
+  orders: IOrderMessage[];
+  total: number;
+  totalToday: number;
+};
+
+type TWSActionTypes = {
+  wsConnect: ActionCreatorWithPayload<string>;
+  wsDisconnect: ActionCreatorWithoutPayload;
+  wsMessage?: ActionCreatorWithPayload<object>;
+  wsConnecting: ActionCreatorWithoutPayload;
+  onOpen: ActionCreatorWithoutPayload;
+  onClose: ActionCreatorWithoutPayload;
+  onError: ActionCreatorWithPayload<string>;
+  onMessage: ActionCreatorWithPayload<TWSMessage>;
 };
 
 type TUserActions =
@@ -205,13 +244,22 @@ type TBurgerConstructorActions =
   | ReturnType<typeof constructorDelete>
   | ReturnType<typeof constructorReorder>;
 
+type TWebSocketActions =
+  | ReturnType<typeof wsConnect>
+  | ReturnType<typeof wsClose>
+  | ReturnType<typeof wsConnecting>
+  | ReturnType<typeof wsDisconnect>
+  | ReturnType<typeof wsError>
+  | ReturnType<typeof wsMessage>;
+
 type RootState = ReturnType<typeof store.getState>;
 
 type TAppActions =
   | TUserActions
   | TBurgerIngredientActions
   | TOrderDetailsActions
-  | TBurgerConstructorActions;
+  | TBurgerConstructorActions
+  | TWebSocketActions;
 
 type AppThink<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -238,9 +286,14 @@ export type {
   TIngredientDetailsData,
   TOwner,
   TOrder,
+  TOrderState,
   TOrderDetails,
   TDict,
   RootState,
+  TAppActions,
+  TWSMessage,
+  TWSState,
+  TWSActionTypes,
   TUserActions,
   TBurgerIngredientActions,
   TOrderDetailsActions,

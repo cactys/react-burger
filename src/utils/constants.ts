@@ -1,5 +1,7 @@
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
+const WSS_URL = 'wss://norma.nomoreparties.space/orders';
+
 enum ERROR_STATE {
   jwtExpired = 'jwt expired',
   jwtMalformed = 'jwt malformed',
@@ -13,4 +15,4 @@ enum ERROR_STATE {
   emptyOrder = 'One or more ids provided are incorrect',
 }
 
-export { BASE_URL, ERROR_STATE };
+export { BASE_URL, WSS_URL, ERROR_STATE };

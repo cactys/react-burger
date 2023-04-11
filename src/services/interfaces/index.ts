@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { TIngredientItem } from '../types';
+import { TIngredientItem, TOrder } from '../types';
 
 interface IApiProps {
   baseUrl: string;
@@ -48,6 +48,12 @@ interface IModal {
   children?: ReactNode;
 }
 
+interface IOrderMessage
+  extends Omit<TOrder, 'ingredients' | 'owner' | 'price'> {
+  ingredients: string[];
+  status: 'done' | 'pending' | 'created';
+}
+
 export type {
   IApiProps,
   IFormFooter,
@@ -58,4 +64,5 @@ export type {
   IIngredientCard,
   IIngredientGroup,
   IModal,
+  IOrderMessage,
 };
