@@ -6,9 +6,15 @@ import { WSS_URL } from '../../utils/constants';
 import Preloader from '../Preloader/Preloader';
 import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
 
+import orderFeedsContainerStyle from './OrderFeedsComponent.module.css';
+import { TIngredients } from '../../services/types';
+
 const OrderFeedsComponent: FC = () => {
   const { orders, status }: { orders: IOrderMessage[]; status: string } =
     useSelector((store) => store.webSocket);
+  const ingredients = useSelector(
+    (store: TIngredients) => store.ingredients.ingredients
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,12 +25,16 @@ const OrderFeedsComponent: FC = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <ul className={orderFeedsContainerStyle.container}>
       {status === 'connecting' && <Preloader isOverflow={true} />}
       {orders.map((order) => (
-        <OrderFeedsCard key={order._id} order={order}/>
+        <OrderFeedsCard
+          key={order._id}
+          order={order}
+          ingredients={ingredients}
+        />
       ))}
-    </>
+    </ul>
   );
 };
 

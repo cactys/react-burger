@@ -46,7 +46,7 @@ import {
   wsMessage,
 } from '../constants';
 import { IOrderMessage } from '../interfaces';
-import {
+import type {
   ActionCreatorWithPayload,
   ActionCreatorWithoutPayload,
 } from '@reduxjs/toolkit';
@@ -125,6 +125,7 @@ type TIngredientItem = {
   uuid: string;
   from: number;
   to: number;
+  src?: string;
 };
 
 type TBurgerConstructor = {
@@ -161,6 +162,7 @@ type TOrder = {
 
 type TOrderFeeds = {
   order: IOrderMessage;
+  ingredients: TIngredientItem[];
 };
 
 type TOrderState = {
