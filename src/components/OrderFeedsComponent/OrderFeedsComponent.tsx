@@ -21,8 +21,9 @@ const OrderFeedsComponent: FC = () => {
   return (
     <>
       {status === 'connecting' && <Preloader isOverflow={true} />}
-      {orders.length !== 0 &&
-        orders.map((order) => <OrderFeedsCard key={order._id} order={order} />)}
+      {orders.map((order) => (
+        <OrderFeedsCard key={order._id} order={order}/>
+      ))}
     </>
   );
 };

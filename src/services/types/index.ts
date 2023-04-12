@@ -159,6 +159,10 @@ type TOrder = {
   _id: string;
 };
 
+type TOrderFeeds = {
+  order: IOrderMessage;
+};
+
 type TOrderState = {
   currentOrder: TOrder;
   message: string;
@@ -286,6 +290,7 @@ export type {
   TIngredientDetailsData,
   TOwner,
   TOrder,
+  TOrderFeeds,
   TOrderState,
   TOrderDetails,
   TDict,
