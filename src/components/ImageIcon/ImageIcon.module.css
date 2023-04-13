@@ -1,65 +1,36 @@
-.circle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
+.imageContainer {
+  margin-left: -16px;
   width: 64px;
   height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(
-    45deg,
-    rgba(128, 26, 178, 1) 0%,
-    rgba(76, 76, 255, 1) 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circle:nth-child(2) {
-  left: 50px;
-  z-index: 9;
-}
-
-.circle:nth-child(3) {
-  left: 100px;
-  z-index: 8;
-}
-
-.circle:nth-child(4) {
-  left: 150px;
-  z-index: 7;
-}
-
-.circle:nth-child(5) {
-  left: 200px;
-  z-index: 6;
-}
-
-.circle:nth-child(6) {
-  left: 250px;
-  z-index: 5;
-}
-
-.box {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: black;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  background: linear-gradient(var(--bg-color_element), var(--bg-color_element))
+      content-box,
+    linear-gradient(var(--gradient-color_1), var(--gradient-color_2)) border-box;
+  overflow: hidden;
 }
 
-.shadow {
+.imageBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image {
+  width: 112px;
+  height: 56px;
+}
+
+.overflow {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000000be;
+  background: var(--bg-color_overlay);
   display: flex;
   align-items: center;
   justify-content: center;

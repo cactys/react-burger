@@ -1,8 +1,9 @@
-import { FC, useCallback, ReactNode } from 'react';
+import { FC, useMemo, ReactNode } from 'react';
 import { TIngredientItem, TOrderFeeds } from '../../services/types';
 
 import orderFeedsCardStyle from './OrderFeedsCard.module.css';
 import { ImageIcon } from '../ImageIcon/ImageIcon';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
   // setLength(order.ingredients.length);
@@ -47,12 +48,38 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
 
   const getImag = getImages(order.ingredients);
 
-  const renderImage = useCallback(
-    (item: TIngredientItem, index: number): ReactNode => {
-      return <ImageIcon key={index} image={item.image_mobile} />;
-    },
-    []
-  );
+  const renderImage = getImag
+    .map(
+      (el: TIngredientItem, index: number): ReactNode => (
+        <ImageIcon key={index} image={el.image_mobile} alt={el.name} />
+      )
+    )
+    .reverse();
+
+  const renderImageWithNumber = (): ReactNode => {
+    const number = getImag.length - 5;
+    const newArray = getImag.slice(0, 5);
+    return (
+      <>
+        <ImageIcon
+          number={number}
+          image={getImag[5].image_mobile}
+          alt={getImag[5].name}
+        />
+        {newArray
+          .map((el: TIngredientItem, index: number) => (
+            <ImageIcon key={index} image={el.image_mobile} alt={el.name} />
+          ))
+          .reverse()}
+      </>
+    );
+  };
+
+  const feedSum = useMemo(() => {
+    return (
+      (getImag)
+    )
+  }, []);
 
   return (
     <li className={orderFeedsCardStyle.container}>
@@ -65,11 +92,16 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
       <h2 className={`text text_type_main-medium ${orderFeedsCardStyle.title}`}>
         {order.name}
       </h2>
-      <div>
-        <picture className={orderFeedsCardStyle.imageBox}>
-          <source />
-          {getImag && getImag.map((src, index) => renderImage(src, index))}
-        </picture>
+      <div className={orderFeedsCardStyle.infoOrder}>
+        <ul className={orderFeedsCardStyle.imageList}>
+          {order.ingredients.length <= 6
+            ? renderImage
+            : renderImageWithNumber()}
+        </ul>
+        <div className={orderFeedsCardStyle.priceOrder}>
+          <p className="text text_type_digits-default">1568</p>
+          <CurrencyIcon type="primary" />
+        </div>
       </div>
     </li>
   );
