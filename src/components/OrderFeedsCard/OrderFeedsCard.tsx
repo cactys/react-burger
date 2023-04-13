@@ -4,51 +4,12 @@ import { TIngredientItem, TOrderFeeds } from '../../services/types';
 import orderFeedsCardStyle from './OrderFeedsCard.module.css';
 import { ImageIcon } from '../ImageIcon/ImageIcon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { currentDate, getIngredients } from '../../utils/utils';
 
 const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
-  // setLength(order.ingredients.length);
+  const getIngredient = getIngredients(order.ingredients, ingredients);
 
-  // console.log(ingredients);
-
-  // const [src, setSrc] = useState('');
-
-  const currentDate = (currentDate: string) => {
-    const date = new Date(currentDate);
-    const month = date.getMonth();
-    const currentMonth = new Date().getMonth();
-    let weekDay = '';
-
-    if (month !== currentMonth) return 'В этом году';
-
-    const day = date.getDate();
-    const currentDay = new Date().getDate();
-    const difference = currentDay - day;
-
-    if (difference === 0) weekDay = 'Сегодня';
-    else if (difference === 1) weekDay = 'Вчера';
-    else if (difference === 2) weekDay = '2 дня назад';
-    else if (difference >= 3 && difference <= 7) weekDay = 'На этой неделе';
-    else return 'В этом месяце';
-
-    const hours = date.getHours();
-    const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-    return `${weekDay}, ${hours}:${minutes}`;
-  };
-
-  const getImages = (ingredientIds: string[]) => {
-    let currentImages: TIngredientItem[] = [];
-    ingredientIds.map((id) => {
-      currentImages = [
-        ...currentImages,
-        ...ingredients.filter((item) => item._id === id),
-      ];
-    });
-    return currentImages;
-  };
-
-  const getImag = getImages(order.ingredients);
-
-  const renderImage = getImag
+  const renderImage = getIngredient
     .map(
       (el: TIngredientItem, index: number): ReactNode => (
         <ImageIcon key={index} image={el.image_mobile} alt={el.name} />
@@ -57,14 +18,14 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
     .reverse();
 
   const renderImageWithNumber = (): ReactNode => {
-    const number = getImag.length - 5;
-    const newArray = getImag.slice(0, 5);
+    const number = getIngredient.length - 5;
+    const newArray = getIngredient.slice(0, 5);
     return (
       <>
         <ImageIcon
           number={number}
-          image={getImag[5].image_mobile}
-          alt={getImag[5].name}
+          image={getIngredient[5].image_mobile}
+          alt={getIngredient[5].name}
         />
         {newArray
           .map((el: TIngredientItem, index: number) => (
@@ -76,10 +37,11 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
   };
 
   const feedSum = useMemo(() => {
-    return (
-      (getImag)
-    )
-  }, []);
+    return getIngredient.reduce(
+      (sum: number, item: TIngredientItem) => sum + item.price,
+      0
+    );
+  }, [getIngredient]);
 
   return (
     <li className={orderFeedsCardStyle.container}>
@@ -99,7 +61,7 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
             : renderImageWithNumber()}
         </ul>
         <div className={orderFeedsCardStyle.priceOrder}>
-          <p className="text text_type_digits-default">1568</p>
+          <p className="text text_type_digits-default">{feedSum}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

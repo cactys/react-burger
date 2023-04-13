@@ -8,3 +8,9 @@
   margin: 0 auto 20px;
   text-align: start;
 }
+
+.feedsContainer {
+  display: flex;
+  gap: 60px;
+  justify-content: space-between;
+}
