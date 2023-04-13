@@ -51,7 +51,7 @@ interface IModal {
 interface IOrderMessage
   extends Omit<TOrder, 'ingredients' | 'owner' | 'price'> {
   ingredients: string[];
-  status: 'done' | 'pending' | 'created';
+  status: string;
 }
 
 export type {
