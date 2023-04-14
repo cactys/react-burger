@@ -17,6 +17,7 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from '../../services/hooks';
 import { ingredientDeleteInfo } from '../../services/constants';
 import { OrderFeeds } from '../../pages/OrderFeeds/OrderFeeds';
+import { OrderFeedsDetails } from '../OrderFeedsDetails/OrderFeedsDetails';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const App: FC = () => {
           element={<ProtectedRoute element={<Profile />} />}
         />
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
+        <Route path="/feed/:id" element={<OrderFeedsDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
@@ -75,6 +77,14 @@ const App: FC = () => {
             element={
               <Modal title="Детали ингредиента" onClose={handleModalClose}>
                 <IngredientDetails background={background} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feeds/:id"
+            element={
+              <Modal onClose={handleModalClose}>
+                <OrderFeedsDetails background={background} />
               </Modal>
             }
           />

@@ -10,8 +10,17 @@ import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 
 const OrderFeeds: FC = () => {
-  const { orders, status }: { orders: IOrderMessage[]; status: string } =
-    useSelector((store) => store.webSocket);
+  const {
+    orders,
+    status,
+    total,
+    totalToday,
+  }: {
+    orders: IOrderMessage[];
+    status: string;
+    total: number;
+    totalToday: number;
+  } = useSelector((store) => store.webSocket);
   const ingredients = useSelector(
     (store: TIngredients) => store.ingredients.ingredients
   );
@@ -35,7 +44,7 @@ const OrderFeeds: FC = () => {
           status={status}
           ingredients={ingredients}
         />
-        <OrderFeedsInfo orders={orders} />
+        <OrderFeedsInfo orders={orders} total={total} totalToday={totalToday} />
       </div>
     </div>
   );

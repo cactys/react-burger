@@ -4,10 +4,10 @@ import { TIngredientItem, TOrderFeeds } from '../../services/types';
 import orderFeedsCardStyle from './OrderFeedsCard.module.css';
 import { ImageIcon } from '../ImageIcon/ImageIcon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { currentDate, getIngredients } from '../../utils/utils';
+import { currentDate, currentOrder } from '../../utils/utils';
 
 const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
-  const getIngredient = getIngredients(order.ingredients, ingredients);
+  const getIngredient = currentOrder(order.ingredients, ingredients);
 
   const renderImage = getIngredient
     .map(

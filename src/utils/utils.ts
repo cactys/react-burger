@@ -24,9 +24,12 @@ const currentDate = (currentDate: string) => {
   return `${weekDay}, ${hours}:${minutes}`;
 };
 
-const getIngredients = (ingredientIds: string[], ingredients: TIngredientItem[]) => {
+const currentOrder = (
+  ingredientIds: string[] | undefined,
+  ingredients: TIngredientItem[]
+) => {
   let currentIngredients: TIngredientItem[] = [];
-  ingredientIds.map((id) => {
+  ingredientIds?.map((id) => {
     currentIngredients = [
       ...currentIngredients,
       ...ingredients.filter((item) => item._id === id),
@@ -35,4 +38,4 @@ const getIngredients = (ingredientIds: string[], ingredients: TIngredientItem[])
   return currentIngredients;
 };
 
-export { currentDate, getIngredients };
+export { currentDate, currentOrder };
