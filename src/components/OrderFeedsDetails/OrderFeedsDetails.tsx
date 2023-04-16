@@ -7,6 +7,8 @@ import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
 import { currentOrder } from '../../utils/utils';
+import { v4 as uuid } from 'uuid';
+import orderFeedsDetailsStyle from './OrderFeedsDetails.module.css';
 
 const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   const { orders, status }: { orders: IOrderMessage[]; status: string } =
@@ -39,16 +41,30 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
 
   const orderIngredient = currentOrder(info?.ingredients, ingredients);
 
+  const getQuantityIngredients = (items: string[] | undefined) => {
+    const ingredientsCount = {};
+    items?.reduce((acc: { [key: string]: number }, el: string) => {
+      acc[el] = (acc[el] || 0) + 1;
+      return acc;
+    }, ingredientsCount);
+    return ingredientsCount;
+  };
+
+  const countIngredient = getQuantityIngredients(info?.ingredients);
+
+  const count: Array<number> = Object.values(countIngredient);
+
   return (
     <div>
       <h2>#{info?.number}</h2>
       <p>{orderStatus()}</p>
       <p>Состав:</p>
-      <ul>
-        {orderIngredient.map((item) => (
+      <ul className={orderFeedsDetailsStyle.ingredientsList}>
+        {orderIngredient.map((item, index) => (
           <OrderFeedsInfoItem
-            key={item._id}
+            key={uuid()}
             ingredient={item}
+            count={count[index]}
           />
         ))}
       </ul>

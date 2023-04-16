@@ -1,4 +1,3 @@
-import { IOrderMessage } from '../services/interfaces';
 import { TIngredientItem } from '../services/types';
 
 const currentDate = (currentDate: string) => {

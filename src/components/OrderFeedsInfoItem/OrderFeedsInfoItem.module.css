@@ -1,0 +1,15 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px 0 0;
+  gap: 16px;
+  height: 64px;
+  flex: none;
+}
+
+.price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

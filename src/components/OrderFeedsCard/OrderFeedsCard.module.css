@@ -53,3 +53,8 @@
   gap: 8px;
   align-items: center;
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,1 +1,23 @@
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 24px;
+  width: 640px;
+  height: 366px;
+  overflow-y: scroll;
+  scrollbar-color: #8585ad #2f2f37;
+}
 
+.ingredientsList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredientsList::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ingredientsList::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border: 3px solid #8585ad;
+}

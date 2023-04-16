@@ -81,7 +81,7 @@ const App: FC = () => {
             }
           />
           <Route
-            path="/feeds/:id"
+            path="/feed/:id"
             element={
               <Modal onClose={handleModalClose}>
                 <OrderFeedsDetails background={background} />
