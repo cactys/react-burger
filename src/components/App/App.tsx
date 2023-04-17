@@ -68,6 +68,7 @@ const App: FC = () => {
         />
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
         <Route path="/feed/:id" element={<OrderFeedsDetails />} />
+        <Route path="/profile/orders/:id" element={<OrderFeedsDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
@@ -82,6 +83,14 @@ const App: FC = () => {
           />
           <Route
             path="/feed/:id"
+            element={
+              <Modal onClose={handleModalClose}>
+                <OrderFeedsDetails background={background} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
             element={
               <Modal onClose={handleModalClose}>
                 <OrderFeedsDetails background={background} />

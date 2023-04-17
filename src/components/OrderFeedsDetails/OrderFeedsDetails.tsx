@@ -1,24 +1,27 @@
-import { useState, useEffect, ReactNode, FC } from 'react';
-import { useDispatch, useSelector } from '../../services/hooks';
-import { TIngredientItem, TIngredients } from '../../services/types';
+import { useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
+import { useSelector } from '../../services/hooks';
+import { TIngredients } from '../../services/types';
 import { useParams } from 'react-router-dom';
 import { IOrderMessage } from '../../services/interfaces';
-import { wsConnect, wsDisconnect } from '../../services/constants';
-import { WSS_URL } from '../../utils/constants';
 import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
-import { currentOrder } from '../../utils/utils';
+import {
+  currentDate,
+  currentOrder,
+  getQuantityIngredients,
+} from '../../utils/utils';
 import { v4 as uuid } from 'uuid';
 import orderFeedsDetailsStyle from './OrderFeedsDetails.module.css';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
-  const { orders, status }: { orders: IOrderMessage[]; status: string } =
-    useSelector((state) => state.webSocket);
+  const { orders }: { orders: IOrderMessage[] } = useSelector(
+    (state) => state.webSocket
+  );
   const ingredients = useSelector(
     (state: TIngredients) => state.ingredients.ingredients
   );
   const [info, setInfo] = useState<IOrderMessage>();
   const { id } = useParams();
-  const dispatch = useDispatch();
 
   const orderStatus = (): ReactNode => {
     if (info?.status === 'done') return 'Выполнен';
@@ -27,40 +30,58 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   };
 
   useEffect(() => {
-    dispatch(wsConnect(WSS_URL + '/all'));
-    return () => {
-      dispatch(wsDisconnect());
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
     if (orders) {
       setInfo(orders.filter((item) => item._id === id)[0]);
     }
   }, [orders, id]);
 
-  const orderIngredient = currentOrder(info?.ingredients, ingredients);
-
-  const getQuantityIngredients = (items: string[] | undefined) => {
-    const ingredientsCount = {};
-    items?.reduce((acc: { [key: string]: number }, el: string) => {
-      acc[el] = (acc[el] || 0) + 1;
-      return acc;
-    }, ingredientsCount);
-    return ingredientsCount;
-  };
-
   const countIngredient = getQuantityIngredients(info?.ingredients);
 
   const count: Array<number> = Object.values(countIngredient);
 
+  const date = currentDate(info ? info.createdAt : '');
+
+  const returnIngredient = useCallback(() => {
+    const mutatedIngredients = Array.from(new Set(info?.ingredients));
+    return mutatedIngredients.map((ingredient) => {
+      return ingredients.find((item) => item._id === ingredient);
+    });
+  }, [info?.ingredients, ingredients]);
+
+  const orderSum = useMemo(() => {
+    const orderIngredients = currentOrder(info?.ingredients, ingredients);
+    return orderIngredients.reduce(
+      (sum, item) => sum + (item ? item.price : 0),
+      0
+    );
+  }, [info?.ingredients, ingredients]);
+
   return (
-    <div>
-      <h2>#{info?.number}</h2>
-      <p>{orderStatus()}</p>
-      <p>Состав:</p>
+    <div
+      className={`${orderFeedsDetailsStyle.container} ${
+        !background && orderFeedsDetailsStyle.cn
+      }`}
+    >
+      <h2 className="text text_type_digits-default">#{info?.number}</h2>
+      <div className={orderFeedsDetailsStyle.orderStatus}>
+        <h3
+          className={`text text_type_main-medium ${orderFeedsDetailsStyle.orderName}`}
+        >
+          {info?.name}
+        </h3>
+        <p
+          className={`text text_type_main-default ${orderFeedsDetailsStyle.status}`}
+        >
+          {orderStatus()}
+        </p>
+      </div>
+      <p
+        className={`text text_type_main-medium mt-15 ${orderFeedsDetailsStyle.structure}`}
+      >
+        Состав:
+      </p>
       <ul className={orderFeedsDetailsStyle.ingredientsList}>
-        {orderIngredient.map((item, index) => (
+        {returnIngredient().map((item, index) => (
           <OrderFeedsInfoItem
             key={uuid()}
             ingredient={item}
@@ -68,6 +89,15 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
           />
         ))}
       </ul>
+      <div className={orderFeedsDetailsStyle.footer}>
+        <p className="text text_type_main-default text_color_inactive">
+          {date}
+        </p>
+        <div className={orderFeedsDetailsStyle.priceOrder}>
+          <p className="text text_type_digits-default">{orderSum}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+      </div>
     </div>
   );
 };

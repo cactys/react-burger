@@ -1,9 +1,9 @@
 import { IOrderMessage } from '../../services/interfaces';
 import Preloader from '../Preloader/Preloader';
 import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
+import { TIngredientItem } from '../../services/types';
 
 import orderFeedsContainerStyle from './OrderFeedsContainer.module.css';
-import { TIngredientItem } from '../../services/types';
 
 const OrderFeedsContainer = ({
   orders,

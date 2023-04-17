@@ -37,4 +37,13 @@ const currentOrder = (
   return currentIngredients;
 };
 
-export { currentDate, currentOrder };
+const getQuantityIngredients = (items: string[] | undefined) => {
+  const ingredientsCount = {};
+  items?.reduce((acc: { [key: string]: number }, el: string) => {
+    acc[el] = (acc[el] || 0) + 1;
+    return acc;
+  }, ingredientsCount);
+  return ingredientsCount;
+};
+
+export { currentDate, currentOrder, getQuantityIngredients };

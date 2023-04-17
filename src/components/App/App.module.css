@@ -8,5 +8,5 @@
   --gradient-color_2: #801ab2;
   text-align: center;
   margin: 0 auto;
-  overflow-y: auto;
+  overflow: hidden;
 }

@@ -1,25 +1,22 @@
 .container {
-  margin: 120px auto;
+  margin: 0 auto;
   max-width: 1280px;
   min-width: 320px;
+  height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  gap: 60px;
 }
 
 .navigate {
-  position: absolute;
-  top: 0;
-  left: 20px;
   max-width: 320px;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 120px 0 0;
+  padding: 0 0 0 20px;
   display: flex;
+  flex: 1 1;
   flex-direction: column;
   column-gap: 8px;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .navList {
@@ -61,6 +58,7 @@
 }
 
 .subtitle {
+  margin: 20px 0 0;
   text-align: start;
   height: 48px;
 }

@@ -10,7 +10,7 @@ import { Link, useLocation } from 'react-router-dom';
 const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
   const getIngredient = currentOrder(order.ingredients, ingredients);
   const location = useLocation();
-  const { _id, number, name, createdAt } = order;
+  const { _id, number, name, createdAt, status } = order;
 
   const renderImage = getIngredient
     .map(
@@ -39,17 +39,26 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
     );
   };
 
-  const feedSum = useMemo(() => {
+  const orderStatus = (): ReactNode => {
+    if (status === 'done') return 'Выполнен';
+    if (status === 'created') return 'Готовится';
+    if (status === 'pending') return 'Отменён';
+  };
+
+  const orderSum = useMemo(() => {
     return getIngredient.reduce(
       (sum: number, item: TIngredientItem) => sum + item.price,
       0
     );
   }, [getIngredient]);
 
+  const located =
+    location.pathname === '/feed' ? `/feed/${_id}` : `/profile/orders/${_id}`;
+
   return (
     <Link
       key={_id}
-      to={{ pathname: `/feed/${_id}` }}
+      to={{ pathname: located }}
       state={{ background: location }}
       className={orderFeedsCardStyle.link}
     >
@@ -60,11 +69,14 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
             {currentDate(createdAt)}
           </p>
         </div>
-        <h2
-          className={`text text_type_main-medium ${orderFeedsCardStyle.title}`}
-        >
-          {name}
-        </h2>
+        <div>
+          <h2
+            className={`text text_type_main-medium ${orderFeedsCardStyle.title}`}
+          >
+            {name}
+          </h2>
+          <p className={orderFeedsCardStyle.orderStatus}>{orderStatus()}</p>
+        </div>
         <div className={orderFeedsCardStyle.infoOrder}>
           <ul className={orderFeedsCardStyle.imageList}>
             {order.ingredients.length <= 6
@@ -72,7 +84,7 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
               : renderImageWithNumber()}
           </ul>
           <div className={orderFeedsCardStyle.priceOrder}>
-            <p className="text text_type_digits-default">{feedSum}</p>
+            <p className="text text_type_digits-default">{orderSum}</p>
             <CurrencyIcon type="primary" />
           </div>
         </div>

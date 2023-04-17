@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from 'react';
-import ingredientDetailsStyle from './IngredientDetails.module.css';
+import { useEffect, useState } from 'react';
 import Preloader from '../Preloader/Preloader';
 import { TIngredientItem, TIngredients } from '../../services/types';
 import { useParams } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
+
+import ingredientDetailsStyle from './IngredientDetails.module.css';
 
 const IngredientDetails = ({ background }: { background?: boolean }) => {
   const ingredients = useSelector(

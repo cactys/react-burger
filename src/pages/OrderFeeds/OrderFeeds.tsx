@@ -28,10 +28,9 @@ const OrderFeeds: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(wsConnect(WSS_URL + '/all'));
-    return () => {
-      dispatch(wsDisconnect());
-    };
+    location.pathname === '/feed'
+      ? dispatch(wsConnect(WSS_URL + '/all'))
+      : dispatch(wsDisconnect());
   }, [dispatch, location]);
 
   return (
@@ -39,13 +38,21 @@ const OrderFeeds: FC = () => {
       <h1 className={`text text_type_main-large ${orderFeedsStyle.title}`}>
         Лента заказов
       </h1>
-      <div className={orderFeedsStyle.feedsContainer}>
-        <OrderFeedsContainer
-          orders={orders}
-          status={status}
-          ingredients={ingredients}
-        />
-        <OrderFeedsInfo orders={orders} total={total} totalToday={totalToday} />
+      <div className={orderFeedsStyle.feeds}>
+        <div className={orderFeedsStyle.feedsContainer}>
+          <OrderFeedsContainer
+            orders={orders}
+            status={status}
+            ingredients={ingredients}
+          />
+        </div>
+        <div className={orderFeedsStyle.feedsInfo}>
+          <OrderFeedsInfo
+            orders={orders}
+            total={total}
+            totalToday={totalToday}
+          />
+        </div>
       </div>
     </div>
   );

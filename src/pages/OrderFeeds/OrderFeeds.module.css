@@ -9,8 +9,19 @@
   text-align: start;
 }
 
+.feeds {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+}
+
 .feedsContainer {
   display: flex;
-  gap: 60px;
   justify-content: space-between;
+  width: 608px;
+  padding: 0 0 0 8px;
+}
+
+.feedsInfo {
+
 }
