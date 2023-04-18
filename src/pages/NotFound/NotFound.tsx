@@ -1,9 +1,9 @@
-import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import notFoundStyle from './NotFound.module.css';
 
-const NotFound: FC = () => {
+const NotFound = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -29,4 +29,4 @@ const NotFound: FC = () => {
   );
 };
 
-export default NotFound;
+export { NotFound };

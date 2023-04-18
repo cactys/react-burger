@@ -4,9 +4,10 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientCardStyle from './IngredientCard.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredientCard } from '../../services/interfaces';
+
+import ingredientCardStyle from './IngredientCard.module.css';
 
 const IngredientCard: FC<IIngredientCard> = ({
   ingredient,
@@ -57,4 +58,4 @@ const IngredientCard: FC<IIngredientCard> = ({
   );
 };
 
-export default IngredientCard;
+export { IngredientCard };

@@ -1,20 +1,22 @@
-import { FC, FormEventHandler, SyntheticEvent, useEffect } from 'react';
+import { FormEventHandler, SyntheticEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import InformMessage from '../../components/InformMessage/InformMessage';
-import FormFooter from '../../components/FormFooter/FormFooter';
-import Preloader from '../../components/Preloader/Preloader';
 import { getUser, login } from '../../services/action';
-import loginStyle from './Login.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
 import { useDispatch, useSelector } from '../../services/hooks';
 
-const Login: FC = () => {
+import { InformMessage } from '../../components/InformMessage/InformMessage';
+import { FormFooter } from '../../components/FormFooter/FormFooter';
+import { Preloader } from '../../components/Preloader/Preloader';
+
+import loginStyle from './Login.module.css';
+
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -83,4 +85,4 @@ const Login: FC = () => {
   );
 };
 
-export default Login;
+export { Login };

@@ -5,7 +5,7 @@ const WSS_URL = 'wss://norma.nomoreparties.space/orders';
 enum ERROR_STATE {
   jwtExpired = 'jwt expired',
   jwtMalformed = 'jwt malformed',
-  invalidToken = 'invalid token',
+  invalidToken = 'Invalid or missing token',
   tokenIsInvalid = 'Token is invalid',
   incorrectData = 'email or password are incorrect',
   userExists = 'User already exists',

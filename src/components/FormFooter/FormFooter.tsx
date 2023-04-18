@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { IFormFooter } from '../../services/interfaces';
+
 import formFooterStyle from './FormFooter.module.css';
 
 const FormFooter: FC<IFormFooter> = ({ text, linkText, path }) => {
@@ -17,4 +18,4 @@ const FormFooter: FC<IFormFooter> = ({ text, linkText, path }) => {
   );
 };
 
-export default FormFooter;
+export { FormFooter };

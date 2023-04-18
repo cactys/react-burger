@@ -7,7 +7,7 @@ import {
 } from '../constants';
 import { AppThink } from '../types';
 
-export const getIngredients = (): AppThink => {
+const getIngredients = (): AppThink => {
   return (dispatch) => {
     dispatch(ingredientsRequest());
     api
@@ -27,3 +27,5 @@ export const getIngredients = (): AppThink => {
       });
   };
 };
+
+export { getIngredients };

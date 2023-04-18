@@ -1,11 +1,12 @@
-import { FC } from 'react';
-import done from '../../images/done.svg';
-import Preloader from '../Preloader/Preloader';
-import orderDetailsStyle from './OrderDetails.module.css';
 import { useSelector } from '../../services/hooks';
 import { TOrderDetails } from '../../services/types';
 
-const OrderDetails: FC = () => {
+import done from '../../images/done.svg';
+import { Preloader } from '../Preloader/Preloader';
+
+import orderDetailsStyle from './OrderDetails.module.css';
+
+const OrderDetails = () => {
   const { currentOrder, message, orderRequest, orderFailed } = useSelector(
     (store: TOrderDetails) => store.orderDetails
   );
@@ -39,4 +40,4 @@ const OrderDetails: FC = () => {
   );
 };
 
-export default OrderDetails;
+export { OrderDetails };

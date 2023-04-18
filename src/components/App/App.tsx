@@ -1,23 +1,25 @@
 import { useEffect, FC } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser, getIngredients } from '../../services/action';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
-import AppHeader from '../AppHeader/AppHeader';
-import Main from '../Main/Main';
-import Profile from '../../pages/Profile/Profile';
-import Login from '../../pages/Login/Login';
-import Register from '../../pages/Register/Register';
-import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import NotFound from '../../pages/NotFound/NotFound';
-import appStyle from './App.module.css';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from '../../services/hooks';
 import { ingredientDeleteInfo } from '../../services/constants';
+
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import { ProtectedAuthRoute } from '../ProtectedAuthRoute/ProtectedAuthRoute';
+import { AppHeader } from '../AppHeader/AppHeader';
+import { Main } from '../Main/Main';
+import { Profile } from '../../pages/Profile/Profile';
+import { Login } from '../../pages/Login/Login';
+import { Register } from '../../pages/Register/Register';
+import { ForgotPassword } from '../../pages/ForgotPassword/ForgotPassword';
+import { ResetPassword } from '../../pages/ResetPassword/ResetPassword';
+import { NotFound } from '../../pages/NotFound/NotFound';
+import { Modal } from '../Modal/Modal';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderFeeds } from '../../pages/OrderFeeds/OrderFeeds';
 import { OrderFeedsDetails } from '../OrderFeedsDetails/OrderFeedsDetails';
+
+import appStyle from './App.module.css';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -103,4 +105,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export { App };

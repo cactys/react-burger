@@ -11,13 +11,15 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, updateUserInfo } from '../../services/action';
-import Preloader from '../Preloader/Preloader';
-import InformMessage from '../InformMessage/InformMessage';
-import profileFormStyle from './ProfileForm.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
 import { useDispatch, useSelector } from '../../services/hooks';
+import { getUser, updateUserInfo } from '../../services/action';
+
+import { Preloader } from '../Preloader/Preloader';
+import { InformMessage } from '../InformMessage/InformMessage';
+
+import profileFormStyle from './ProfileForm.module.css';
 
 const ProfileForm: FC = () => {
   const dispatch = useDispatch();
@@ -120,4 +122,4 @@ const ProfileForm: FC = () => {
   );
 };
 
-export default ProfileForm;
+export { ProfileForm };

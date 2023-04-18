@@ -1,15 +1,17 @@
-import { FC, useEffect } from 'react';
-import { OrderFeedsContainer } from '../../components/OrderFeedsContainer/OrderFeedsContainer';
-import orderFeedsStyle from './OrderFeeds.module.css';
-import { OrderFeedsInfo } from '../../components/OrderFeedsInfo/OrderFeedsInfo';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { TIngredients } from '../../services/types';
 import { IOrderMessage } from '../../services/interfaces';
 import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
-import { useLocation } from 'react-router-dom';
 
-const OrderFeeds: FC = () => {
+import { OrderFeedsContainer } from '../../components/OrderFeedsContainer/OrderFeedsContainer';
+import { OrderFeedsInfo } from '../../components/OrderFeedsInfo/OrderFeedsInfo';
+
+import orderFeedsStyle from './OrderFeeds.module.css';
+
+const OrderFeeds = () => {
   const {
     orders,
     status,

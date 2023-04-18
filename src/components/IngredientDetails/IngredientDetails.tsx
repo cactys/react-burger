@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import Preloader from '../Preloader/Preloader';
 import { TIngredientItem, TIngredients } from '../../services/types';
 import { useParams } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
+
+import { Preloader } from '../Preloader/Preloader';
 
 import ingredientDetailsStyle from './IngredientDetails.module.css';
 
@@ -59,4 +60,4 @@ const IngredientDetails = ({ background }: { background?: boolean }) => {
   );
 };
 
-export default IngredientDetails;
+export { IngredientDetails };

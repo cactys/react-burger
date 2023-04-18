@@ -1,7 +1,8 @@
 import { IOrderMessage } from '../../services/interfaces';
-import Preloader from '../Preloader/Preloader';
-import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
 import { TIngredientItem } from '../../services/types';
+
+import { Preloader } from '../Preloader/Preloader';
+import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
 
 import orderFeedsContainerStyle from './OrderFeedsContainer.module.css';
 
@@ -16,14 +17,15 @@ const OrderFeedsContainer = ({
 }) => {
   return (
     <ul className={orderFeedsContainerStyle.container}>
-      {status === 'connecting' && <Preloader isOverflow={true} />}
-      {orders.map((order) => (
+      {status === 'connecting' && <Preloader />}
+      <Preloader />
+      {/* {orders.map((order) => (
         <OrderFeedsCard
           key={order._id}
           order={order}
           ingredients={ingredients}
         />
-      ))}
+      ))} */}
     </ul>
   );
 };

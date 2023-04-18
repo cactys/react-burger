@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import { Reorder, motion } from 'framer-motion';
@@ -7,21 +7,23 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
-import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
-import EmptyContainer from '../EmptyContainer/EmptyContainer';
-import { orderDetail, addBurgerIngredient } from '../../services/action';
-import burgerConstructorStyle from './BurgerConstructor.module.css';
 import {
   TConstructorIngredients,
   TIngredientItem,
   TUser,
 } from '../../services/types';
+import { orderDetail, addBurgerIngredient } from '../../services/action';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { orderResetInfo } from '../../services/constants';
 
-const BurgerConstructor: FC = () => {
+import { Modal } from '../Modal/Modal';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { EmptyContainer } from '../EmptyContainer/EmptyContainer';
+import { ConstructorContainer } from '../ConstructorContainer/ConstructorContainer';
+
+import burgerConstructorStyle from './BurgerConstructor.module.css';
+
+const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector(
     (store: TConstructorIngredients) => store.constructorIngredient
   );
@@ -160,4 +162,4 @@ const BurgerConstructor: FC = () => {
   );
 };
 
-export default BurgerConstructor;
+export { BurgerConstructor };

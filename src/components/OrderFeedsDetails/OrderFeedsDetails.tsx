@@ -1,17 +1,19 @@
 import { useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../services/hooks';
 import { TIngredients } from '../../services/types';
-import { useParams } from 'react-router-dom';
 import { IOrderMessage } from '../../services/interfaces';
-import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
 import {
   currentDate,
   currentOrder,
   getQuantityIngredients,
 } from '../../utils/utils';
-import { v4 as uuid } from 'uuid';
+
+import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
+
 import orderFeedsDetailsStyle from './OrderFeedsDetails.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   const { orders }: { orders: IOrderMessage[] } = useSelector(

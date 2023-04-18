@@ -9,9 +9,10 @@ import {
   constructorDelete,
   constructorReorder,
 } from '../../services/constants';
-import constructorContainerStyle from './ConstructorContainer.module.css';
 import { IConstructorContainer } from '../../services/interfaces';
 import { useDispatch } from '../../services/hooks';
+
+import constructorContainerStyle from './ConstructorContainer.module.css';
 
 const ConstructorContainer: FC<IConstructorContainer> = ({
   ingredient,
@@ -96,4 +97,4 @@ const ConstructorContainer: FC<IConstructorContainer> = ({
   );
 };
 
-export default ConstructorContainer;
+export { ConstructorContainer };

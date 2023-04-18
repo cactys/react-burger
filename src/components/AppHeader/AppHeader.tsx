@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Logo,
@@ -6,9 +5,10 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import headerStyle from './AppHeader.module.css';
 
-const AppHeader: FC = () => {
+const AppHeader = () => {
   const location = useLocation();
 
   return (
@@ -67,4 +67,4 @@ const AppHeader: FC = () => {
   );
 };
 
-export default AppHeader;
+export { AppHeader };

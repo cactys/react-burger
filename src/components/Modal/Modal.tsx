@@ -1,9 +1,11 @@
 import { FC, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import modalStyle from './Modal.module.css';
 import { IModal } from '../../services/interfaces';
+
+import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
+
+import modalStyle from './Modal.module.css';
 
 const Modal: FC<IModal> = ({ title, children, onClose }) => {
   const modalRoot = document.getElementById('react-modals') as HTMLElement;
@@ -41,4 +43,4 @@ const Modal: FC<IModal> = ({ title, children, onClose }) => {
   );
 };
 
-export default Modal;
+export { Modal };

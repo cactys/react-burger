@@ -9,7 +9,7 @@ import {
 } from '../constants';
 import { AppThink } from '../types';
 
-export const orderDetail = (ingredientId: object): AppThink => {
+const orderDetail = (ingredientId: object): AppThink => {
   return (dispatch) => {
     dispatch(orderPostRequest());
 
@@ -42,3 +42,5 @@ export const orderDetail = (ingredientId: object): AppThink => {
       });
   };
 };
+
+export { orderDetail };

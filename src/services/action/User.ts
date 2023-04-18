@@ -25,7 +25,7 @@ import {
 } from '../constants';
 import { AppThink, TUserBody } from '../types';
 
-export const getUser = (): AppThink => {
+const getUser = (): AppThink => {
   return (dispatch) => {
     const accessToken: string | null = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -60,7 +60,7 @@ export const getUser = (): AppThink => {
   };
 };
 
-export const login = (body: TUserBody): AppThink => {
+const login = (body: TUserBody): AppThink => {
   return (dispatch) => {
     dispatch(loginRequest());
 
@@ -91,7 +91,7 @@ export const login = (body: TUserBody): AppThink => {
   };
 };
 
-export const register = (body: TUserBody): AppThink => {
+const register = (body: TUserBody): AppThink => {
   return (dispatch) => {
     dispatch(registerRequest());
 
@@ -127,7 +127,7 @@ export const register = (body: TUserBody): AppThink => {
   };
 };
 
-export const logout = (): AppThink => {
+const logout = (): AppThink => {
   return (dispatch) => {
     dispatch(logoutRequest());
     const refreshToken: string | null = localStorage.getItem('refreshToken');
@@ -149,7 +149,7 @@ export const logout = (): AppThink => {
   };
 };
 
-export const updateUserInfo = (body: TUserBody): AppThink => {
+const updateUserInfo = (body: TUserBody): AppThink => {
   return (dispatch) => {
     dispatch(userUpdateInfoRequest());
 
@@ -181,7 +181,7 @@ export const updateUserInfo = (body: TUserBody): AppThink => {
   };
 };
 
-export const recoveryEmailSend = (body: TUserBody): AppThink => {
+const recoveryEmailSend = (body: TUserBody): AppThink => {
   return (dispatch) => {
     dispatch(recoveryRequest());
     auth
@@ -202,7 +202,7 @@ export const recoveryEmailSend = (body: TUserBody): AppThink => {
   };
 };
 
-export const recoveryPasswordSend = (body: TUserBody): AppThink => {
+const recoveryPasswordSend = (body: TUserBody): AppThink => {
   return (dispatch) => {
     dispatch(recoveryRequest());
     auth
@@ -233,3 +233,5 @@ export const recoveryPasswordSend = (body: TUserBody): AppThink => {
       });
   };
 };
+
+export { getUser, login, register, logout, updateUserInfo, recoveryEmailSend, recoveryPasswordSend };

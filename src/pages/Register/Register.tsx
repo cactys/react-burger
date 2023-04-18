@@ -6,23 +6,25 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import Preloader from '../../components/Preloader/Preloader';
-import FormFooter from '../../components/FormFooter/FormFooter';
-import InformMessage from '../../components/InformMessage/InformMessage';
 import { register } from '../../services/action';
-import registerStyle from './Register.module.css';
 import { TUser } from '../../services/types';
-import { useForm } from '../../hooks/useForm';
 import { useDispatch, useSelector } from '../../services/hooks';
+import { useForm } from '../../hooks/useForm';
 
-const Register: FC = () => {
+import { Preloader } from '../../components/Preloader/Preloader';
+import { FormFooter } from '../../components/FormFooter/FormFooter';
+import { InformMessage } from '../../components/InformMessage/InformMessage';
+
+import registerStyle from './Register.module.css';
+
+const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { registerRequest, registerFailed, registerMessage, isLogin } =
     useSelector((store: TUser) => store.user);
 
-  const {values, handleChange} = useForm({
+  const { values, handleChange } = useForm({
     name: '',
     email: '',
     password: '',
@@ -88,4 +90,4 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export { Register };
