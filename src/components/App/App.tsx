@@ -68,9 +68,12 @@ const App: FC = () => {
           path="/profile/orders"
           element={<ProtectedRoute element={<Profile />} />}
         />
+        <Route
+          path="/profile/orders/:id"
+          element={<ProtectedRoute element={<OrderFeedsDetails />} />}
+        />
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
         <Route path="/feed/:id" element={<OrderFeedsDetails />} />
-        <Route path="/profile/orders/:id" element={<OrderFeedsDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (

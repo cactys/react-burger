@@ -32,10 +32,10 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   };
 
   useEffect(() => {
-    if (orders) {
-      setInfo(orders.filter((item) => item._id === id)[0]);
-    }
+    setInfo(orders.filter((item) => item._id === id)[0]);
   }, [orders, id]);
+
+  console.log(info);
 
   const countIngredient = getQuantityIngredients(info?.ingredients);
 

@@ -25,6 +25,7 @@ const OrderHistory = ({
   const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
+    console.log('OrderHistory');
     dispatch(getUser());
     dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
     return () => {

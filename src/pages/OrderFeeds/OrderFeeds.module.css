@@ -1,6 +1,6 @@
 .container {
   margin: 40px auto 0;
-  max-width: 1240px;
+  max-width: 1248px;
   min-width: 320px;
 }
 
@@ -17,11 +17,10 @@
 
 .feedsContainer {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 608px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 608px;
   padding: 0 0 0 8px;
-}
-
-.feedsInfo {
-
 }

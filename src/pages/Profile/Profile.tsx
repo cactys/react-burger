@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getUser, logout } from '../../services/action';
+import { logout } from '../../services/action';
 import { TIngredients, TUser } from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { wsConnect, wsDisconnect } from '../../services/constants';
-import { WSS_URL } from '../../utils/constants';
 import { IOrderMessage } from '../../services/interfaces';
 
 import { OrderHistory } from '../../components/OrderHistory/OrderHistory';

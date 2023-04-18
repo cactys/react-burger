@@ -18,14 +18,13 @@ const OrderFeedsContainer = ({
   return (
     <ul className={orderFeedsContainerStyle.container}>
       {status === 'connecting' && <Preloader />}
-      <Preloader />
-      {/* {orders.map((order) => (
+      {orders.map((order) => (
         <OrderFeedsCard
           key={order._id}
           order={order}
           ingredients={ingredients}
         />
-      ))} */}
+      ))}
     </ul>
   );
 };
