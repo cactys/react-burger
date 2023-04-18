@@ -28,9 +28,10 @@ const OrderFeeds: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    location.pathname === '/feed'
-      ? dispatch(wsConnect(WSS_URL + '/all'))
-      : dispatch(wsDisconnect());
+    dispatch(wsConnect(WSS_URL + '/all'));
+    return () => {
+      dispatch(wsDisconnect());
+    };
   }, [dispatch, location]);
 
   return (

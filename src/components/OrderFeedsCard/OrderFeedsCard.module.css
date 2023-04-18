@@ -23,6 +23,17 @@
   justify-content: space-between;
 }
 
+.description {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 8px;
+}
+
+.orderStatus {
+  color: var(--text-color_ready);
+}
+
 .title {
   margin: 0;
   padding: 0;

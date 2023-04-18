@@ -42,7 +42,7 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
   const orderStatus = (): ReactNode => {
     if (status === 'done') return 'Выполнен';
     if (status === 'created') return 'Готовится';
-    if (status === 'pending') return 'Отменён';
+    if (status === 'pending') return 'Создан';
   };
 
   const orderSum = useMemo(() => {
@@ -69,13 +69,21 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
             {currentDate(createdAt)}
           </p>
         </div>
-        <div>
+        <div className={orderFeedsCardStyle.description}>
           <h2
             className={`text text_type_main-medium ${orderFeedsCardStyle.title}`}
           >
             {name}
           </h2>
-          <p className={orderFeedsCardStyle.orderStatus}>{orderStatus()}</p>
+          {location.pathname === '/profile/orders' ? (
+            <p
+              className={`text text_type_main-default ${
+                status === 'done' ? orderFeedsCardStyle.orderStatus : ''
+              }`}
+            >
+              {orderStatus()}
+            </p>
+          ) : null}
         </div>
         <div className={orderFeedsCardStyle.infoOrder}>
           <ul className={orderFeedsCardStyle.imageList}>

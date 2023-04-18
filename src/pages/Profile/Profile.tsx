@@ -4,20 +4,42 @@ import OrderHistory from '../../components/OrderHistory/OrderHistory';
 import Preloader from '../../components/Preloader/Preloader';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import { logout } from '../../services/action';
-import { TUser } from '../../services/types';
-import profileStyle from './Profile.module.css';
+import { TIngredients, TUser } from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';
+import { wsConnect, wsDisconnect } from '../../services/constants';
+import { WSS_URL } from '../../utils/constants';
+import { IOrderMessage } from '../../services/interfaces';
+
+import profileStyle from './Profile.module.css';
 
 const Profile: FC = () => {
+  const {
+    orders,
+    status,
+  }: {
+    orders: IOrderMessage[];
+    status: string;
+  } = useSelector((store) => store.webSocket);
+  const ingredients = useSelector(
+    (store: TIngredients) => store.ingredients.ingredients
+  );
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isLogout, logoutRequest } = useSelector((store: TUser) => store.user);
+  const accessToken = localStorage.getItem('accessToken');
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
+    return () => {
+      dispatch(wsDisconnect());
+    };
+  }, [accessToken, dispatch, location]);
+  const { isLogout, logoutRequest } = useSelector((store: TUser) => store.user);
 
   useEffect(() => {
     isLogout && navigate('/login');
@@ -70,7 +92,13 @@ const Profile: FC = () => {
         </p>
       </nav>
       {location.pathname === '/profile' && <ProfileForm />}
-      {location.pathname === '/profile/orders' && <OrderHistory />}
+      {location.pathname === '/profile/orders' && (
+        <OrderHistory
+          orders={orders}
+          status={status}
+          ingredients={ingredients}
+        />
+      )}
     </main>
   );
 };

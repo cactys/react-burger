@@ -1,6 +1,7 @@
 import type { Middleware } from 'redux';
 import { RootState } from '../services';
 import { TWSActionTypes } from '../services/types';
+import { userChecked } from '../services/constants';
 
 const webSocketMiddleware = (
   wsActions: TWSActionTypes
@@ -33,8 +34,8 @@ const webSocketMiddleware = (
 
       if (socket) {
         socket.onopen = () => dispatch(onOpen());
-        // socket.onerror = (err) => console.log(err);
-        socket.onerror = () => dispatch(wsConnecting());
+        socket.onerror = (err) => console.log(err);
+        // socket.onerror = () => dispatch(wsConnecting());
         socket.onmessage = (evt) => {
           const { data } = evt;
           dispatch(onMessage(JSON.parse(data)));
@@ -45,6 +46,7 @@ const webSocketMiddleware = (
           }
           dispatch(onClose());
           if (isConnected) {
+            dispatch(userChecked());
             dispatch(wsConnecting());
             reconnectTimer = window.setTimeout(() => {
               dispatch(wsConnect(url));
