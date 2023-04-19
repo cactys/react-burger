@@ -1,5 +1,30 @@
 .container {
+  height: calc(100vh - 140px);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #8585ad #2f2f37;
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0 8px 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+  overflow-x: hidden;
   width: 100%;
   max-width: 844px;
-  margin: 40px 0 0;
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  border: 3px solid #8585ad;
 }

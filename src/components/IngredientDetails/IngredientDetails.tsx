@@ -20,6 +20,8 @@ const IngredientDetails = ({ background }: { background?: boolean }) => {
     }
   }, [ingredients, id]);
 
+  console.log(background);
+
   return (
     <div
       className={`${ingredientDetailsStyle.container} ${

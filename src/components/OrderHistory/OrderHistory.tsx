@@ -22,25 +22,24 @@ const OrderHistory = ({
 }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    console.log('OrderHistory');
     dispatch(getUser());
+    const accessToken = localStorage.getItem('accessToken');
     dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, location, accessToken]);
+  }, [dispatch, location]);
 
   return (
-    <div className={orderHistoryStyle.container}>
+    <ul className={orderHistoryStyle.container}>
       <OrderFeedsContainer
         orders={orders}
         status={status}
         ingredients={ingredients}
       />
-    </div>
+    </ul>
   );
 };
 
