@@ -30,7 +30,6 @@ const OrderFeeds = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('OrderFeeds');
     dispatch(wsConnect(WSS_URL + '/all'));
     return () => {
       dispatch(wsDisconnect());
@@ -43,13 +42,13 @@ const OrderFeeds = () => {
         Лента заказов
       </h1>
       <div className={orderFeedsStyle.feeds}>
-        <div className={orderFeedsStyle.feedsContainer}>
+        <ul className={orderFeedsStyle.feedsContainer}>
           <OrderFeedsContainer
             orders={orders}
             status={status}
             ingredients={ingredients}
           />
-        </div>
+        </ul>
         <div className={orderFeedsStyle.feedsInfo}>
           <OrderFeedsInfo
             orders={orders}

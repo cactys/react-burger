@@ -4,8 +4,6 @@ import { TIngredientItem } from '../../services/types';
 import { Preloader } from '../Preloader/Preloader';
 import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
 
-import orderFeedsContainerStyle from './OrderFeedsContainer.module.css';
-
 const OrderFeedsContainer = ({
   orders,
   status,
@@ -16,7 +14,7 @@ const OrderFeedsContainer = ({
   ingredients: TIngredientItem[];
 }) => {
   return (
-    <ul className={orderFeedsContainerStyle.container}>
+    <>
       {status === 'connecting' && <Preloader />}
       {orders.map((order) => (
         <OrderFeedsCard
@@ -25,7 +23,7 @@ const OrderFeedsContainer = ({
           ingredients={ingredients}
         />
       ))}
-    </ul>
+    </>
   );
 };
 

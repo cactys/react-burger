@@ -2,7 +2,11 @@ import { useEffect, FC } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser, getIngredients } from '../../services/action';
 import { useDispatch } from '../../services/hooks';
-import { ingredientDeleteInfo } from '../../services/constants';
+import {
+  ingredientDeleteInfo,
+  wsConnect,
+  wsDisconnect,
+} from '../../services/constants';
 
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { ProtectedAuthRoute } from '../ProtectedAuthRoute/ProtectedAuthRoute';
@@ -20,6 +24,7 @@ import { OrderFeeds } from '../../pages/OrderFeeds/OrderFeeds';
 import { OrderFeedsDetails } from '../OrderFeedsDetails/OrderFeedsDetails';
 
 import appStyle from './App.module.css';
+import { WSS_URL } from '../../utils/constants';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -36,7 +41,7 @@ const App: FC = () => {
   useEffect(() => {
     dispatch(getUser());
     dispatch(getIngredients());
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   return (
     <div className={appStyle.page}>

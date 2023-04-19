@@ -1,8 +1,8 @@
 import { useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { TIngredients } from '../../services/types';
 import { IOrderMessage } from '../../services/interfaces';
 import {
@@ -14,6 +14,8 @@ import {
 import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
 
 import orderFeedsDetailsStyle from './OrderFeedsDetails.module.css';
+import { wsConnect, wsDisconnect } from '../../services/constants';
+import { WSS_URL } from '../../utils/constants';
 
 const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   const { orders }: { orders: IOrderMessage[] } = useSelector(
@@ -22,6 +24,8 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   const ingredients = useSelector(
     (state: TIngredients) => state.ingredients.ingredients
   );
+  const dispatch = useDispatch();
+  const location = useLocation();
   const [info, setInfo] = useState<IOrderMessage>();
   const { id } = useParams();
 
@@ -32,10 +36,19 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   };
 
   useEffect(() => {
-    setInfo(orders.filter((item) => item._id === id)[0]);
-  }, [orders, id]);
+    const accessToken = localStorage.getItem('accessToken');
+    if (location.pathname === `/profile/orders/${id}`)
+      dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
+    if (location.pathname === `/feed/${id}`)
+      dispatch(wsConnect(WSS_URL + '/all'));
+    return () => {
+      dispatch(wsDisconnect());
+    };
+  }, [dispatch, location]);
 
-  console.log(info);
+  useEffect(() => {
+    setInfo(orders.filter((item) => item._id === id).reverse()[0]);
+  }, [orders, id]);
 
   const countIngredient = getQuantityIngredients(info?.ingredients);
 
