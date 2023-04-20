@@ -7,9 +7,7 @@ const webSocketMiddleware = (
 ): Middleware<RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
-    // let isConnected = false;
-    // let reconnectTimer = 0;
-    // let url = '';
+    let isConnected = false;
 
     return (next) => (action) => {
       const { dispatch } = store;
@@ -24,20 +22,12 @@ const webSocketMiddleware = (
         onOpen,
       } = wsActions;
 
-      if (action.type === wsConnect) {
-        socket = new WebSocket(action.payload);
+      if (wsConnect.match(action)) {
+        socket = new WebSocket(action.payload); // URL
+        isConnected = true;
+        dispatch(wsConnecting());
       }
 
-      if (action.type === onClose && socket) {
-        socket.close();
-      }
-
-      // if (wsConnect.match(action)) {
-      //   url = action.payload;
-      //   socket = new WebSocket(url);
-      //   isConnected = true;
-      //   dispatch(wsConnecting());
-      // }
       console.log(action);
 
       if (socket) {
@@ -52,47 +42,29 @@ const webSocketMiddleware = (
           const { ...rest } = JSON.parse(data);
           dispatch(onMessage(rest));
         };
-        socket.onclose = () => {
+        socket.onclose = (evt) => {
+          if (evt.code !== 1000) {
+            dispatch(onError(evt.code.toString()));
+          }
           dispatch(onClose());
+          console.log(isConnected);
+          if (isConnected) {
+            dispatch(wsConnecting());
+            dispatch(wsConnect(action.payload)); // URL
+            console.log(action.payload);
+          }
         };
 
-        if (action.type === onMessage) {
+        if (wsMessage && wsMessage.match(action)) {
           socket.send(JSON.stringify(action.payload));
         }
+
+        if (wsDisconnect.match(action)) {
+          isConnected = false;
+          socket.close;
+          dispatch(onClose());
+        }
       }
-
-      // if (socket) {
-      //   socket.onopen = () => dispatch(onOpen());
-      //   socket.onerror = (err) => console.log(err);
-      //   socket.onmessage = (evt) => {
-      //     const { data } = evt;
-      //     dispatch(onMessage(JSON.parse(data)));
-      //   };
-      //   socket.onclose = (evt) => {
-      //     if (evt.code !== 1000) {
-      //       dispatch(onError(evt.code.toString()));
-      //     }
-      //     dispatch(onClose());
-      //     if (isConnected) {
-      //       dispatch(wsConnecting());
-      //       reconnectTimer = window.setTimeout(() => {
-      //         dispatch(wsConnect(url));
-      //       }, 5000);
-      //     }
-      //   };
-      //   if (wsMessage && wsMessage.match(action)) {
-      //     console.log(action);
-      //     socket.send(JSON.stringify(action.payload));
-      //   }
-
-      //   if (wsDisconnect.match(action)) {
-      //     clearTimeout(reconnectTimer);
-      //     isConnected = false;
-      //     reconnectTimer = 0;
-      //     socket.close();
-      //     dispatch(onClose());
-      //   }
-      // }
 
       next(action);
     };
