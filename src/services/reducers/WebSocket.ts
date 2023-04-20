@@ -50,7 +50,7 @@ export const webSocketReducer = (
     case WS_MESSAGE: {
       return {
         ...state,
-        orders: [...action.payload.orders],
+        orders: [...action.payload.orders].reverse(),
         total: action.payload.total,
         totalToday: action.payload.totalToday,
       };

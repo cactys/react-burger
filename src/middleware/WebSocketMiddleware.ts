@@ -28,8 +28,6 @@ const webSocketMiddleware = (
         dispatch(wsConnecting());
       }
 
-      console.log(action);
-
       if (socket) {
         socket.onopen = () => dispatch(onOpen());
         socket.onerror = (err) => {
@@ -38,7 +36,6 @@ const webSocketMiddleware = (
         };
         socket.onmessage = (evt) => {
           const { data } = evt;
-          console.log(evt);
           const { ...rest } = JSON.parse(data);
           dispatch(onMessage(rest));
         };
@@ -47,11 +44,9 @@ const webSocketMiddleware = (
             dispatch(onError(evt.code.toString()));
           }
           dispatch(onClose());
-          console.log(isConnected);
           if (isConnected) {
             dispatch(wsConnecting());
             dispatch(wsConnect(action.payload)); // URL
-            console.log(action.payload);
           }
         };
 

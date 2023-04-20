@@ -37,14 +37,14 @@
 .loader:before,
 .loader:after {
   content: '';
-  border-radius: 100% 50%;
+  border-radius: 100% 100%;
   position: absolute;
   inset: 0;
-  box-shadow: 0 0 7px 2px #4c4cff inset;
+  box-shadow: 0 0 0 6px #4c4cff inset;
   animation: rotate 8s reverse linear infinite;
 }
 .loader:after {
-  box-shadow: 0 4px 10px 2px #801ab2 inset;
+  box-shadow: 4px 6px 0 0 #801ab2 inset;
   animation: rotate 5s linear infinite;
 }
 
