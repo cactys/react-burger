@@ -16,11 +16,11 @@ import { OrderFeedsInfoItem } from '../OrderFeedsInfoItem/OrderFeedsInfoItem';
 import orderFeedsDetailsStyle from './OrderFeedsDetails.module.css';
 import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
+import { Preloader } from '../Preloader/Preloader';
 
 const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
-  const { orders }: { orders: IOrderMessage[] } = useSelector(
-    (state) => state.webSocket
-  );
+  const { orders, status }: { orders: IOrderMessage[]; status: string } =
+    useSelector((state) => state.webSocket);
   const ingredients = useSelector(
     (state: TIngredients) => state.ingredients.ingredients
   );
@@ -77,42 +77,48 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
         !background && orderFeedsDetailsStyle.cn
       }`}
     >
-      <h2 className="text text_type_digits-default">#{info?.number}</h2>
-      <div className={orderFeedsDetailsStyle.orderStatus}>
-        <h3
-          className={`text text_type_main-medium ${orderFeedsDetailsStyle.orderName}`}
-        >
-          {info?.name}
-        </h3>
-        <p
-          className={`text text_type_main-default ${orderFeedsDetailsStyle.status}`}
-        >
-          {orderStatus()}
-        </p>
-      </div>
-      <p
-        className={`text text_type_main-medium mt-15 ${orderFeedsDetailsStyle.structure}`}
-      >
-        Состав:
-      </p>
-      <ul className={orderFeedsDetailsStyle.ingredientsList}>
-        {returnIngredient().map((item, index) => (
-          <OrderFeedsInfoItem
-            key={uuid()}
-            ingredient={item}
-            count={count[index]}
-          />
-        ))}
-      </ul>
-      <div className={orderFeedsDetailsStyle.footer}>
-        <p className="text text_type_main-default text_color_inactive">
-          {date}
-        </p>
-        <div className={orderFeedsDetailsStyle.priceOrder}>
-          <p className="text text_type_digits-default">{orderSum}</p>
-          <CurrencyIcon type="primary" />
-        </div>
-      </div>
+      {status === 'connecting' ? (
+        <Preloader />
+      ) : (
+        <>
+          <h2 className="text text_type_digits-default">#{info?.number}</h2>
+          <div className={orderFeedsDetailsStyle.orderStatus}>
+            <h3
+              className={`text text_type_main-medium ${orderFeedsDetailsStyle.orderName}`}
+            >
+              {info?.name}
+            </h3>
+            <p
+              className={`text text_type_main-default ${orderFeedsDetailsStyle.status}`}
+            >
+              {orderStatus()}
+            </p>
+          </div>
+          <p
+            className={`text text_type_main-medium mt-15 ${orderFeedsDetailsStyle.structure}`}
+          >
+            Состав:
+          </p>
+          <ul className={orderFeedsDetailsStyle.ingredientsList}>
+            {returnIngredient().map((item, index) => (
+              <OrderFeedsInfoItem
+                key={uuid()}
+                ingredient={item}
+                count={count[index]}
+              />
+            ))}
+          </ul>
+          <div className={orderFeedsDetailsStyle.footer}>
+            <p className="text text_type_main-default text_color_inactive">
+              {date}
+            </p>
+            <div className={orderFeedsDetailsStyle.priceOrder}>
+              <p className="text text_type_digits-default">{orderSum}</p>
+              <CurrencyIcon type="primary" />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
