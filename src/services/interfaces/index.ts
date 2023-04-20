@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { TIngredientItem, TOrder } from '../types';
 
 interface IApiProps {
@@ -27,7 +27,7 @@ interface IPreloader {
 }
 
 interface IProtectedRoute {
-  element: ReactNode;
+  element: ReactElement;
 }
 
 interface IIngredientCard {

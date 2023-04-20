@@ -4,7 +4,7 @@ import { useDispatch } from '../../services/hooks';
 import { IOrderMessage } from '../../services/interfaces';
 import { TIngredientItem } from '../../services/types';
 
-import { OrderFeedsContainer } from '../OrderFeedsContainer/OrderFeedsContainer';
+import { OwnerOrderFeedsContainer } from '../OwnerOrderFeedsContainer/OwnerOrderFeedsContainer';
 
 import orderHistoryStyle from './OrderHistory.module.css';
 import { wsConnect, wsDisconnect } from '../../services/constants';
@@ -34,7 +34,7 @@ const OrderHistory = ({
 
   return (
     <ul className={orderHistoryStyle.container}>
-      <OrderFeedsContainer
+      <OwnerOrderFeedsContainer
         orders={orders}
         status={status}
         ingredients={ingredients}

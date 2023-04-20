@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TIngredientItem, TIngredients } from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';

@@ -1,7 +1,6 @@
 .item {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   padding: 0 24px 0 0;
   gap: 16px;
   height: 64px;
@@ -31,7 +30,7 @@
 .ingredientName {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .price {

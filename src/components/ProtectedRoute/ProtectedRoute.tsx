@@ -1,13 +1,11 @@
 import { Navigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { FC } from 'react';
 import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
 import { useSelector } from '../../services/hooks';
 
 import { Preloader } from '../Preloader/Preloader';
 
-const ProtectedRoute: FC<IProtectedRoute> = ({ element }: any) => {
+const ProtectedRoute = ({ element }: IProtectedRoute) => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
 
   if (!userChecked) {
@@ -19,10 +17,6 @@ const ProtectedRoute: FC<IProtectedRoute> = ({ element }: any) => {
   }
 
   return element;
-};
-
-ProtectedRoute.propTypes = {
-  element: PropTypes.element.isRequired,
 };
 
 export { ProtectedRoute };
