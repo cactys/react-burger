@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { logout } from '../../services/action';
+import { getUser, logout } from '../../services/action';
 import { TIngredients, TUser } from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { IOrderMessage } from '../../services/interfaces';
+import { wsConnect, wsDisconnect } from '../../services/constants';
+import { WSS_URL } from '../../utils/constants';
 
 import { OrderHistory } from '../../components/OrderHistory/OrderHistory';
 import { Preloader } from '../../components/Preloader/Preloader';
@@ -36,6 +38,15 @@ const Profile = () => {
   useEffect(() => {
     isLogout && navigate('/login');
   }, [isLogout, navigate]);
+
+  useEffect(() => {
+    dispatch(getUser());
+    const accessToken = localStorage.getItem('accessToken');
+    dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
+    return () => {
+      dispatch(wsDisconnect());
+    };
+  }, [dispatch, location]);
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
