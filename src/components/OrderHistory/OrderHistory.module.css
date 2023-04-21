@@ -12,8 +12,8 @@
   gap: 16px;
   box-sizing: border-box;
   overflow-x: hidden;
-  width: 100%;
-  max-width: 844px;
+  max-width: 100%;
+  width: 860px;
 }
 
 .container::-webkit-scrollbar {

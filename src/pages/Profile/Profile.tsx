@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getUser, logout } from '../../services/action';
 import { TIngredients, TUser } from '../../services/types';
 import { useDispatch, useSelector } from '../../services/hooks';
@@ -14,39 +14,14 @@ import { ProfileForm } from '../../components/ProfileForm/ProfileForm';
 import profileStyle from './Profile.module.css';
 
 const Profile = () => {
-  const {
-    orders,
-    status,
-  }: {
-    orders: IOrderMessage[];
-    status: string;
-  } = useSelector((store) => store.webSocket);
-  const ingredients = useSelector(
-    (store: TIngredients) => store.ingredients.ingredients
-  );
-  const { isLogout, logoutRequest } = useSelector((store: TUser) => store.user);
+  const { logoutRequest } = useSelector((store: TUser) => store.user);
 
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
+  const handleLogout: () => void = () => {
     dispatch(logout());
   };
-
-  useEffect(() => {
-    isLogout && navigate('/login');
-  }, [isLogout, navigate]);
-
-  useEffect(() => {
-    dispatch(getUser());
-    const accessToken = localStorage.getItem('accessToken');
-    dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
-    return () => {
-      dispatch(wsDisconnect());
-    };
-  }, [dispatch, location]);
 
   return (
     <main className={`mt-30 ${profileStyle.container}`}>
@@ -95,13 +70,7 @@ const Profile = () => {
         </p>
       </nav>
       {location.pathname === '/profile' && <ProfileForm />}
-      {location.pathname === '/profile/orders' && (
-        <OrderHistory
-          orders={orders}
-          status={status}
-          ingredients={ingredients}
-        />
-      )}
+      {location.pathname === '/profile/orders' && <OrderHistory />}
     </main>
   );
 };

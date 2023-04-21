@@ -8,6 +8,7 @@ const webSocketMiddleware = (
   return (store) => {
     let socket: WebSocket | null = null;
     let isConnected = false;
+    let reconnectInterval = 0;
 
     return (next) => (action) => {
       const { dispatch } = store;
@@ -32,12 +33,10 @@ const webSocketMiddleware = (
         socket.onopen = () => dispatch(onOpen());
         socket.onerror = (err) => {
           console.log(err);
-          dispatch(onError(''));
         };
         socket.onmessage = (evt) => {
           const { data } = evt;
-          const { ...rest } = JSON.parse(data);
-          dispatch(onMessage(rest));
+          dispatch(onMessage(JSON.parse(data)));
         };
         socket.onclose = (evt) => {
           if (evt.code !== 1000) {
@@ -46,7 +45,9 @@ const webSocketMiddleware = (
           dispatch(onClose());
           if (isConnected) {
             dispatch(wsConnecting());
-            dispatch(wsConnect(action.payload)); // URL
+            reconnectInterval = window.setInterval(() => {
+              dispatch(wsConnect(action.payload)); // URL
+            }, 60 * 1000);
           }
         };
 
@@ -56,6 +57,8 @@ const webSocketMiddleware = (
 
         if (wsDisconnect.match(action)) {
           isConnected = false;
+          clearInterval(reconnectInterval);
+          reconnectInterval = 0;
           socket.close;
           dispatch(onClose());
         }

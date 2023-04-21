@@ -44,7 +44,10 @@ const getUser = (): AppThink => {
         .catch((err) => {
           console.error(err.message);
           switch (err.message) {
-            case ERROR_STATE.jwtMalformed || ERROR_STATE.invalidToken: {
+            case ERROR_STATE.jwtMalformed: {
+              return dispatch(userChecked());
+            }
+            case ERROR_STATE.invalidToken: {
               return dispatch(userChecked());
             }
             default: {
@@ -234,4 +237,12 @@ const recoveryPasswordSend = (body: TUserBody): AppThink => {
   };
 };
 
-export { getUser, login, register, logout, updateUserInfo, recoveryEmailSend, recoveryPasswordSend };
+export {
+  getUser,
+  login,
+  register,
+  logout,
+  updateUserInfo,
+  recoveryEmailSend,
+  recoveryPasswordSend,
+};

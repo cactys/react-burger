@@ -30,7 +30,7 @@ const OrderFeeds = () => {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(wsConnect(WSS_URL + '/all'));
+    dispatch(wsConnect(`${WSS_URL}/all`));
     return () => {
       dispatch(wsDisconnect());
     };

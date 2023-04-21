@@ -28,15 +28,23 @@ const App: FC = () => {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleModalClose = () => {
+  const handleIngredientModalClose: () => void = () => {
     navigate(-1);
     dispatch(ingredientDeleteInfo());
+  };
+
+  const handleOrderModalClose: () => void = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
     dispatch(getUser());
     dispatch(getIngredients());
-  }, [dispatch, location]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    navigate(location.pathname);
+  }, []);
 
   return (
     <div className={appStyle.page}>
@@ -81,7 +89,10 @@ const App: FC = () => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal title="Детали ингредиента" onClose={handleModalClose}>
+              <Modal
+                title="Детали ингредиента"
+                onClose={handleIngredientModalClose}
+              >
                 <IngredientDetails background={background} />
               </Modal>
             }
@@ -89,7 +100,7 @@ const App: FC = () => {
           <Route
             path="/feed/:id"
             element={
-              <Modal onClose={handleModalClose}>
+              <Modal onClose={handleOrderModalClose}>
                 <OrderFeedsDetails background={background} />
               </Modal>
             }
@@ -97,7 +108,7 @@ const App: FC = () => {
           <Route
             path="/profile/orders/:id"
             element={
-              <Modal onClose={handleModalClose}>
+              <Modal onClose={handleOrderModalClose}>
                 <OrderFeedsDetails background={background} />
               </Modal>
             }
