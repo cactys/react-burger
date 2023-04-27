@@ -1,5 +1,4 @@
 import type { ThunkAction } from 'redux-thunk';
-import type {} from 'redux-thunk/extend-redux';
 import { store } from '..';
 import {
   loginFailed,
