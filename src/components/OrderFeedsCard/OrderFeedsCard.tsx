@@ -42,8 +42,8 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
 
   const orderStatus = (): ReactNode => {
     if (status === 'done') return 'Выполнен';
-    if (status === 'created') return 'Готовится';
-    if (status === 'pending') return 'Создан';
+    if (status === 'created') return 'Создан';
+    if (status === 'pending') return 'Готовится';
   };
 
   const orderSum = useMemo(() => {
@@ -79,7 +79,11 @@ const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
           {location.pathname === '/profile/orders' ? (
             <p
               className={`text text_type_main-default ${
-                status === 'done' ? orderFeedsCardStyle.orderStatus : ''
+                status === 'created'
+                  ? orderFeedsCardStyle.orderStatus
+                  : status === 'done' || status === 'pending'
+                  ? ''
+                  : orderFeedsCardStyle.cancel
               }`}
             >
               {orderStatus()}

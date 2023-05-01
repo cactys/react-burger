@@ -31,20 +31,20 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
 
   const orderStatus = (): ReactNode => {
     if (info?.status === 'done') return 'Выполнен';
-    if (info?.status === 'created') return 'Готовится';
-    if (info?.status === 'pending') return 'Отменён';
+    if (info?.status === 'created') return 'Создан';
+    if (info?.status === 'pending') return 'Готовится';
   };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     if (location.pathname === `/profile/orders/${id}`)
-      dispatch(wsConnect(WSS_URL + `?token=${accessToken}`));
+      dispatch(wsConnect(`${WSS_URL}?token=${accessToken}`));
     if (location.pathname === `/feed/${id}`)
-      dispatch(wsConnect(WSS_URL + '/all'));
+      dispatch(wsConnect(`${WSS_URL}/all`));
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, location]);
+  }, [dispatch, id, location]);
 
   useEffect(() => {
     setInfo(orders.filter((item) => item._id === id).reverse()[0]);

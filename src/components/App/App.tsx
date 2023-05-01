@@ -29,12 +29,12 @@ const App: FC = () => {
   const background = location.state && location.state.background;
 
   const handleIngredientModalClose: () => void = () => {
-    navigate(-1);
+    navigate(background);
     dispatch(ingredientDeleteInfo());
   };
 
   const handleOrderModalClose: () => void = () => {
-    navigate(-1);
+    navigate(background);
   };
 
   useEffect(() => {

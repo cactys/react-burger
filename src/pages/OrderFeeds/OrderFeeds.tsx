@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { TIngredients } from '../../services/types';
 import { IOrderMessage } from '../../services/interfaces';
@@ -10,6 +9,7 @@ import { OrderFeedsContainer } from '../../components/OrderFeedsContainer/OrderF
 import { OrderFeedsInfo } from '../../components/OrderFeedsInfo/OrderFeedsInfo';
 
 import orderFeedsStyle from './OrderFeeds.module.css';
+import { useLocation } from 'react-router-dom';
 
 const OrderFeeds = () => {
   const {
@@ -26,15 +26,15 @@ const OrderFeeds = () => {
   const ingredients = useSelector(
     (store: TIngredients) => store.ingredients.ingredients
   );
-  const dispatch = useDispatch();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(wsConnect(`${WSS_URL}/all`));
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, location]);
+  }, [location, dispatch]);
 
   return (
     <main className={orderFeedsStyle.container}>

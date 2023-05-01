@@ -8,15 +8,18 @@ const OrderFeedsContainer = ({
   orders,
   status,
   ingredients,
+  profile = false,
 }: {
   orders: IOrderMessage[];
   status: string;
   ingredients: TIngredientItem[];
+  profile?: boolean;
 }) => {
+  const ordersReverse = profile ? [...orders].reverse() : orders;
   return (
     <>
       {status === 'connecting' && <Preloader />}
-      {orders.map((order) => (
+      {ordersReverse.map((order) => (
         <OrderFeedsCard
           key={order._id}
           order={order}

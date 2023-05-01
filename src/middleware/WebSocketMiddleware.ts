@@ -51,8 +51,8 @@ const webSocketMiddleware = (
           }
         };
 
-        if (wsMessage && wsMessage.match(action)) {
-          socket.send(JSON.stringify(action.payload));
+        if (wsMessage?.match(action)) {
+          socket.send(JSON.stringify(action.payload)); // response
         }
 
         if (wsDisconnect.match(action)) {

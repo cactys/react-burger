@@ -7,7 +7,7 @@ import { IOrderMessage } from '../../services/interfaces';
 import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 
-import { OrderHistory } from '../../components/OrderHistory/OrderHistory';
+import { OrderHistory } from '../OrderHistory/OrderHistory';
 import { Preloader } from '../../components/Preloader/Preloader';
 import { ProfileForm } from '../../components/ProfileForm/ProfileForm';
 

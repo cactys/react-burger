@@ -8,8 +8,8 @@ const currentDate = (currentDate: string) => {
 
   if (month !== currentMonth) return 'В этом году';
 
-  const day = date.getDate();
-  const currentDay = new Date().getDate();
+  const day = date.getDay();
+  const currentDay = new Date().getDay();
   const difference = currentDay - day;
 
   if (difference === 0) weekDay = 'Сегодня';
