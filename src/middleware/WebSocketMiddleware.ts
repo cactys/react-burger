@@ -1,6 +1,9 @@
 import type { Middleware } from 'redux';
 import { RootState } from '../services';
 import { TWSActionTypes } from '../services/types';
+import { env } from 'process';
+import { ERROR_STATE } from '../utils/constants';
+import { userChecked } from '../services/constants';
 
 const webSocketMiddleware = (
   wsActions: TWSActionTypes
@@ -36,6 +39,11 @@ const webSocketMiddleware = (
         };
         socket.onmessage = (evt) => {
           const { data } = evt;
+          const { success, message } = JSON.parse(data);
+          if (message === ERROR_STATE.incorrectToken) {
+            dispatch(userChecked());
+            console.log(success, message);
+          }
           dispatch(onMessage(JSON.parse(data)));
         };
         socket.onclose = (evt) => {

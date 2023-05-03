@@ -12,7 +12,7 @@ const OrderFeedsInfo = ({
   totalToday: number;
 }) => {
   const readyOrders = orders.filter((order) => order.status === 'done');
-  const progressOrders = orders.filter((order) => order.status === 'created');
+  const progressOrders = orders.filter((order) => order.status === 'pending');
 
   return (
     <div className={orderFeedsInfoStyle.container}>
@@ -35,7 +35,7 @@ const OrderFeedsInfo = ({
           <ul className={orderFeedsInfoStyle.statusList}>
             {progressOrders.map((order, index) => (
               <li className="text text_type_digits-default" key={index}>
-                {order.status === 'done' && order.number}
+                {order.status === 'pending' && order.number}
               </li>
             ))}
           </ul>

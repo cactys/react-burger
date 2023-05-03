@@ -34,7 +34,7 @@ const OrderFeeds = () => {
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [location, dispatch]);
+  }, [dispatch]);
 
   return (
     <main className={orderFeedsStyle.container}>
@@ -49,13 +49,7 @@ const OrderFeeds = () => {
             ingredients={ingredients}
           />
         </ul>
-        <div className={orderFeedsStyle.feedsInfo}>
-          <OrderFeedsInfo
-            orders={orders}
-            total={total}
-            totalToday={totalToday}
-          />
-        </div>
+        <OrderFeedsInfo orders={orders} total={total} totalToday={totalToday} />
       </div>
     </main>
   );

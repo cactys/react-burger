@@ -31,7 +31,7 @@ const OrderHistory = () => {
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [location, dispatch]);
+  }, [dispatch]);
 
   return (
     <ul className={orderHistoryStyle.container}>

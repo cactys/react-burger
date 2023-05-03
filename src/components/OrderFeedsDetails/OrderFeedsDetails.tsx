@@ -36,15 +36,17 @@ const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (location.pathname === `/profile/orders/${id}`)
-      dispatch(wsConnect(`${WSS_URL}?token=${accessToken}`));
-    if (location.pathname === `/feed/${id}`)
-      dispatch(wsConnect(`${WSS_URL}/all`));
-    return () => {
-      dispatch(wsDisconnect());
-    };
-  }, [dispatch, id, location]);
+    if (!background) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (location.pathname === `/profile/orders/${id}`)
+        dispatch(wsConnect(`${WSS_URL}?token=${accessToken}`));
+      if (location.pathname === `/feed/${id}`)
+        dispatch(wsConnect(`${WSS_URL}/all`));
+      return () => {
+        dispatch(wsDisconnect());
+      };
+    }
+  }, [dispatch, id, location, background]);
 
   useEffect(() => {
     setInfo(orders.filter((item) => item._id === id).reverse()[0]);
