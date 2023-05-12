@@ -1,14 +1,14 @@
 import { FC, useMemo, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TIngredientItem, TOrderFeeds } from '../../services/types';
+import { TIngredientItem, TOrderFeedsCard } from '../../services/types';
 import { currentDate, currentOrder } from '../../utils/utils';
 
 import { ImageIcon } from '../ImageIcon/ImageIcon';
 
 import orderFeedsCardStyle from './OrderFeedsCard.module.css';
 
-const OrderFeedsCard: FC<TOrderFeeds> = ({ order, ingredients }) => {
+const OrderFeedsCard: FC<TOrderFeedsCard> = ({ order, ingredients }) => {
   const getIngredient = currentOrder(order.ingredients, ingredients);
   const location = useLocation();
   const { _id, number, name, createdAt, status } = order;

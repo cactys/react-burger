@@ -4,8 +4,8 @@ import { IModal } from '../../services/interfaces';
 import modalOverlayStyle from './ModalOverlay.module.css';
 
 const ModalOverlay: FC<IModal> = ({ onClose }) => {
-  const toggleClose = (evt: any) => {
-    if (evt.target.classList.contains(modalOverlayStyle.overlay)) {
+  const toggleClose = (e: any) => {
+    if (e.target.classList.contains(modalOverlayStyle.overlay)) {
       onClose();
     }
   };

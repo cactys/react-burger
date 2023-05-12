@@ -13,4 +13,5 @@ export const rootReducer = combineReducers({
   ingredientDetails: ingredientDetailsReducer,
   user: userReducer,
   webSocket: webSocketReducer,
+  webSocketCurrentUser: webSocketReducer,
 });

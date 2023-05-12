@@ -3,8 +3,8 @@ import { DndProvider } from 'react-dnd';
 import { TIngredients } from '../../services/types';
 import { useSelector } from '../../services/hooks';
 
-import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
-import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
+import { BurgerConstructor } from '../../components/BurgerConstructor/BurgerConstructor';
+import { BurgerIngredients } from '../../components/BurgerIngredients/BurgerIngredients';
 
 import mainStyle from './Main.module.css';
 

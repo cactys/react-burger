@@ -49,6 +49,7 @@ import type {
   ActionCreatorWithPayload,
   ActionCreatorWithoutPayload,
 } from '@reduxjs/toolkit';
+import { wsConnectCurrentUser } from '../constants/WebSocket';
 
 type TError = {
   status?: number;
@@ -160,6 +161,14 @@ type TOrder = {
 };
 
 type TOrderFeeds = {
+  orders: IOrderMessage[];
+  status?: string;
+
+  total: number;
+  totalToday: number;
+};
+
+type TOrderFeedsCard = {
   order: IOrderMessage;
   ingredients: TIngredientItem[];
 };
@@ -196,6 +205,7 @@ type TWSState = {
 
 type TWSActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
+  wsConnectCurrentUser: ActionCreatorWithPayload<string>;
   wsDisconnect: ActionCreatorWithoutPayload;
   wsMessage?: ActionCreatorWithPayload<object>;
   wsConnecting: ActionCreatorWithoutPayload;
@@ -251,6 +261,7 @@ type TBurgerConstructorActions =
 
 type TWebSocketActions =
   | ReturnType<typeof wsConnect>
+  | ReturnType<typeof wsConnectCurrentUser>
   | ReturnType<typeof wsClose>
   | ReturnType<typeof wsConnecting>
   | ReturnType<typeof wsDisconnect>
@@ -292,6 +303,7 @@ export type {
   TOwner,
   TOrder,
   TOrderFeeds,
+  TOrderFeedsCard,
   TOrderState,
   TOrderDetails,
   TDict,

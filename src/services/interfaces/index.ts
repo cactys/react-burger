@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { TIngredientItem, TOrder } from '../types';
+import { TIngredientItem, TOrder, TOrderFeeds } from '../types';
 
 interface IApiProps {
   baseUrl: string;
@@ -54,6 +54,12 @@ interface IOrderMessage
   status: string;
 }
 
+interface IOrderFeedsContainer
+  extends Omit<TOrderFeeds, 'total' | 'totalToday'> {
+  ingredients: TIngredientItem[];
+  profile?: boolean;
+}
+
 export type {
   IApiProps,
   IFormFooter,
@@ -65,4 +71,5 @@ export type {
   IIngredientGroup,
   IModal,
   IOrderMessage,
+  IOrderFeedsContainer,
 };

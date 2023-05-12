@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { TIngredients } from '../../services/types';
-import { IOrderMessage } from '../../services/interfaces';
+import { TIngredients, TOrderFeeds } from '../../services/types';
 import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 
@@ -9,24 +8,14 @@ import { OrderFeedsContainer } from '../../components/OrderFeedsContainer/OrderF
 import { OrderFeedsInfo } from '../../components/OrderFeedsInfo/OrderFeedsInfo';
 
 import orderFeedsStyle from './OrderFeeds.module.css';
-import { useLocation } from 'react-router-dom';
 
 const OrderFeeds = () => {
-  const {
-    orders,
-    status,
-    total,
-    totalToday,
-  }: {
-    orders: IOrderMessage[];
-    status: string;
-    total: number;
-    totalToday: number;
-  } = useSelector((store) => store.webSocket);
+  const { orders, status, total, totalToday } = useSelector<TOrderFeeds>(
+    (store) => store.webSocket
+  );
   const ingredients = useSelector(
     (store: TIngredients) => store.ingredients.ingredients
   );
-  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {

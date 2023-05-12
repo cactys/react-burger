@@ -7,7 +7,7 @@ import { ingredientDeleteInfo } from '../../services/constants';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { ProtectedAuthRoute } from '../ProtectedAuthRoute/ProtectedAuthRoute';
 import { AppHeader } from '../AppHeader/AppHeader';
-import { Main } from '../Main/Main';
+import { Main } from '../../pages/Main/Main';
 import { Profile } from '../../pages/Profile/Profile';
 import { Login } from '../../pages/Login/Login';
 import { Register } from '../../pages/Register/Register';

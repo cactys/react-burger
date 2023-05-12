@@ -1,19 +1,14 @@
-import { IOrderMessage } from '../../services/interfaces';
-import { TIngredientItem } from '../../services/types';
+import { FC } from 'react';
 
 import { Preloader } from '../Preloader/Preloader';
 import { OrderFeedsCard } from '../OrderFeedsCard/OrderFeedsCard';
+import { IOrderFeedsContainer } from '../../services/interfaces';
 
-const OrderFeedsContainer = ({
+const OrderFeedsContainer: FC<IOrderFeedsContainer> = ({
   orders,
   status,
   ingredients,
   profile = false,
-}: {
-  orders: IOrderMessage[];
-  status: string;
-  ingredients: TIngredientItem[];
-  profile?: boolean;
 }) => {
   const ordersReverse = profile ? [...orders].reverse() : orders;
   return (
