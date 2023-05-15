@@ -1,15 +1,20 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import {
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
-} from '../action/BurgerConstructor';
+} from '../constants';
+import { TIngredientItem } from '../types';
 
 const initialState = {
   ingredients: [],
   bun: null,
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (
+  state = initialState,
+  action: PayloadAction<TIngredientItem>
+) => {
   switch (action.type) {
     case CONSTRUCTOR_ADD: {
       if (action.payload.type === 'bun') {
@@ -24,8 +29,8 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [
-          ...state.ingredients.slice(0, action.payload),
-          ...state.ingredients.slice(action.payload + 1),
+          ...state.ingredients.slice(0, Number(action.payload)),
+          ...state.ingredients.slice(Number(action.payload) + 1),
         ],
       };
     }

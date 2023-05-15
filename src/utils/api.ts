@@ -24,7 +24,6 @@ class Api extends Component<IApiProps> {
     try {
       const res = await fetch(url, options);
       return await this._checkingResponse(res);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       switch (err.message) {
         case ERROR_STATE.jwtExpired: {
@@ -67,7 +66,7 @@ class Api extends Component<IApiProps> {
     });
   }
 
-  public addOrder(ingredientId: object, accessToken: string) {
+  public addOrder(ingredientId: object, accessToken: string | null) {
     return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {

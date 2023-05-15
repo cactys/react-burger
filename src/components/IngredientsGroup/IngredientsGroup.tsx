@@ -1,11 +1,16 @@
 import { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import IngredientCard from '../IngredientCard/IngredientCard';
-import ingredientsGroupStyle from './IngredientsGroup.module.css';
 import { IIngredientGroup } from '../../services/interfaces';
 import { TConstructorIngredients, TDict } from '../../services/types';
+import { useSelector } from '../../services/hooks';
 
-const IngredientsGroup: FC<IIngredientGroup> = ({ data, onIngredientClick }) => {
+import { IngredientCard } from '../IngredientCard/IngredientCard';
+
+import ingredientsGroupStyle from './IngredientsGroup.module.css';
+
+const IngredientsGroup: FC<IIngredientGroup> = ({
+  data,
+  onIngredientClick,
+}) => {
   const { ingredients, bun } = useSelector(
     (store: TConstructorIngredients) => store.constructorIngredient
   );
@@ -35,4 +40,4 @@ const IngredientsGroup: FC<IIngredientGroup> = ({ data, onIngredientClick }) => 
   );
 };
 
-export default IngredientsGroup;
+export { IngredientsGroup };

@@ -1,13 +1,15 @@
-import {
-  INGREDIENT_ADD_INFO,
-  INGREDIENT_DELETE_INFO,
-} from '../action/BurgerIngredients';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { TIngredientItem } from '../types';
+import { INGREDIENT_ADD_INFO, INGREDIENT_DELETE_INFO } from '../constants';
 
 const initialState = {
   info: null,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (
+  state = initialState,
+  action: PayloadAction<TIngredientItem>
+) => {
   switch (action.type) {
     case INGREDIENT_ADD_INFO: {
       return {

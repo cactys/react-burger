@@ -1,15 +1,14 @@
-import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import ingredientDetailsStyle from './IngredientDetails.module.css';
-import Preloader from '../Preloader/Preloader';
-import {
-  TIngredientDetailsData,
-  TIngredientItem,
-  TIngredients,
-} from '../../services/types';
+import { useEffect, useState, FC } from 'react';
+import { TIngredientItem, TIngredients } from '../../services/types';
 import { useParams } from 'react-router-dom';
+import { useSelector } from '../../services/hooks';
+import { IIngredientDetails } from '../../services/interfaces';
 
-const IngredientDetails: FC<TIngredientDetailsData> = ({ background }) => {
+import { Preloader } from '../Preloader/Preloader';
+
+import ingredientDetailsStyle from './IngredientDetails.module.css';
+
+const IngredientDetails: FC<IIngredientDetails> = ({ background }) => {
   const ingredients = useSelector(
     (state: TIngredients) => state.ingredients.ingredients
   );
@@ -62,4 +61,4 @@ const IngredientDetails: FC<TIngredientDetailsData> = ({ background }) => {
   );
 };
 
-export default IngredientDetails;
+export { IngredientDetails };

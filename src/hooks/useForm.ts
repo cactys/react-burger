@@ -1,13 +1,7 @@
 import { useState, ChangeEvent } from 'react';
+import { IUseForm } from '../services/interfaces';
 
-const useForm = (inputValue: {
-  name?: string;
-  email?: string;
-  password?: string;
-  token?: string;
-  enable?: boolean;
-  message?: string;
-}) => {
+const useForm = (inputValue: IUseForm) => {
   const [values, setValues] = useState(inputValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

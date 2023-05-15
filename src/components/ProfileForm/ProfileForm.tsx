@@ -1,25 +1,21 @@
-import {
-  FC,
-  FormEventHandler,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEventHandler, SyntheticEvent, useEffect, useState } from 'react';
 import {
   Button,
   EmailInput,
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, updateUserInfo } from '../../services/action/User';
-import Preloader from '../Preloader/Preloader';
-import InformMessage from '../InformMessage/InformMessage';
-import profileFormStyle from './ProfileForm.module.css';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { getUser, updateUserInfo } from '../../services/action';
 
-const ProfileForm: FC = () => {
+import { Preloader } from '../Preloader/Preloader';
+import { InformMessage } from '../InformMessage/InformMessage';
+
+import profileFormStyle from './ProfileForm.module.css';
+
+const ProfileForm = () => {
   const dispatch = useDispatch();
   const { user, updateRequest, updateFailed, updateMessage } = useSelector(
     (store: TUser) => store.user
@@ -55,15 +51,13 @@ const ProfileForm: FC = () => {
       name: user?.name,
       email: user?.email,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(updateUserInfo(values));
+    dispatch(updateUserInfo(values));
     setEditor(true);
   };
 
   const handleCancelSubmit = (e: SyntheticEvent<Element>) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(getUser());
+    dispatch(getUser());
     setEditor(true);
   };
 
@@ -122,4 +116,4 @@ const ProfileForm: FC = () => {
   );
 };
 
-export default ProfileForm;
+export { ProfileForm };

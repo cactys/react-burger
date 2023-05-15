@@ -1,5 +1,4 @@
 import { FC, useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Reorder } from 'framer-motion';
 import {
@@ -7,13 +6,18 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
-  CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_REORDER,
-} from '../../services/action/BurgerConstructor';
-import constructorContainerStyle from './ConstructorContainer.module.css';
+  constructorDelete,
+  constructorReorder,
+} from '../../services/constants';
 import { IConstructorContainer } from '../../services/interfaces';
+import { useDispatch } from '../../services/hooks';
 
-const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) => {
+import constructorContainerStyle from './ConstructorContainer.module.css';
+
+const ConstructorContainer: FC<IConstructorContainer> = ({
+  ingredient,
+  index,
+}) => {
   const dispatch = useDispatch();
   const ingredientRef = useRef<HTMLElement>(null);
 
@@ -35,12 +39,13 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hover(item: any, monitor) {
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex: number = index;
 
       if (dragIndex === hoverIndex) return;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const hoverBoundingRect: any = ingredientRef.current?.getBoundingClientRect() || 0;
+      const hoverBoundingRect: any =
+        ingredientRef.current?.getBoundingClientRect() || 0;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,23 +55,19 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      dispatch({
-        type: CONSTRUCTOR_REORDER,
-        payload: {
+      dispatch(
+        constructorReorder({
           from: dragIndex,
           to: hoverIndex,
-        },
-      });
+        })
+      );
 
       item.index = hoverIndex;
     },
   });
 
   const deleteIngredient = (index: number) => {
-    dispatch({
-      type: CONSTRUCTOR_DELETE,
-      payload: index,
-    });
+    dispatch(constructorDelete(index));
   };
 
   dragRef(dropRef(ingredientRef));
@@ -75,24 +76,24 @@ const ConstructorContainer: FC<IConstructorContainer> = ({ ingredient, index }) 
     ? constructorContainerStyle.opacity
     : constructorContainerStyle.listElement;
 
-  return (
-    <Reorder.Item
-      value={ingredient}
-      id={ingredient._id}
-      transition={{ type: 'spring', duration: 0.8 }}
-      className={cn}
-      ref={ingredientRef}
-      data-handler-id={handlerId}
-    >
-      <DragIcon type="primary" />
-      <ConstructorElement
-        text={ingredient.name}
-        price={ingredient.price}
-        thumbnail={ingredient.image}
-        handleClose={() => deleteIngredient(index)}
-      />
-    </Reorder.Item>
-  );
+return (
+  <Reorder.Item
+    value={ingredient}
+    id={ingredient._id}
+    transition={{ type: 'spring', duration: 0.8 }}
+    className={cn}
+    ref={ingredientRef}
+    data-handler-id={handlerId}
+  >
+    <DragIcon type="primary" />
+    <ConstructorElement
+      text={ingredient.name}
+      price={ingredient.price}
+      thumbnail={ingredient.image}
+      handleClose={() => deleteIngredient(index)}
+    />
+  </Reorder.Item>
+);
 };
 
-export default ConstructorContainer;
+export { ConstructorContainer };

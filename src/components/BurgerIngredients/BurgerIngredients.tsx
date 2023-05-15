@@ -1,12 +1,14 @@
-import { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientsGroup from '../IngredientsGroup/IngredientsGroup';
-import { INGREDIENT_ADD_INFO } from '../../services/action/BurgerIngredients';
-import burgerIngredientsStyle from './BurgerIngredients.module.css';
 import { TIngredientItem, TIngredients } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { ingredientAddInfo } from '../../services/constants';
 
-const BurgerIngredients: FC = () => {
+import { IngredientsGroup } from '../IngredientsGroup/IngredientsGroup';
+
+import burgerIngredientsStyle from './BurgerIngredients.module.css';
+
+const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
 
   const dispatch = useDispatch();
@@ -76,11 +78,7 @@ const BurgerIngredients: FC = () => {
   };
 
   const handleIngredientClick = (selectIngredient: TIngredientItem) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return dispatch<any>({
-      type: INGREDIENT_ADD_INFO,
-      payload: selectIngredient,
-    });
+    return dispatch(ingredientAddInfo(selectIngredient));
   };
 
   return (
@@ -138,4 +136,4 @@ const BurgerIngredients: FC = () => {
   );
 };
 
-export default BurgerIngredients;
+export { BurgerIngredients };

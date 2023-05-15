@@ -1,24 +1,21 @@
-import {
-  FC,
-  FormEventHandler,
-  SyntheticEvent,
-  useEffect,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEventHandler, SyntheticEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import FormFooter from '../../components/FormFooter/FormFooter';
-import InformMessage from '../../components/InformMessage/InformMessage';
-import Preloader from '../../components/Preloader/Preloader';
-import { recoveryEmailSend } from '../../services/action/User';
-import forgotPasswordStyle from './ForgotPassword.module.css';
+import { recoveryEmailSend } from '../../services/action';
 import { TUser } from '../../services/types';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from '../../services/hooks';
 
-const ForgotPassword: FC = () => {
+import { FormFooter } from '../../components/FormFooter/FormFooter';
+import { InformMessage } from '../../components/InformMessage/InformMessage';
+import { Preloader } from '../../components/Preloader/Preloader';
+
+import forgotPasswordStyle from './ForgotPassword.module.css';
+
+const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,8 +39,7 @@ const ForgotPassword: FC = () => {
         message: 'Введите E-mail',
       });
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(
+      dispatch(
         recoveryEmailSend({
           email: values.email,
         })
@@ -85,4 +81,4 @@ const ForgotPassword: FC = () => {
   );
 };
 
-export default ForgotPassword;
+export { ForgotPassword };

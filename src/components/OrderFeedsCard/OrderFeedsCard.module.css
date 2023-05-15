@@ -1,0 +1,75 @@
+.container {
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  width: 100%;
+  background: #1c1c21;
+  border-radius: 40px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  cursor: pointer;
+}
+
+.container:hover {
+  box-shadow: 0 0 2px var(--gradient-color_2),
+    0 0 2px var(--gradient-color_1) inset;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 8px;
+}
+
+.orderStatus {
+  color: var(--text-color_ready);
+}
+
+.cancel {
+  color: #E52B1A;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.infoOrder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imageList {
+  margin: 0 16px 0;
+  padding: 0;
+  display: flex;
+  width: fit-content;
+  flex-direction: row-reverse;
+  color: white;
+  list-style: none;
+}
+
+.priceOrder {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

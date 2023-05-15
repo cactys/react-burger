@@ -1,5 +1,4 @@
-import { FC, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import { Reorder, motion } from 'framer-motion';
@@ -8,19 +7,23 @@ import {
   ConstructorElement,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../OrderDetails/OrderDetails';
-import ConstructorContainer from '../ConstructorContainer/ConstructorContainer';
-import EmptyContainer from '../EmptyContainer/EmptyContainer';
-import { addBurgerIngredient } from '../../services/action/BurgerConstructor';
 import {
-  orderDetail,
-  ORDER_RESET_INFO,
-} from '../../services/action/OrderDetails';
-import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { TConstructorIngredients, TIngredientItem, TUser } from '../../services/types';
+  TConstructorIngredients,
+  TIngredientItem,
+  TUser,
+} from '../../services/types';
+import { orderDetail, addBurgerIngredient } from '../../services/action';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { orderResetInfo } from '../../services/constants';
 
-const BurgerConstructor: FC = () => {
+import { Modal } from '../Modal/Modal';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { EmptyContainer } from '../EmptyContainer/EmptyContainer';
+import { ConstructorContainer } from '../ConstructorContainer/ConstructorContainer';
+
+import burgerConstructorStyle from './BurgerConstructor.module.css';
+
+const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector(
     (store: TConstructorIngredients) => store.constructorIngredient
   );
@@ -39,8 +42,7 @@ const BurgerConstructor: FC = () => {
         bun?._id,
       ];
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(orderDetail(ingredientId));
+      dispatch(orderDetail(ingredientId));
     } else {
       navigate('/login');
     }
@@ -48,9 +50,7 @@ const BurgerConstructor: FC = () => {
 
   const handleModalClose = () => {
     setIsOrderDetailsOpen(false);
-    dispatch({
-      type: ORDER_RESET_INFO,
-    });
+    dispatch(orderResetInfo());
   };
 
   const onDropHandler = (item: TIngredientItem) => {
@@ -67,7 +67,10 @@ const BurgerConstructor: FC = () => {
   const totalPrice = useMemo(() => {
     return (
       (bun ? bun.price * 2 : 0) +
-      ingredients.reduce((sum: number, item: TIngredientItem) => sum + item.price, 0)
+      ingredients.reduce(
+        (sum: number, item: TIngredientItem) => sum + item.price,
+        0
+      )
     );
   }, [bun, ingredients]);
 
@@ -105,13 +108,13 @@ const BurgerConstructor: FC = () => {
             >
               {ingredients.length === 0
                 ? ''
-                : ingredients.map((ingredient: TIngredientItem, index: number) => (
-                  <ConstructorContainer
-                    key={ingredient.uuid}
-                    ingredient={ingredient}
-                    index={index}
-                  />
-                ))}
+                : ingredients.map((ingredient: TIngredientItem, index) => (
+                    <ConstructorContainer
+                      key={ingredient.uuid}
+                      ingredient={ingredient}
+                      index={index}
+                    />
+                  ))}
             </Reorder.Group>
             <motion.div
               initial={{ opacity: 0 }}
@@ -159,4 +162,4 @@ const BurgerConstructor: FC = () => {
   );
 };
 
-export default BurgerConstructor;
+export { BurgerConstructor };

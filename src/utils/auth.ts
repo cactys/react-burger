@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { IApiProps } from '../services/interfaces';
 import { BASE_URL } from './constants';
+import { TUserBody } from '../services/types';
 
 class Auth extends Component<IApiProps> {
   private readonly _url: string;
@@ -16,19 +17,21 @@ class Auth extends Component<IApiProps> {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
-  public signUp(data: Response) {
+  public signUp(data: TUserBody) {
+    const { email, password } = data;
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email: email, password: password }),
     }).then(this._checkingResponse);
   }
 
-  public signIn(data: Response) {
+  public signIn(data: TUserBody) {
+    const { name, email, password } = data;
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(data),
+      body: JSON.stringify({ name: name, email: email, password: password }),
     }).then(this._checkingResponse);
   }
 
@@ -40,7 +43,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  public forgotPassword(body: object) {
+  public forgotPassword(body: TUserBody) {
     return fetch(`${this._url}/password-reset`, {
       method: 'POST',
       headers: this._header,
@@ -48,7 +51,7 @@ class Auth extends Component<IApiProps> {
     }).then(this._checkingResponse);
   }
 
-  public resetPassword(body: object) {
+  public resetPassword(body: TUserBody) {
     return fetch(`${this._url}/password-reset/reset`, {
       method: 'POST',
       headers: this._header,

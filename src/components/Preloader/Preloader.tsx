@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { IPreloader } from '../../services/interfaces';
+
 import preloaderStyle from './Preloader.module.css';
 
 const Preloader: FC<IPreloader> = ({ isOverflow }) => {
@@ -12,12 +13,14 @@ const Preloader: FC<IPreloader> = ({ isOverflow }) => {
           </div>
         </div>
       ) : (
-        <div className={preloaderStyle.container}>
-          <span className={preloaderStyle.loader} />
+        <div className={preloaderStyle.cn}>
+          <div className={preloaderStyle.container}>
+            <span className={preloaderStyle.loader} />
+          </div>
         </div>
       )}
     </>
   );
 };
 
-export default Preloader;
+export { Preloader };

@@ -1,20 +1,22 @@
-import { FC, FormEventHandler, SyntheticEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEventHandler, SyntheticEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import FormFooter from '../../components/FormFooter/FormFooter';
-import InformMessage from '../../components/InformMessage/InformMessage';
-import Preloader from '../../components/Preloader/Preloader';
-import { recoveryPasswordSend } from '../../services/action/User';
-import resetPasswordStyle from './ResetPassword.module.css';
+import { recoveryPasswordSend } from '../../services/action';
 import { TUser } from '../../services/types';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useForm } from '../../hooks/useForm';
 
-const ResetPassword: FC = () => {
+import { FormFooter } from '../../components/FormFooter/FormFooter';
+import { InformMessage } from '../../components/InformMessage/InformMessage';
+import { Preloader } from '../../components/Preloader/Preloader';
+
+import resetPasswordStyle from './ResetPassword.module.css';
+
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,8 +40,7 @@ const ResetPassword: FC = () => {
   ) => {
     e.preventDefault();
     if (values.password?.length && values.password?.length >= 5) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      dispatch<any>(
+      dispatch(
         recoveryPasswordSend({
           password: values.password,
           token: values.token,
@@ -95,4 +96,4 @@ const ResetPassword: FC = () => {
   );
 };
 
-export default ResetPassword;
+export { ResetPassword };

@@ -1,13 +1,14 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import mainStyle from './Main.module.css';
 import { TIngredients } from '../../services/types';
+import { useSelector } from '../../services/hooks';
 
-const Main: FC = () => {
+import { BurgerConstructor } from '../../components/BurgerConstructor/BurgerConstructor';
+import { BurgerIngredients } from '../../components/BurgerIngredients/BurgerIngredients';
+
+import mainStyle from './Main.module.css';
+
+const Main = () => {
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
     (store: TIngredients) => store.ingredients
   );
@@ -32,4 +33,4 @@ const Main: FC = () => {
   );
 };
 
-export default Main;
+export { Main };

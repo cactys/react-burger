@@ -1,51 +1,57 @@
-import { useEffect, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { getUser } from '../../services/action/User';
-import {
-  getIngredients,
-  INGREDIENT_DELETE_INFO,
-} from '../../services/action/BurgerIngredients';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProtectedAuthRoute from '../ProtectedAuthRoute/ProtectedAuthRoute';
-import AppHeader from '../AppHeader/AppHeader';
-import Main from '../Main/Main';
-import Profile from '../../pages/Profile/Profile';
-import Login from '../../pages/Login/Login';
-import Register from '../../pages/Register/Register';
-import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import NotFound from '../../pages/NotFound/NotFound';
-import appStyle from './App.module.css';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { getUser, getIngredients } from '../../services/action';
+import { useDispatch } from '../../services/hooks';
+import { ingredientDeleteInfo } from '../../services/constants';
 
-const App: FC = () => {
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import { ProtectedAuthRoute } from '../ProtectedAuthRoute/ProtectedAuthRoute';
+import { AppHeader } from '../AppHeader/AppHeader';
+import { Main } from '../../pages/Main/Main';
+import { Profile } from '../../pages/Profile/Profile';
+import { Login } from '../../pages/Login/Login';
+import { Register } from '../../pages/Register/Register';
+import { ForgotPassword } from '../../pages/ForgotPassword/ForgotPassword';
+import { ResetPassword } from '../../pages/ResetPassword/ResetPassword';
+import { NotFound } from '../../pages/NotFound/NotFound';
+import { Modal } from '../Modal/Modal';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { OrderFeeds } from '../../pages/OrderFeeds/OrderFeeds';
+import { OrderFeedsDetails } from '../OrderFeedsDetails/OrderFeedsDetails';
+
+import appStyle from './App.module.css';
+
+const App = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleModalClose = () => {
-    navigate(-1);
-    dispatch({
-      type: INGREDIENT_DELETE_INFO,
-    });
+  const handleIngredientModalClose: () => void = () => {
+    navigate(background);
+    dispatch(ingredientDeleteInfo());
+  };
+
+  const handleOrderModalClose: () => void = () => {
+    navigate(background);
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(getUser());
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch<any>(getIngredients());
+    dispatch(getUser());
+    dispatch(getIngredients());
   }, [dispatch]);
+
+  useEffect(() => {
+    navigate(location.pathname);
+  }, []);
 
   return (
     <div className={appStyle.page}>
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<Main />} />
+        <Route path="/feed" element={<OrderFeeds />} />
         <Route
           path="/login"
           element={<ProtectedAuthRoute element={<Login />} />}
@@ -70,7 +76,12 @@ const App: FC = () => {
           path="/profile/orders"
           element={<ProtectedRoute element={<Profile />} />}
         />
+        <Route
+          path="/profile/orders/:id"
+          element={<ProtectedRoute element={<OrderFeedsDetails />} />}
+        />
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
+        <Route path="/feed/:id" element={<OrderFeedsDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
@@ -78,8 +89,27 @@ const App: FC = () => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal title="Детали ингредиента" onClose={handleModalClose}>
+              <Modal
+                title="Детали ингредиента"
+                onClose={handleIngredientModalClose}
+              >
                 <IngredientDetails background={background} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={handleOrderModalClose}>
+                <OrderFeedsDetails background={background} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={handleOrderModalClose}>
+                <OrderFeedsDetails background={background} />
               </Modal>
             }
           />
@@ -89,4 +119,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export { App };

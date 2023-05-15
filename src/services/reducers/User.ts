@@ -1,27 +1,29 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import {
-  USER_SUCCESS,
-  USER_CHECKED,
-  USER_UPDATE_INFO_FAILED,
-  USER_UPDATE_INFO_REQUEST,
-  USER_UPDATE_INFO_SUCCESS,
   LOGIN_FAILED,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGOUT_FAILED,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
+  RECOVERY_CHANGE_STATUS,
+  RECOVERY_FAILED,
+  RECOVERY_REQUEST,
+  RECOVERY_SEND_EMAIL_SUCCESS,
+  RECOVERY_SEND_PASSWORD_SUCCESS,
+  RECOVERY_SET_ERROR_MESSAGE,
   REGISTER_FAILED,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
-  RECOVERY_FAILED,
-  RECOVERY_REQUEST,
-  RECOVERY_CHANGE_STATUS,
-  RECOVERY_SEND_EMAIL_SUCCESS,
-  RECOVERY_SET_ERROR_MESSAGE,
-  RECOVERY_SEND_PASSWORD_SUCCESS,
-} from '../action/User';
+  USER_CHECKED,
+  USER_SUCCESS,
+  USER_UPDATE_INFO_FAILED,
+  USER_UPDATE_INFO_REQUEST,
+  USER_UPDATE_INFO_SUCCESS,
+} from '../constants';
+import { TUserActions, TUserState } from '../types';
 
-const initialState = {
+const initialState: TUserState = {
   user: null,
   userChecked: false,
   loginRequest: false,
@@ -45,7 +47,10 @@ const initialState = {
   isLogin: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (
+  state = initialState,
+  action: PayloadAction<TUserActions>
+) => {
   switch (action.type) {
     case USER_SUCCESS: {
       return {
