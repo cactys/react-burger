@@ -6,13 +6,16 @@
 На данный момент, реализованно:
   - просмотр состава ингридиента (модал)
   - плавное прокрутка по табу
-  - перетаскивание ингредиентов в поле конструктора заказа (react-dnd)
+  - "перетаскивание" ингредиентов в поле конструктора заказа (react-dnd)
   - ручная сортировка ингредиентов в заказе
   - анимация (framer-motion)
   - отображение кол-ва ингредиентов добавленные в заказ
   - удаление ингредиента из заказа
   - суммарная стоимость заказа
   - кнопка "Оформить заказ", генерирует номер заказа из переданных API серверу ID ингредиентов, отображает его в модальном окне
+  - лента заказов
+  - лента заказов пользователя
+  - информация о заказе (модал)
 
 ### 🔨 Стэк:
 + ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
@@ -20,10 +23,14 @@
 + ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 + ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 + ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
++ ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
++ ![WebSocket](https://img.shields.io/badge/WebSocket-BD081C?style=for-the-badge&logoColor=white)
 
 ### Цель, изучить и закрепить на практике
 + ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 + ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
++ ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
++ ![WebSocket](https://img.shields.io/badge/WebSocket-BD081C?style=for-the-badge&logoColor=white)
 
 ### 🔧 Инструкция:
 
