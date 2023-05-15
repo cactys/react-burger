@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
@@ -5,7 +6,7 @@ import { useSelector } from '../../services/hooks';
 
 import { Preloader } from '../Preloader/Preloader';
 
-const ProtectedRoute = ({ element }: IProtectedRoute) => {
+const ProtectedRoute: FC<IProtectedRoute> = ({ element }) => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
 
   if (!userChecked) {

@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { TIngredientItem, TOrder, TOrderFeeds } from '../types';
+import { TIngredientItem, TOrder } from '../types';
 
 interface IApiProps {
   baseUrl: string;
@@ -54,10 +54,46 @@ interface IOrderMessage
   status: string;
 }
 
+interface IOrderFeeds {
+  orders: IOrderMessage[];
+  status?: string;
+  total: number;
+  totalToday: number;
+}
+
 interface IOrderFeedsContainer
-  extends Omit<TOrderFeeds, 'total' | 'totalToday'> {
+  extends Omit<IOrderFeeds, 'total' | 'totalToday'> {
   ingredients: TIngredientItem[];
   profile?: boolean;
+}
+
+interface IImageIcon {
+  image: string;
+  alt: string;
+  number?: number;
+}
+
+interface IIngredientDetails {
+  background?: boolean;
+}
+
+interface IOrderFeedsCard {
+  order: IOrderMessage;
+  ingredients: TIngredientItem[];
+}
+
+interface IOrderFeedsInfoItem {
+  ingredient?: TIngredientItem;
+  count: number;
+}
+
+interface IUseForm {
+  name?: string;
+  email?: string;
+  password?: string;
+  token?: string;
+  enable?: boolean;
+  message?: string;
 }
 
 export type {
@@ -71,5 +107,11 @@ export type {
   IIngredientGroup,
   IModal,
   IOrderMessage,
+  IOrderFeeds,
   IOrderFeedsContainer,
+  IImageIcon,
+  IIngredientDetails,
+  IOrderFeedsCard,
+  IOrderFeedsInfoItem,
+  IUseForm,
 };

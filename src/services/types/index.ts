@@ -160,19 +160,6 @@ type TOrder = {
   _id: string;
 };
 
-type TOrderFeeds = {
-  orders: IOrderMessage[];
-  status?: string;
-
-  total: number;
-  totalToday: number;
-};
-
-type TOrderFeedsCard = {
-  order: IOrderMessage;
-  ingredients: TIngredientItem[];
-};
-
 type TOrderState = {
   currentOrder: TOrder;
   message: string;
@@ -302,8 +289,6 @@ export type {
   TIngredientDetailsData,
   TOwner,
   TOrder,
-  TOrderFeeds,
-  TOrderFeedsCard,
   TOrderState,
   TOrderDetails,
   TDict,

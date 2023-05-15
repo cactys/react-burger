@@ -1,10 +1,4 @@
-import {
-  FC,
-  FormEventHandler,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from 'react';
+import { FormEventHandler, SyntheticEvent, useEffect, useState } from 'react';
 import {
   Button,
   EmailInput,
@@ -21,7 +15,7 @@ import { InformMessage } from '../InformMessage/InformMessage';
 
 import profileFormStyle from './ProfileForm.module.css';
 
-const ProfileForm: FC = () => {
+const ProfileForm = () => {
   const dispatch = useDispatch();
   const { user, updateRequest, updateFailed, updateMessage } = useSelector(
     (store: TUser) => store.user

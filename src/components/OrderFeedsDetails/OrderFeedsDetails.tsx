@@ -1,10 +1,17 @@
-import { useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
+import {
+  FC,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+  useMemo,
+} from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { TIngredients } from '../../services/types';
-import { IOrderMessage } from '../../services/interfaces';
+import { TIngredients, TWSState } from '../../services/types';
+import { IIngredientDetails, IOrderMessage } from '../../services/interfaces';
 import {
   currentDate,
   currentOrder,
@@ -18,9 +25,8 @@ import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 import { Preloader } from '../Preloader/Preloader';
 
-const OrderFeedsDetails = ({ background }: { background?: boolean }) => {
-  const { orders, status }: { orders: IOrderMessage[]; status: string } =
-    useSelector((state) => state.webSocket);
+const OrderFeedsDetails: FC<IIngredientDetails> = ({ background }) => {
+  const { orders, status }: TWSState = useSelector((state) => state.webSocket);
   const ingredients = useSelector(
     (state: TIngredients) => state.ingredients.ingredients
   );

@@ -1,19 +1,15 @@
-import { TIngredientItem } from '../../services/types';
+import { FC } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import orderFeedsInfoItemStyle from './OrderFeedsInfoItem.module.css';
+import { IOrderFeedsInfoItem } from '../../services/interfaces';
 
-const OrderFeedsInfoItem = ({
-  ingredient,
-  count,
-}: {
-  ingredient?: TIngredientItem;
-  count: number;
-}) => {
+const OrderFeedsInfoItem: FC<IOrderFeedsInfoItem> = ({ ingredient, count }) => {
   const ingredientPrice =
     ingredient?.type === 'bun'
       ? `2 x ${ingredient.price}`
       : `${count} x ${ingredient?.price}`;
+
   return (
     <li className={orderFeedsInfoItemStyle.item}>
       <div className={orderFeedsInfoItemStyle.imageBorder}>

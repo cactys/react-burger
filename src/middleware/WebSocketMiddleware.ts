@@ -33,25 +33,17 @@ const webSocketMiddleware = (
         dispatch(wsConnecting());
       }
 
-      if (wsConnectCurrentUser.match(action)) {
-        socket = new WebSocket(action.payload); // URL
-        isConnected = true;
-        dispatch(wsConnecting());
-      }
-
-      if (socket) {
+      if (socket !== null) {
         socket.onopen = () => dispatch(onOpen());
         socket.onerror = (err) => {
           console.error(err);
         };
         socket.onmessage = (evt) => {
-          const { data }: {data: string} = evt;
+          const { data }: { data: string } = evt;
           const { success, message }: { success: boolean; message: string } =
             JSON.parse(data);
-          console.log(success, message);
           dispatch(onMessage(JSON.parse(data)));
           if (message === ERROR_STATE.invalidToken) {
-            console.log(success, message);
             dispatch(userChecked());
           }
         };

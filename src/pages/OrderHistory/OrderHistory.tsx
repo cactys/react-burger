@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { IOrderMessage } from '../../services/interfaces';
-import { TIngredients, TOrderFeeds } from '../../services/types';
+import { TIngredients } from '../../services/types';
+import { IOrderFeeds } from '../../services/interfaces';
 
 import { OrderFeedsContainer } from '../../components/OrderFeedsContainer/OrderFeedsContainer';
 
@@ -10,7 +10,7 @@ import { WSS_URL } from '../../utils/constants';
 import { useDispatch, useSelector } from '../../services/hooks';
 
 const OrderHistory = () => {
-  const { orders, status } = useSelector<TOrderFeeds>(
+  const { orders, status } = useSelector<IOrderFeeds>(
     (store) => store.webSocketCurrentUser
   );
   const ingredients = useSelector(

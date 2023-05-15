@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
-import { TIngredients, TOrderFeeds } from '../../services/types';
+import { TIngredients } from '../../services/types';
+import { IOrderFeeds } from '../../services/interfaces';
 import { wsConnect, wsDisconnect } from '../../services/constants';
 import { WSS_URL } from '../../utils/constants';
 
@@ -10,7 +11,7 @@ import { OrderFeedsInfo } from '../../components/OrderFeedsInfo/OrderFeedsInfo';
 import orderFeedsStyle from './OrderFeeds.module.css';
 
 const OrderFeeds = () => {
-  const { orders, status, total, totalToday } = useSelector<TOrderFeeds>(
+  const { orders, status, total, totalToday } = useSelector<IOrderFeeds>(
     (store) => store.webSocket
   );
   const ingredients = useSelector(

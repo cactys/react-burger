@@ -1,14 +1,10 @@
+import { FC } from 'react';
+import { IImageIcon } from '../../services/interfaces';
+
 import imageIconStyle from './ImageIcon.module.css';
 
-const ImageIcon = ({
-  image,
-  alt,
-  number,
-}: {
-  image: string;
-  alt: string;
-  number?: number;
-}) => {
+
+const ImageIcon: FC<IImageIcon> = ({ image, alt, number }) => {
   return (
     <li className={imageIconStyle.imageContainer}>
       <picture className={imageIconStyle.imageBox}>

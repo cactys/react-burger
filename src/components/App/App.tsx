@@ -1,4 +1,4 @@
-import { useEffect, FC } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { getUser, getIngredients } from '../../services/action';
 import { useDispatch } from '../../services/hooks';
@@ -21,7 +21,7 @@ import { OrderFeedsDetails } from '../OrderFeedsDetails/OrderFeedsDetails';
 
 import appStyle from './App.module.css';
 
-const App: FC = () => {
+const App = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();

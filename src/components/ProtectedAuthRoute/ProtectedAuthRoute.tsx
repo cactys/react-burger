@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { IProtectedRoute } from '../../services/interfaces';
 import { TUser } from '../../services/types';
@@ -5,9 +6,7 @@ import { useSelector } from '../../services/hooks';
 
 import { Preloader } from '../Preloader/Preloader';
 
-const ProtectedAuthRoute = ({
-  element,
-}: IProtectedRoute) => {
+const ProtectedAuthRoute: FC<IProtectedRoute> = ({ element }) => {
   const { user, userChecked } = useSelector((store: TUser) => store.user);
   const location = useLocation();
 

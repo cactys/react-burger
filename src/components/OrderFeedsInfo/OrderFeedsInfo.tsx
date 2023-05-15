@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
 import orderFeedsInfoStyle from './OrderFeedsInfo.module.css';
-import { TOrderFeeds } from '../../services/types';
+import { IOrderFeeds } from '../../services/interfaces';
 
-const OrderFeedsInfo: FC<TOrderFeeds> = ({ orders, total, totalToday }) => {
+const OrderFeedsInfo: FC<IOrderFeeds> = ({ orders, total, totalToday }) => {
   const readyOrders = orders.filter((order) => order.status === 'done');
   const progressOrders = orders.filter((order) => order.status === 'pending');
 
