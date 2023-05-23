@@ -96,6 +96,12 @@ interface IUseForm {
   message?: string;
 }
 
+interface IFetchWithRefresh {
+  success: boolean;
+  refreshToken: string;
+  accessToken: string;
+}
+
 export type {
   IApiProps,
   IFormFooter,
@@ -114,4 +120,5 @@ export type {
   IOrderFeedsCard,
   IOrderFeedsInfoItem,
   IUseForm,
+  IFetchWithRefresh,
 };

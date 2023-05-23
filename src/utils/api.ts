@@ -1,12 +1,6 @@
 import { Component } from 'react';
-import { IApiProps } from '../services/interfaces';
+import { IApiProps, IFetchWithRefresh } from '../services/interfaces';
 import { BASE_URL, ERROR_STATE } from './constants';
-
-interface TFetchWithRefresh {
-  success: boolean;
-  refreshToken: string;
-  accessToken: string;
-}
 
 class Api extends Component<IApiProps> {
   private readonly _baseUrl: string;
@@ -50,7 +44,7 @@ class Api extends Component<IApiProps> {
     }
   }
 
-  public getRefreshToken(refreshToken: string): Promise<TFetchWithRefresh> {
+  public getRefreshToken(refreshToken: string): Promise<IFetchWithRefresh> {
     return fetch(`${this._baseUrl}/auth/token`, {
       method: 'POST',
       headers: {
