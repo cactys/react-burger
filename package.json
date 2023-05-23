@@ -1,8 +1,7 @@
 {
-  "homepage": "https://cactys.github.io/react-burger/",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cactys.github.io/react-burger/",
+  "homepage": "https://cactys.github.io",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
