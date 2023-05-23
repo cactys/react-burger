@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "cypress:open": "npx cypress open",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "deploy-script": "npm run build && scp -r ./build/* khortys@84.201.128.221:/home/khortys/stellar-frontend"
   },
   "eslintConfig": {
     "extends": [
