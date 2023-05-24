@@ -41,6 +41,7 @@ const IngredientCard: FC<IIngredientCard> = ({
         onClick={handleClick}
         ref={dragRef}
         style={{ opacity }}
+        id={_id}
       >
         {count ? <Counter count={count} size="default" extraClass="m-1" /> : ''}
         <img className={ingredientCardStyle.image} src={image} alt={name} />
