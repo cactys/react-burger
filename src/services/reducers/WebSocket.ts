@@ -8,7 +8,7 @@ import {
   WS_OPEN,
 } from '../constants';
 
-const initialState = {
+const initialState: TWSState = {
   status: 'offline',
   connectionError: '',
   orders: [],

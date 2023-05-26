@@ -4,9 +4,9 @@ import {
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
 } from '../constants';
-import { TIngredientItem } from '../types';
+import { TConstructorInitialState, TIngredientItem } from '../types';
 
-const initialState = {
+const initialState: TConstructorInitialState = {
   ingredients: [],
   bun: null,
 };
@@ -41,6 +41,7 @@ export const constructorReducer = (
         0,
         ingredients.splice(action.payload.from, 1)[0]
       );
+      console.log(ingredients);
       return {
         ...state,
         ingredients,

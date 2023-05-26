@@ -51,13 +51,18 @@ import type {
 } from '@reduxjs/toolkit';
 import { wsConnectCurrentUser } from '../constants/WebSocket';
 
-type TError = {
-  status?: number;
-  success?: boolean;
-  message?: string;
+type TUser = {
+  user: TUserInitialState;
 };
 
-type TUserState = {
+type TUserBody = {
+  email?: string;
+  password?: string;
+  name?: string;
+  token?: string;
+};
+
+type TUserInitialState = {
   user: null | { name: string; email: string; password?: string };
   isLogin: boolean;
   emailSended: boolean;
@@ -81,20 +86,19 @@ type TUserState = {
   userChecked: boolean;
 };
 
-type TUser = {
-  user: TUserState;
-};
-
-type TUserBody = {
-  email?: string;
-  password?: string;
-  name?: string;
-  token?: string;
-};
-
 type TConstructorInitialState = {
   ingredients: TIngredientItem[];
   bun: TIngredientItem | null;
+};
+
+type TIngredientsInitialState = {
+  ingredients: TIngredientItem[];
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+};
+
+type TIngredientDetailsInitialState = {
+  info: TIngredientItem | null;
 };
 
 type TConstructorIngredients = {
@@ -150,7 +154,7 @@ type TOwner = {
 
 type TOrder = {
   createdAt: string;
-  ingredients: TIngredientItem;
+  ingredients: TIngredientItem[];
   name: string;
   number: number;
   owner: TOwner;
@@ -160,15 +164,15 @@ type TOrder = {
   _id: string;
 };
 
-type TOrderState = {
-  currentOrder: TOrder;
+type TOrderDetailsInitialState = {
+  currentOrder: TOrder | null;
   message: string;
   orderRequest: boolean;
   orderFailed: boolean;
 };
 
 type TOrderDetails = {
-  orderDetails: TOrderState;
+  orderDetails: TOrderDetailsInitialState;
 };
 
 type TDict = {
@@ -276,11 +280,14 @@ type AppDispatch<TReturnType = void> = (
 ) => TReturnType;
 
 export type {
-  TError,
-  TUserState,
+  // TError,
+  TUserInitialState,
   TUser,
   TUserBody,
   TConstructorInitialState,
+  TIngredientsInitialState,
+  TIngredientDetailsInitialState,
+  TOrderDetailsInitialState,
   TConstructorIngredients,
   TBurgerConstructor,
   TIngredients,
@@ -289,7 +296,6 @@ export type {
   TIngredientDetailsData,
   TOwner,
   TOrder,
-  TOrderState,
   TOrderDetails,
   TDict,
   RootState,

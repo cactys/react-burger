@@ -1,8 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TIngredientItem } from '../types';
+import { TIngredientDetailsInitialState, TIngredientItem } from '../types';
 import { INGREDIENT_ADD_INFO, INGREDIENT_DELETE_INFO } from '../constants';
 
-const initialState = {
+const initialState: TIngredientDetailsInitialState = {
   info: null,
 };
 

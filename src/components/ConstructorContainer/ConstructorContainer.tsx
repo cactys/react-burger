@@ -76,24 +76,24 @@ const ConstructorContainer: FC<IConstructorContainer> = ({
     ? constructorContainerStyle.opacity
     : constructorContainerStyle.listElement;
 
-return (
-  <Reorder.Item
-    value={ingredient}
-    id={ingredient._id}
-    transition={{ type: 'spring', duration: 0.8 }}
-    className={cn}
-    ref={ingredientRef}
-    data-handler-id={handlerId}
-  >
-    <DragIcon type="primary" />
-    <ConstructorElement
-      text={ingredient.name}
-      price={ingredient.price}
-      thumbnail={ingredient.image}
-      handleClose={() => deleteIngredient(index)}
-    />
-  </Reorder.Item>
-);
+  return (
+    <Reorder.Item
+      value={ingredient}
+      id={ingredient._id}
+      transition={{ type: 'spring', duration: 0.8 }}
+      className={cn}
+      ref={ingredientRef}
+      data-handler-id={handlerId}
+    >
+      <DragIcon type="primary" />
+      <ConstructorElement
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
+        handleClose={() => deleteIngredient(index)}
+      />
+    </Reorder.Item>
+  );
 };
 
 export { ConstructorContainer };

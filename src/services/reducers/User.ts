@@ -21,9 +21,9 @@ import {
   USER_UPDATE_INFO_REQUEST,
   USER_UPDATE_INFO_SUCCESS,
 } from '../constants';
-import { TUserActions, TUserState } from '../types';
+import { TUserActions, TUserInitialState } from '../types';
 
-const initialState: TUserState = {
+const initialState: TUserInitialState = {
   user: null,
   userChecked: false,
   loginRequest: false,

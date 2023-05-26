@@ -5,9 +5,9 @@ import {
   INGREDIENTS_SUCCESS,
   INGREDIENTS_RESET,
 } from '../constants';
-import { TIngredientItem } from '../types';
+import { TIngredientItem, TIngredientsInitialState } from '../types';
 
-const initialState = {
+const initialState: TIngredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
