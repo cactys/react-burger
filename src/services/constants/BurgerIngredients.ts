@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-as-const */
 import { createAction } from '@reduxjs/toolkit';
 import { TIngredientItem } from '../types';
 

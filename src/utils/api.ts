@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { IApiProps, IFetchWithRefresh } from '../services/interfaces';
 import { BASE_URL, ERROR_STATE } from './constants';
+import { TOrderIngredients, TUserBody } from '../services/types';
 
 class Api extends Component<IApiProps> {
   private readonly _baseUrl: string;
@@ -60,7 +61,7 @@ class Api extends Component<IApiProps> {
     });
   }
 
-  public addOrder(ingredientId: object, accessToken: string | null) {
+  public addOrder(ingredientId: TOrderIngredients, accessToken: string | null) {
     return this._fetchWithRefresh(`${this._baseUrl}/orders`, {
       method: 'POST',
       headers: {
@@ -81,14 +82,14 @@ class Api extends Component<IApiProps> {
     });
   }
 
-  public editUser(data: object, accessToken: string) {
+  public editUser(data: TUserBody, accessToken: string) {
     return this._fetchWithRefresh(`${this._baseUrl}/auth/user`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + accessToken,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data.user),
     });
   }
 }

@@ -35,14 +35,14 @@ const getUser = (): AppThink => {
         .getCurrentUser(accessToken)
         .then((res) => {
           if (res && res.success) {
-            dispatch(userSuccess(res.user));
+            dispatch(userSuccess({ user: res.user }));
             dispatch(userChecked());
           } else {
             dispatch(userFailed());
           }
         })
         .catch((err) => {
-          console.error(err.message);
+          console.error(err);
           switch (err.message) {
             case ERROR_STATE.jwtMalformed: {
               return dispatch(userChecked());
@@ -75,7 +75,7 @@ const login = (body: TUserBody): AppThink => {
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('login', 'true');
-          dispatch(loginSuccess(res.user));
+          dispatch(loginSuccess({ user: res.user }));
         } else {
           dispatch(loginFailed('Ошибка входа'));
         }
@@ -102,7 +102,7 @@ const register = (body: TUserBody): AppThink => {
       .signIn(body)
       .then((res) => {
         if (res && res.success) {
-          dispatch(registerSuccess(res.user));
+          dispatch(registerSuccess({ user: res.user }));
           const accessToken = res.accessToken.split('Bearer ')[1];
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('accessToken', accessToken);
@@ -162,7 +162,7 @@ const updateUserInfo = (body: TUserBody): AppThink => {
       .editUser(body, accessToken)
       .then((res) => {
         if (res && res.success) {
-          dispatch(userUpdateInfoSuccess(res.user));
+          dispatch(userUpdateInfoSuccess({ user: res.user }));
         } else {
           dispatch(userUpdateInfoFailed());
         }

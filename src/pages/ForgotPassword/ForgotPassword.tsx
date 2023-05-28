@@ -41,7 +41,7 @@ const ForgotPassword = () => {
     } else {
       dispatch(
         recoveryEmailSend({
-          email: values.email,
+          user: values,
         })
       );
       setValues({

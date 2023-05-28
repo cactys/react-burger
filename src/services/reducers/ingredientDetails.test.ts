@@ -1,6 +1,6 @@
 import { ingredientDetailsReducer } from './IngredientDetails';
 import * as type from '../constants';
-import { INGREDIENT_DATA_TEST } from '../../utils/constants';
+import * as dataTest from '../../utils/dataTest';
 
 const initialState = {
   info: null,
@@ -11,10 +11,10 @@ describe('ingredient details reducer', () => {
     expect(
       ingredientDetailsReducer(initialState, {
         type: type.INGREDIENT_ADD_INFO,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      info: INGREDIENT_DATA_TEST,
+      info: dataTest.INGREDIENT,
     });
   });
 
@@ -22,7 +22,7 @@ describe('ingredient details reducer', () => {
     expect(
       ingredientDetailsReducer(initialState, {
         type: type.INGREDIENT_DELETE_INFO,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
       info: null,

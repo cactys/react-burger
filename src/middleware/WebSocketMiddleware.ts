@@ -25,6 +25,7 @@ const webSocketMiddleware = (
     let reconnectInterval = 0;
 
     return (next) => (action) => {
+      console.log(action.payload);
       const { dispatch } = store;
 
       if (wsConnect.match(action)) {

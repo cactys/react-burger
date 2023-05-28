@@ -1,9 +1,6 @@
 import { constructorReducer } from './BurgerConstructor';
 import * as type from '../constants';
-import {
-  INGREDIENTS_DATA_TEST,
-  INGREDIENT_DATA_TEST,
-} from '../../utils/constants';
+import * as dataTest from '../../utils/dataTest';
 
 const initialState = {
   ingredients: [],
@@ -15,11 +12,11 @@ describe('constructor reducer', () => {
     expect(
       constructorReducer(initialState, {
         type: type.CONSTRUCTOR_ADD,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: [INGREDIENT_DATA_TEST],
-      bun: null,
+      ...initialState,
+      ingredients: [dataTest.INGREDIENT],
     });
   });
 
@@ -27,11 +24,10 @@ describe('constructor reducer', () => {
     expect(
       constructorReducer(initialState, {
         type: type.CONSTRUCTOR_DELETE,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: [],
-      bun: null,
+      ...initialState,
     });
   });
 
@@ -39,17 +35,17 @@ describe('constructor reducer', () => {
     expect(
       constructorReducer(
         {
-          ingredients: [INGREDIENTS_DATA_TEST[1], INGREDIENTS_DATA_TEST[2]],
+          ingredients: [dataTest.INGREDIENTS[1], dataTest.INGREDIENTS[2]],
           bun: null,
         },
         {
           type: type.CONSTRUCTOR_REORDER,
-          payload: INGREDIENT_DATA_TEST,
+          payload: dataTest.INGREDIENT,
         }
       )
     ).toEqual({
-      ingredients: [INGREDIENTS_DATA_TEST[2], INGREDIENTS_DATA_TEST[1]],
-      bun: null,
+      ...initialState,
+      ingredients: [dataTest.INGREDIENTS[2], dataTest.INGREDIENTS[1]],
     });
   });
 });

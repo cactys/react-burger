@@ -1,6 +1,6 @@
 import { ingredientsReducer } from './BurgerIngredient';
 import * as type from '../constants';
-import { INGREDIENT_DATA_TEST } from '../../utils/constants';
+import * as dataTest from '../../utils/dataTest';
 
 const initialState = {
   ingredients: [],
@@ -13,12 +13,12 @@ describe('ingredients reducer', () => {
     expect(
       ingredientsReducer(initialState, {
         type: type.INGREDIENTS_SUCCESS,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: INGREDIENT_DATA_TEST,
+      ...initialState,
+      ingredients: dataTest.INGREDIENT,
       ingredientsRequest: true,
-      ingredientsFailed: false,
     });
   });
 
@@ -26,12 +26,11 @@ describe('ingredients reducer', () => {
     expect(
       ingredientsReducer(initialState, {
         type: type.INGREDIENTS_REQUEST,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: [],
+      ...initialState,
       ingredientsRequest: true,
-      ingredientsFailed: false,
     });
   });
 
@@ -39,11 +38,10 @@ describe('ingredients reducer', () => {
     expect(
       ingredientsReducer(initialState, {
         type: type.INGREDIENTS_FAILED,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: [],
-      ingredientsRequest: false,
+      ...initialState,
       ingredientsFailed: true,
     });
   });
@@ -52,12 +50,10 @@ describe('ingredients reducer', () => {
     expect(
       ingredientsReducer(initialState, {
         type: type.INGREDIENTS_RESET,
-        payload: INGREDIENT_DATA_TEST,
+        payload: dataTest.INGREDIENT,
       })
     ).toEqual({
-      ingredients: [],
-      ingredientsRequest: false,
-      ingredientsFailed: false,
+      ...initialState,
     });
   });
 });

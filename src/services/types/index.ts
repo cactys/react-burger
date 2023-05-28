@@ -56,10 +56,12 @@ type TUser = {
 };
 
 type TUserBody = {
-  email?: string;
-  password?: string;
-  name?: string;
-  token?: string;
+  user: {
+    email?: string;
+    password?: string;
+    name?: string;
+    token?: string;
+  };
 };
 
 type TUserInitialState = {
@@ -70,7 +72,7 @@ type TUserInitialState = {
   loginFailed: boolean;
   loginMessage: string | null;
   loginRequest: boolean;
-  logoutRailed: boolean;
+  logoutFailed: boolean;
   logoutRequest: boolean;
   passwordRecovered: boolean;
   recoveryFailed: boolean;
@@ -177,6 +179,10 @@ type TOrderDetails = {
 
 type TDict = {
   [key in string]: number;
+};
+
+type TOrderIngredients = {
+  [key in number]: string | undefined;
 };
 
 type TWSMessage = {
@@ -298,6 +304,7 @@ export type {
   TOrder,
   TOrderDetails,
   TDict,
+  TOrderIngredients,
   RootState,
   TAppActions,
   TWSMessage,

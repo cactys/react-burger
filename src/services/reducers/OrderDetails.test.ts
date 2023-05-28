@@ -1,10 +1,6 @@
 import { orderReducer } from './OrderDetails';
 import * as type from '../constants';
-import {
-  CURRENT_ORDER_DATA_TEST,
-  EMPTY_ORDER_DATA_TEST,
-  ORDER_DETAILS_DATA_TEST,
-} from '../../utils/constants';
+import * as dataTest from '../../utils/dataTest';
 
 const initialState = {
   currentOrder: null,
@@ -18,13 +14,11 @@ describe('order details reducer', () => {
     expect(
       orderReducer(initialState, {
         type: type.ORDER_POST_SUCCESS,
-        payload: CURRENT_ORDER_DATA_TEST,
+        payload: dataTest.CURRENT_ORDER,
       })
     ).toEqual({
-      currentOrder: ORDER_DETAILS_DATA_TEST,
-      message: '',
-      orderRequest: false,
-      orderFailed: false,
+      ...initialState,
+      currentOrder: dataTest.ORDER_DETAILS,
     });
   });
 
@@ -32,13 +26,11 @@ describe('order details reducer', () => {
     expect(
       orderReducer(initialState, {
         type: type.ORDER_POST_REQUEST,
-        payload: CURRENT_ORDER_DATA_TEST,
+        payload: dataTest.CURRENT_ORDER,
       })
     ).toEqual({
-      currentOrder: null,
-      message: '',
+      ...initialState,
       orderRequest: true,
-      orderFailed: false,
     });
   });
 
@@ -46,12 +38,11 @@ describe('order details reducer', () => {
     expect(
       orderReducer(initialState, {
         type: type.ORDER_POST_EMPTY,
-        payload: EMPTY_ORDER_DATA_TEST,
+        payload: dataTest.EMPTY_ORDER,
       })
     ).toEqual({
-      currentOrder: null,
+      ...initialState,
       message: 'Добавь булку',
-      orderRequest: false,
       orderFailed: true,
     });
   });
@@ -60,12 +51,10 @@ describe('order details reducer', () => {
     expect(
       orderReducer(initialState, {
         type: type.ORDER_POST_FAILED,
-        payload: CURRENT_ORDER_DATA_TEST,
+        payload: dataTest.CURRENT_ORDER,
       })
     ).toEqual({
-      currentOrder: null,
-      message: '',
-      orderRequest: false,
+      ...initialState,
       orderFailed: true,
     });
   });
@@ -74,13 +63,10 @@ describe('order details reducer', () => {
     expect(
       orderReducer(initialState, {
         type: type.ORDER_RESET_INFO,
-        payload: CURRENT_ORDER_DATA_TEST,
+        payload: dataTest.CURRENT_ORDER,
       })
     ).toEqual({
-      currentOrder: null,
-      message: '',
-      orderRequest: false,
-      orderFailed: false,
+      ...initialState,
     });
   });
 });

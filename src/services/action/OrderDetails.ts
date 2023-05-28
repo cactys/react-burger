@@ -7,9 +7,9 @@ import {
   orderPostSuccess,
   orderResetInfo,
 } from '../constants';
-import { AppThink } from '../types';
+import { AppThink, TOrderIngredients } from '../types';
 
-const orderDetail = (ingredientId: object): AppThink => {
+const orderDetail = (ingredientId: TOrderIngredients): AppThink => {
   return (dispatch) => {
     dispatch(orderPostRequest());
 

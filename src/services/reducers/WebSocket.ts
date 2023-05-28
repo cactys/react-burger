@@ -44,7 +44,7 @@ export const webSocketReducer = (
     case WS_ERROR: {
       return {
         ...state,
-        connectionError: action.payload,
+        connectionError: action.payload.connectionError,
       };
     }
     case WS_MESSAGE: {

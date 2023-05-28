@@ -41,7 +41,6 @@ export const constructorReducer = (
         0,
         ingredients.splice(action.payload.from, 1)[0]
       );
-      console.log(ingredients);
       return {
         ...state,
         ingredients,

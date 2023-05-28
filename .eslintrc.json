@@ -34,5 +34,8 @@
         ]
       }
     }
+  },
+  "rules": {
+    "@typescript-eslint/prefer-as-const": "error"
   }
 }

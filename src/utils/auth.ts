@@ -18,7 +18,7 @@ class Auth extends Component<IApiProps> {
   }
 
   public signUp(data: TUserBody) {
-    const { email, password } = data;
+    const { email, password } = data.user;
     return fetch(`${this._url}/auth/login`, {
       method: 'POST',
       headers: this._header,
@@ -27,7 +27,7 @@ class Auth extends Component<IApiProps> {
   }
 
   public signIn(data: TUserBody) {
-    const { name, email, password } = data;
+    const { name, email, password } = data.user;
     return fetch(`${this._url}/auth/register`, {
       method: 'POST',
       headers: this._header,
@@ -47,7 +47,7 @@ class Auth extends Component<IApiProps> {
     return fetch(`${this._url}/password-reset`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(body),
+      body: JSON.stringify(body.user),
     }).then(this._checkingResponse);
   }
 
@@ -55,7 +55,7 @@ class Auth extends Component<IApiProps> {
     return fetch(`${this._url}/password-reset/reset`, {
       method: 'POST',
       headers: this._header,
-      body: JSON.stringify(body),
+      body: JSON.stringify(body.user),
     }).then(this._checkingResponse);
   }
 }
