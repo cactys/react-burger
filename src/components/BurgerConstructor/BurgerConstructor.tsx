@@ -79,7 +79,7 @@ const BurgerConstructor = () => {
       <div
         className={burgerConstructorStyle.constructorContainer}
         ref={dropRef}
-        data-test="constructor-container"
+        data-testid="constructor-container"
       >
         {bun === null && ingredients.length === 0 ? (
           <EmptyContainer />
