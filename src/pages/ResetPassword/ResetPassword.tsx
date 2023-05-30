@@ -42,8 +42,7 @@ const ResetPassword = () => {
     if (values.password?.length && values.password?.length >= 5) {
       dispatch(
         recoveryPasswordSend({
-          password: values.password,
-          token: values.token,
+          user: { password: values.password, token: values.token },
         })
       );
       setValues({

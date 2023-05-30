@@ -1,4 +1,4 @@
-**[DEMO](https://cactys.github.io/react-burger/)**
+**<<<[DEMO](https://khnychkov.nomoredomains.rocks/)>>>**
 ## Stellar Burger
 
 Этот проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
@@ -31,6 +31,8 @@
 + ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 + ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 + ![WebSocket](https://img.shields.io/badge/WebSocket-BD081C?style=for-the-badge&logoColor=white)
++ ![Cypress](https://img.shields.io/badge/Cypress-323330?style=for-the-badge&logo=Cypress&logoColor=white)
++ ![Jest](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white)
 
 ### 🔧 Инструкция:
 

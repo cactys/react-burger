@@ -6,10 +6,10 @@ import {
   ORDER_POST_SUCCESS,
   ORDER_RESET_INFO,
 } from '../constants';
-import { TOrderDetails } from '../types';
+import { TOrderDetailsInitialState } from '../types';
 
-const initialState = {
-  currentOrder: {},
+const initialState: TOrderDetailsInitialState = {
+  currentOrder: null,
   message: '',
   orderRequest: false,
   orderFailed: false,
@@ -17,13 +17,13 @@ const initialState = {
 
 export const orderReducer = (
   state = initialState,
-  action: PayloadAction<TOrderDetails>
+  action: PayloadAction<TOrderDetailsInitialState>
 ) => {
   switch (action.type) {
     case ORDER_POST_SUCCESS: {
       return {
         ...state,
-        currentOrder: { ...action.payload },
+        currentOrder: { ...action.payload.currentOrder },
         orderRequest: false,
         orderFailed: false,
       };
@@ -37,7 +37,7 @@ export const orderReducer = (
     case ORDER_POST_EMPTY: {
       return {
         ...state,
-        message: action.payload,
+        message: action.payload.message,
         orderRequest: false,
         orderFailed: true,
       };

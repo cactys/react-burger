@@ -15,4 +15,8 @@ enum ERROR_STATE {
   emptyOrder = 'One or more ids provided are incorrect',
 }
 
-export { BASE_URL, WSS_URL, ERROR_STATE };
+export {
+  BASE_URL,
+  WSS_URL,
+  ERROR_STATE,
+};

@@ -33,7 +33,11 @@ const Modal: FC<IModal> = ({ title, children, onClose }) => {
         <h2 className={`text text_type_main-large ${modalStyle.title}`}>
           {title}
         </h2>
-        <div onClick={onClose} className={modalStyle.closeIcon}>
+        <div
+          onClick={onClose}
+          className={modalStyle.closeIcon}
+          data-testid="button-close"
+        >
           <CloseIcon type="primary" />
         </div>
         {children}

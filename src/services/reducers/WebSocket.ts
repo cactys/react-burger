@@ -8,7 +8,7 @@ import {
   WS_OPEN,
 } from '../constants';
 
-const initialState = {
+const initialState: TWSState = {
   status: 'offline',
   connectionError: '',
   orders: [],
@@ -44,7 +44,7 @@ export const webSocketReducer = (
     case WS_ERROR: {
       return {
         ...state,
-        connectionError: action.payload,
+        connectionError: action.payload.connectionError,
       };
     }
     case WS_MESSAGE: {

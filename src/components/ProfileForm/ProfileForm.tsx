@@ -51,7 +51,7 @@ const ProfileForm = () => {
       name: user?.name,
       email: user?.email,
     });
-    dispatch(updateUserInfo(values));
+    dispatch(updateUserInfo({ user: values }));
     setEditor(true);
   };
 

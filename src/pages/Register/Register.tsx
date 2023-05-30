@@ -36,9 +36,11 @@ const Register = () => {
     e.preventDefault();
     dispatch(
       register({
-        email: values.email,
-        password: values.password,
-        name: values.name,
+        user: {
+          email: values.email,
+          password: values.password,
+          name: values.name,
+        },
       })
     );
   };

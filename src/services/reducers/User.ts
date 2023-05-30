@@ -21,9 +21,9 @@ import {
   USER_UPDATE_INFO_REQUEST,
   USER_UPDATE_INFO_SUCCESS,
 } from '../constants';
-import { TUserActions, TUserState } from '../types';
+import { TUserInitialState } from '../types';
 
-const initialState: TUserState = {
+const initialState: TUserInitialState = {
   user: null,
   userChecked: false,
   loginRequest: false,
@@ -31,7 +31,7 @@ const initialState: TUserState = {
   registerRequest: false,
   registerFailed: false,
   logoutRequest: false,
-  logoutRailed: false,
+  logoutFailed: false,
   updateSuccess: false,
   updateRequest: false,
   updateFailed: false,
@@ -49,13 +49,13 @@ const initialState: TUserState = {
 
 export const userReducer = (
   state = initialState,
-  action: PayloadAction<TUserActions>
+  action: PayloadAction<TUserInitialState>
 ) => {
   switch (action.type) {
     case USER_SUCCESS: {
       return {
         ...state,
-        user: { ...action.payload },
+        user: { ...action.payload.user },
       };
     }
     case USER_CHECKED: {
@@ -67,7 +67,7 @@ export const userReducer = (
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        user: { ...action.payload },
+        user: { ...action.payload.user },
         loginRequest: false,
         loginFailed: false,
         loginMessage: '',
@@ -88,13 +88,13 @@ export const userReducer = (
         ...state,
         loginRequest: false,
         loginFailed: true,
-        loginMessage: action.payload,
+        loginMessage: action.payload.loginMessage,
       };
     }
     case REGISTER_SUCCESS: {
       return {
         ...state,
-        user: { ...action.payload },
+        user: { ...action.payload.user },
         registerRequest: false,
         registerFailed: false,
         registerMessage: '',
@@ -115,7 +115,7 @@ export const userReducer = (
         ...state,
         registerRequest: false,
         registerFailed: true,
-        registerMessage: action.payload,
+        registerMessage: action.payload.registerMessage,
       };
     }
     case LOGOUT_SUCCESS: {
@@ -123,7 +123,7 @@ export const userReducer = (
         ...state,
         user: null,
         logoutRequest: false,
-        logoutRailed: false,
+        logoutFailed: false,
         isLogout: true,
         isLogin: false,
       };
@@ -132,20 +132,20 @@ export const userReducer = (
       return {
         ...state,
         logoutRequest: true,
-        logoutRailed: false,
+        logoutFailed: false,
       };
     }
     case LOGOUT_FAILED: {
       return {
         ...state,
         logoutRequest: false,
-        logoutRailed: true,
+        logoutFailed: true,
       };
     }
     case USER_UPDATE_INFO_SUCCESS: {
       return {
         ...state,
-        user: { ...action.payload },
+        user: { ...action.payload.user },
         updateSuccess: true,
         updateRequest: false,
         updateFailed: false,
@@ -212,7 +212,7 @@ export const userReducer = (
     case RECOVERY_SET_ERROR_MESSAGE: {
       return {
         ...state,
-        recoveryMessage: action.payload,
+        recoveryMessage: action.payload.recoveryMessage,
       };
     }
     default:

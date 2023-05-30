@@ -35,8 +35,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(
       login({
-        email: values.email,
-        password: values.password,
+        user: { email: values.email, password: values.password },
       })
     );
   };
