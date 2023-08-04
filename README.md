@@ -1,4 +1,4 @@
-**<<<[DEMO](https://khnychkov.nomoredomains.rocks/)>>>**
+**<<<[DEMO](http://stellar.khortys.space/)>>>**
 ## Stellar Burger
 
 Этот проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
